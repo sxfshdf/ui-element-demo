@@ -1,0 +1,23 @@
+{
+  "name": "ui-element-demo",
+  "version": "0.0.1",
+  "description": "这是一个 Vue UI 框架",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxfshdf/ui-element-demo.git"
+  },
+  "keywords": [
+    "vu",
+    "ui"
+  ],
+  "author": "sixf",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sxfshdf/ui-element-demo/issues"
+  },
+  "homepage": "https://github.com/sxfshdf/ui-element-demo#readme"
+}
