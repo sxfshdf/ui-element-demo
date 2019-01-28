@@ -12,8 +12,7 @@ new Vue({
     el: "#app",
     data: {
         loading1: false,
-        loading2: false,
-        loading3: true
+        loading2: false
     }
 })
 

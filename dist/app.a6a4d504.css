@@ -12,6 +12,7 @@
 .g-button {
   height: var(--button-height);
   font-size: var(--font-size);
+  color: var(--color);
   padding: 0 1em;
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
@@ -47,6 +48,15 @@
 }
 .g-button .loading {
   animation: spin 1s infinite linear;
+}
+
+.g-button-primary {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-color);
+  border: var(--button-primary-border);
+}
+.g-button-primary:focus {
+  background: var(--button-primary-bg-focus);
 }.g-button-group {
   display: inline-flex;
   vertical-align: middle;

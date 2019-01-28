@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style>* { margin: 0; padding: 0; box-sizing: border-box;}
+    <style>* { margin: 0; padding: 0; box-sizing: border-box;font-family: Arial;}
         :root {
             --button-height: 32px;
             --font-size: 14px;
@@ -13,8 +13,12 @@
             --button-active-bg: #eee;
             --border-radius: 4px;
             --color: #333;
-            --border-color: #999;
+            --border-color: #d9d9d9;
             --border-color-hover: #666;
+            --button-primary-bg: #1890ff;
+            --button-primary-color: #fff;
+            --button-primary-border: #1890ff;
+            --button-primary-bg-focus: #40a9ff;
         }
         #app {
             margin: 20px;
@@ -27,8 +31,9 @@
 <body>
 
 <div id="app">
-    <g-button :loading="loading3" @click="loading3 = !loading3">按钮</g-button>
-    <g-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">按钮</g-button>
+    <g-button type="primary">主要按钮</g-button>
+    <g-button>默认按钮</g-button>
+    <g-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">Default</g-button>
     <g-button icon="setting" icon-position="left" :loading="loading2" @click="loading2 = !loading2">按钮</g-button>
     <g-button-group>
         <g-button icon="left">上一页</g-button>
@@ -38,7 +43,7 @@
 
 
 <script src="/app.a6a4d504.js"></script>
-<script src="//at.alicdn.com/t/font_1023339_1d7hsh6bsg6.js"></script>
+<script src="//at.alicdn.com/t/font_1023339_cxkq6a9ppx.js"></script>
 
 </body>
 </html>

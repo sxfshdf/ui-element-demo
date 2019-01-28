@@ -11548,6 +11548,10 @@ var _default = {
     loading: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String,
+      default: ''
     }
   }
 };
@@ -11568,7 +11572,10 @@ exports.default = _default;
     "button",
     {
       staticClass: "g-button",
-      class: ((_obj = {}), (_obj["icon-" + _vm.iconPosition] = true), _obj),
+      class: ((_obj = {}),
+      (_obj["icon-" + _vm.iconPosition] = true),
+      (_obj["g-button-" + _vm.type] = true),
+      _obj),
       on: {
         click: function($event) {
           _vm.$emit("click")
@@ -22800,8 +22807,7 @@ new _vue.default({
   el: "#app",
   data: {
     loading1: false,
-    loading2: false,
-    loading3: true
+    loading2: false
   }
 }); // 单元测试
 

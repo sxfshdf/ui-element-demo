@@ -1,5 +1,5 @@
 <template>
-    <button class="g-button" :class="{[`icon-${iconPosition}`]: true}" @click="$emit('click')">
+    <button class="g-button" :class="{[`icon-${iconPosition}`]: true, [`g-button-${type}`]: true}" @click="$emit('click')">
         <g-icon :name="icon" class="icon" v-if="icon && !loading"></g-icon>
         <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
         <div class="content">
@@ -27,6 +27,10 @@
             loading: {
                 type: Boolean,
                 default: false
+            },
+            type: {
+                type: String,
+                default: ''
             }
         }
     }
@@ -40,6 +44,7 @@
     .g-button {
         height: var(--button-height);
         font-size: var(--font-size);
+        color: var(--color);
         padding: 0 1em;
         border-radius: var(--border-radius);
         border: 1px solid var(--border-color);
@@ -63,6 +68,14 @@
         }
         .loading {
             animation: spin 1s infinite linear;
+        }
+    }
+    .g-button-primary {
+        background: var(--button-primary-bg);
+        color: var(--button-primary-color);
+        border: var(--button-primary-border);
+        &:focus {
+            background: var(--button-primary-bg-focus);
         }
     }
 </style>
