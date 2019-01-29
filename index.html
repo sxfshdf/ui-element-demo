@@ -12,15 +12,20 @@
             --button-height: 32px;
             --font-size: 14px;
             --button-bg: #fff;
-            --button-active-bg: #eee;
+            --button-active-bg: #fff;
             --border-radius: 4px;
             --color: #333;
+            --button-active-color: #0080ff;
             --border-color: #d9d9d9;
-            --border-color-hover: #666;
-            --button-primary-bg: #1890ff;
+            --border-color-hover: #0080ff;
+            --button-primary-bg: #0080ff;
             --button-primary-color: #fff;
             --button-primary-border: #1890ff;
-            --button-primary-bg-focus: #40a9ff;
+            --button-primary-bg-focus: #399cff;
+            --button-primary-bg-active: #006fdb;
+            --button-disabled-bg: #f5f5f5;
+            --button-disabled-color: rgba(0,0,0,0.25);
+            --button-disabled-border: #d9d9d9;
         }
         #app {
             margin: 20px;
@@ -37,9 +42,10 @@
 
 <div id="app">
     <g-button type="primary">主要按钮</g-button>
+    <g-button type="primary" disabled>主要按钮</g-button>
     <g-button>默认按钮</g-button>
-    <g-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">Default</g-button>
-    <g-button icon="setting" icon-position="left" :loading="loading2" @click="loading2 = !loading2">按钮</g-button>
+    <g-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">加载中</g-button>
+    <g-button icon="setting" icon-position="left" :loading="loading2" @click="loading2 = !loading2">加载中</g-button>
     <g-button-group>
         <g-button icon="left">上一页</g-button>
         <g-button icon="right" icon-position="right">下一页</g-button>

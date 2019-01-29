@@ -34,6 +34,9 @@
             &:hover {
                 z-index: 1;
             }
+            &:focus {
+                z-index: 1;
+            }
         }
     }
 </style>

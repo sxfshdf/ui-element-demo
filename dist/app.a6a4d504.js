@@ -11533,6 +11533,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 _vue.default.component('g-icon', _icon.default);
 
 var _default = {
@@ -11552,6 +11554,10 @@ var _default = {
     type: {
       type: String,
       default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   }
 };
@@ -11572,7 +11578,10 @@ exports.default = _default;
     "button",
     {
       staticClass: "g-button",
-      class: ((_obj = {}),
+      class: ((_obj = {
+        disabled: _vm.disabled,
+        "g-button-animate": !_vm.disabled
+      }),
       (_obj["icon-" + _vm.iconPosition] = true),
       (_obj["g-button-" + _vm.type] = true),
       _obj),

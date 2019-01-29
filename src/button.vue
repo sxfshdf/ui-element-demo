@@ -1,5 +1,7 @@
 <template>
-    <button class="g-button" :class="{[`icon-${iconPosition}`]: true, [`g-button-${type}`]: true}" @click="$emit('click')">
+    <button class="g-button"
+            :class="{[`icon-${iconPosition}`]: true, [`g-button-${type}`]: true, 'disabled': disabled, 'g-button-animate': !disabled}"
+            @click="$emit('click')">
         <g-icon :name="icon" class="icon" v-if="icon && !loading"></g-icon>
         <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
         <div class="content">
@@ -31,6 +33,10 @@
             type: {
                 type: String,
                 default: ''
+            },
+            disabled: {
+                type: Boolean,
+                default: false
             }
         }
     }
@@ -51,16 +57,25 @@
         background: var(--button-bg);
         display: inline-flex; justify-content: center; align-items: center;
         vertical-align: middle;
+        overflow: hidden;
+        position: relative;
+        transition: all 0.3s;
         &:hover {
-            border-color: var(--border-color-hover)
+            border-color: var(--border-color-hover);
+            color: var(--button-active-color);
+            > .icon { fill: #0080ff;}
         }
         &:active {
-            background-color: var(--button-active-bg);
+            border-color: var(--border-color-hover);
+            color: var(--button-active-color);
         }
         &:focus {
             outline: none;
+            border-color: var(--border-color-hover);
+            color: var(--button-active-color);
+            > .icon { fill: #0080ff;}
         }
-        > .icon { order: 1; margin-right: 0.3em;}
+        > .icon { order: 1; margin-right: 0.3em; transition: all 0.3s;}
         > .content { order: 2;}
         &.icon-right {
             > .icon { order: 2; margin-right: 0; margin-left: 0.3em;}
@@ -74,8 +89,53 @@
         background: var(--button-primary-bg);
         color: var(--button-primary-color);
         border: var(--button-primary-border);
+        cursor: pointer;
         &:focus {
             background: var(--button-primary-bg-focus);
+            color: #fff;
+            .loading {
+                fill: #fff;
+            }
         }
+        &:hover {
+            background: var(--button-primary-bg-focus);
+            color: #fff;
+            .loading {
+                fill: #fff;
+            }
+        }
+        &.disabled {
+            background: var(--button-disabled-bg);
+            border: 1px solid var(--button-disabled-border);
+            color: var(--button-disabled-color);
+            cursor: not-allowed;
+        }
+        .loading {
+            fill: #fff;
+        }
+    }
+    .g-button-animate:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        background-image: radial-gradient(circle, #0080ff 12%, transparent 12%);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        transform: scale(10, 10);
+        opacity: 0;
+        transition: transform .3s, opacity .5s;
+    }
+    .g-button-animate:active:after {
+        transform: scale(0, 0);
+        opacity: .3;
+        transition: 0s;
+    }
+    .g-button-primary.g-button-animate:after {
+        background-image: radial-gradient(circle, #fff 12%, transparent 12%);
     }
 </style>
