@@ -38,5 +38,11 @@
                 z-index: 1;
             }
         }
+        > .g-button-primary {
+            border: 1px solid transparent;
+            &:not(:first-child) {
+                border-left-color: #71b8ff;
+            }
+        }
     }
 </style>

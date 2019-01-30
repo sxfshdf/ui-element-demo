@@ -11535,6 +11535,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 _vue.default.component('g-icon', _icon.default);
 
 var _default = {
@@ -11555,9 +11556,18 @@ var _default = {
       type: String,
       default: ''
     },
+    shape: {
+      type: String,
+      default: ''
+    },
     disabled: {
       type: Boolean,
       default: false
+    }
+  },
+  computed: {
+    isShow: function isShow() {
+      return this.$slots.default;
     }
   }
 };
@@ -11580,10 +11590,12 @@ exports.default = _default;
       staticClass: "g-button",
       class: ((_obj = {
         disabled: _vm.disabled,
-        "g-button-animate": !_vm.disabled
+        "g-button-animate": !_vm.disabled,
+        "g-button-loading": _vm.loading
       }),
       (_obj["icon-" + _vm.iconPosition] = true),
-      (_obj["g-button-" + _vm.type] = true),
+      (_obj["g-button-" + _vm.type] = _vm.type ? true : false),
+      (_obj["g-button-" + _vm.shape] = _vm.shape ? true : false),
       _obj),
       on: {
         click: function($event) {
@@ -11603,7 +11615,22 @@ exports.default = _default;
           })
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "content" }, [_vm._t("default")], 2)
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.isShow,
+              expression: "isShow"
+            }
+          ],
+          staticClass: "content"
+        },
+        [_vm._t("default")],
+        2
+      )
     ],
     1
   )

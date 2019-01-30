@@ -24,6 +24,7 @@
   overflow: hidden;
   position: relative;
   transition: all 0.3s;
+  cursor: pointer;
 }
 .g-button:hover {
   border-color: var(--border-color-hover);
@@ -44,24 +45,49 @@
 .g-button:focus > .icon {
   fill: #0080ff;
 }
+.g-button.disabled {
+  background: var(--button-disabled-bg);
+  border: 1px solid var(--button-disabled-border);
+  color: var(--button-disabled-color);
+  cursor: not-allowed;
+}
 .g-button > .icon {
   order: 1;
-  margin-right: 0.3em;
   transition: all 0.3s;
 }
 .g-button > .content {
   order: 2;
+  margin-left: 0.3em;
+  margin-right: 0;
 }
 .g-button.icon-right > .icon {
   order: 2;
-  margin-right: 0;
-  margin-left: 0.3em;
 }
 .g-button.icon-right > .content {
   order: 1;
+  margin-right: 0.3em;
+  margin-left: 0;
 }
 .g-button .loading {
   animation: spin 1s infinite linear;
+}
+
+.g-button-round {
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+}
+
+.g-button-circle {
+  height: 32px;
+  width: 32px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  padding: 0;
+}
+.g-button-circle > .icon {
+  margin: 0;
 }
 
 .g-button-primary {
@@ -74,14 +100,14 @@
   background: var(--button-primary-bg-focus);
   color: #fff;
 }
-.g-button-primary:focus .loading {
+.g-button-primary:focus .icon {
   fill: #fff;
 }
 .g-button-primary:hover {
   background: var(--button-primary-bg-focus);
   color: #fff;
 }
-.g-button-primary:hover .loading {
+.g-button-primary:hover .icon {
   fill: #fff;
 }
 .g-button-primary.disabled {
@@ -90,8 +116,12 @@
   color: var(--button-disabled-color);
   cursor: not-allowed;
 }
-.g-button-primary .loading {
+.g-button-primary .icon {
   fill: #fff;
+}
+
+.g-button-loading {
+  opacity: 0.7;
 }
 
 .g-button-animate:after {
@@ -142,4 +172,10 @@
 }
 .g-button-group > .g-button:focus {
   z-index: 1;
+}
+.g-button-group > .g-button-primary {
+  border: 1px solid transparent;
+}
+.g-button-group > .g-button-primary:not(:first-child) {
+  border-left-color: #71b8ff;
 }

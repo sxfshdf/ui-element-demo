@@ -12,7 +12,6 @@
     .g-icon {
         height: 1em;
         width:  1em;
-
     }
 
 </style>

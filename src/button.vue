@@ -1,10 +1,11 @@
 <template>
     <button class="g-button"
-            :class="{[`icon-${iconPosition}`]: true, [`g-button-${type}`]: true, 'disabled': disabled, 'g-button-animate': !disabled}"
+            :class="{[`icon-${iconPosition}`]: true, [`g-button-${type}`]: (type? true: false), 'disabled': disabled, 'g-button-animate': !disabled,
+            [`g-button-${shape}`]:(shape ? true:false), 'g-button-loading': loading}"
             @click="$emit('click')">
         <g-icon :name="icon" class="icon" v-if="icon && !loading"></g-icon>
         <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
-        <div class="content">
+        <div class="content" v-show="isShow">
             <slot></slot>
         </div>
     </button>
@@ -34,9 +35,18 @@
                 type: String,
                 default: ''
             },
+            shape: {
+                type: String,
+                default: ''
+            },
             disabled: {
                 type: Boolean,
                 default: false
+            }
+        },
+        computed: {
+            isShow() {
+                return this.$slots.default
             }
         }
     }
@@ -60,6 +70,7 @@
         overflow: hidden;
         position: relative;
         transition: all 0.3s;
+        cursor: pointer;
         &:hover {
             border-color: var(--border-color-hover);
             color: var(--button-active-color);
@@ -75,16 +86,41 @@
             color: var(--button-active-color);
             > .icon { fill: #0080ff;}
         }
-        > .icon { order: 1; margin-right: 0.3em; transition: all 0.3s;}
-        > .content { order: 2;}
+        &.disabled {
+            background: var(--button-disabled-bg);
+            border: 1px solid var(--button-disabled-border);
+            color: var(--button-disabled-color);
+            cursor: not-allowed;
+        }
+        > .icon { order: 1; transition: all 0.3s;}
+        > .content { order: 2; margin-left: 0.3em; margin-right:0; }
         &.icon-right {
-            > .icon { order: 2; margin-right: 0; margin-left: 0.3em;}
-            > .content { order: 1;}
+            > .icon { order: 2;}
+            > .content { order: 1; margin-right: 0.3em; margin-left:0;}
         }
         .loading {
             animation: spin 1s infinite linear;
         }
     }
+    .g-button-round {
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
+        border-radius: 100px;
+    }
+    .g-button-circle {
+        height: 32px;
+        width: 32px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        padding: 0;
+        > .icon {
+            margin: 0;
+        }
+    }
+
+
+
     .g-button-primary {
         background: var(--button-primary-bg);
         color: var(--button-primary-color);
@@ -93,14 +129,14 @@
         &:focus {
             background: var(--button-primary-bg-focus);
             color: #fff;
-            .loading {
+            .icon {
                 fill: #fff;
             }
         }
         &:hover {
             background: var(--button-primary-bg-focus);
             color: #fff;
-            .loading {
+            .icon {
                 fill: #fff;
             }
         }
@@ -110,9 +146,12 @@
             color: var(--button-disabled-color);
             cursor: not-allowed;
         }
-        .loading {
+        .icon {
             fill: #fff;
         }
+    }
+    .g-button-loading {
+        opacity: 0.7;
     }
     .g-button-animate:after {
         content: "";

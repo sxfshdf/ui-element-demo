@@ -14,7 +14,7 @@
             --border-radius: 4px;
             --color: #333;
             --button-active-color: #0080ff;
-            --border-color: #d9d9d9;
+            --border-color: #ccc;
             --border-color-hover: #0080ff;
             --button-primary-bg: #0080ff;
             --button-primary-color: #fff;
@@ -23,7 +23,7 @@
             --button-primary-bg-active: #006fdb;
             --button-disabled-bg: #f5f5f5;
             --button-disabled-color: rgba(0,0,0,0.25);
-            --button-disabled-border: #d9d9d9;
+            --button-disabled-border: #ccc;
         }
         #app {
             margin: 20px;
@@ -37,19 +37,38 @@
 
 <div id="app">
     <g-button type="primary">主要按钮</g-button>
-    <g-button type="primary" disabled="">主要按钮</g-button>
+    <g-button type="primary" shape="round">主要按钮</g-button>
+    <g-button type="primary" shape="round" icon="setting">主要按钮</g-button>
+    <g-button type="primary" shape="round" icon="setting" :loading="loading1" @click="loading1=!loading1">主要按钮</g-button>
+    <g-button type="primary" shape="round" icon="loading" loading="">加载中</g-button>
+    <g-button type="primary" shape="circle" icon="setting"></g-button>
+    <g-button type="primary" disabled="">禁用按钮</g-button>
+    <g-button icon="loading" loading="" shape="circle"></g-button>
     <g-button>默认按钮</g-button>
+    <g-button type="round">默认按钮</g-button>
+    <g-button type="circle" icon="setting"></g-button>
+    <g-button icon="setting" icon-position="right" shape="round">加载中</g-button>
     <g-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">加载中</g-button>
     <g-button icon="setting" icon-position="left" :loading="loading2" @click="loading2 = !loading2">加载中</g-button>
     <g-button-group>
         <g-button icon="left">上一页</g-button>
         <g-button icon="right" icon-position="right">下一页</g-button>
     </g-button-group>
+    <g-button-group>
+        <g-button icon="left" type="primary">上一页</g-button>
+        <g-button icon="setting" type="primary"></g-button>
+        <g-button icon="right" icon-position="right" type="primary">下一页</g-button>
+    </g-button-group>
+    <g-button-group>
+        <g-button icon="edit" type="primary"></g-button>
+        <g-button icon="share" type="primary"></g-button>
+        <g-button icon="delete" icon-position="right" type="primary"></g-button>
+    </g-button-group>
 </div>
 
 
 <script src="/app.a6a4d504.js"></script>
-<script src="//at.alicdn.com/t/font_1023339_cxkq6a9ppx.js"></script>
+<script src="//at.alicdn.com/t/font_1023339_pgedwywgpok.js"></script>
 
 </body>
 </html>
