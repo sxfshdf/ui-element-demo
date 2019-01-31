@@ -1,6 +1,6 @@
 <template>
-    <button class="g-button"
-            :class="{[`icon-${iconPosition}`]: true, [`g-button-${type}`]: (type? true: false), 'disabled': disabled, 'g-button-animate': !disabled,
+    <button class="g-button" :disabled="disabled"
+            :class="{[`icon-${iconPosition}`]: true, [`g-button-${type}`]: (type? true: false), 'g-button-animate': !disabled,
             [`g-button-${shape}`]:(shape ? true:false), 'g-button-loading': loading}"
             @click="$emit('click')">
         <g-icon :name="icon" class="icon" v-if="icon && !loading"></g-icon>
@@ -52,7 +52,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     @keyframes spin {
         0%{ transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
@@ -86,7 +86,7 @@
             color: var(--button-active-color);
             > .icon { fill: #0080ff;}
         }
-        &.disabled {
+        &[disabled] {
             background: var(--button-disabled-bg);
             border: 1px solid var(--button-disabled-border);
             color: var(--button-disabled-color);
@@ -140,7 +140,7 @@
                 fill: #fff;
             }
         }
-        &.disabled {
+        &[disabled] {
             background: var(--button-disabled-bg);
             border: 1px solid var(--button-disabled-border);
             color: var(--button-disabled-color);
@@ -150,8 +150,17 @@
             fill: #fff;
         }
     }
-    .g-button-loading {
-        opacity: 0.7;
+    .g-button-loading:before {
+        position: absolute;
+        display: block;
+        content: '';
+        top: -1px;
+        bottom: -1px;
+        left: -1px;
+        right: -1px;
+        background: #fff;
+        opacity: 0.4;
+        z-index: 1;
     }
     .g-button-animate:after {
         content: "";
