@@ -11540,7 +11540,9 @@ _vue.default.component('g-icon', _icon.default);
 
 var _default = {
   props: {
-    icon: {},
+    icon: {
+      type: String
+    },
     iconPosition: {
       type: String,
       default: 'left',
@@ -11626,7 +11628,11 @@ exports.default = _default;
               expression: "isShow"
             }
           ],
-          staticClass: "content"
+          staticClass: "content",
+          class: {
+            left: _vm.iconPosition === "right",
+            right: _vm.iconPosition === "left" && _vm.icon
+          }
         },
         [_vm._t("default")],
         2
@@ -11769,8 +11775,24 @@ exports.default = void 0;
 
 var _icon = _interopRequireDefault(require("./icon.vue"));
 
+var _button = _interopRequireDefault(require("./button.vue"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11782,7 +11804,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _default = {
   name: "g-input",
   components: {
-    'g-icon': _icon.default
+    'g-icon': _icon.default,
+    'g-button': _button.default
   },
   props: {
     value: {
@@ -11797,7 +11820,36 @@ var _default = {
       default: false
     },
     error: {
-      value: String
+      type: String
+    },
+    tip: {
+      type: String
+    },
+    prefix: {
+      type: Boolean,
+      default: false
+    },
+    suffix: {
+      type: Boolean,
+      default: false
+    },
+    icon: {
+      type: String
+    },
+    placeholder: {
+      type: String
+    },
+    addonbefore: {
+      type: String
+    },
+    addonafter: {
+      type: String
+    },
+    preicon: {
+      type: String
+    },
+    suficon: {
+      type: String
     }
   }
 };
@@ -11816,16 +11868,65 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "wrapper", class: { error: _vm.error } },
+    { staticClass: "wrapper", class: { error: _vm.error, info: _vm.tip } },
     [
+      _vm.prefix
+        ? _c("g-icon", { staticClass: "prefix", attrs: { name: _vm.icon } })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.suffix
+        ? _c("g-icon", { staticClass: "suffix", attrs: { name: _vm.icon } })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.addonbefore || _vm.preicon
+        ? _c(
+            "div",
+            { class: { addonbefore: _vm.addonbefore || _vm.preicon } },
+            [
+              _vm.preicon
+                ? _c("g-icon", { attrs: { name: _vm.preicon } })
+                : _c("span", [_vm._v(_vm._s(_vm.addonbefore))])
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c("input", {
-        attrs: { type: "text", disabled: _vm.disabled, readonly: _vm.readonly },
+        class: {
+          prefix: _vm.prefix,
+          suffix: _vm.suffix,
+          addonbefore: _vm.addonbefore || _vm.preicon,
+          addonafter: _vm.addonafter || _vm.suficon
+        },
+        attrs: {
+          type: "text",
+          disabled: _vm.disabled,
+          readonly: _vm.readonly,
+          placeholder: _vm.placeholder
+        },
         domProps: { value: _vm.value }
       }),
       _vm._v(" "),
-      _vm.error ? _c("g-icon", { attrs: { name: "setting" } }) : _vm._e(),
+      _vm.addonafter
+        ? _c(
+            "div",
+            { class: { addonafter: _vm.addonafter || _vm.suficon } },
+            [
+              _vm.addonafter && _vm.suficon
+                ? _c("g-icon", { attrs: { name: _vm.suficon } })
+                : _c("span", [_vm._v(_vm._s(_vm.addonafter))])
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _vm.error ? _c("span", [_vm._v(_vm._s(_vm.error))]) : _vm._e()
+      _vm.error ? _c("g-icon", { attrs: { name: "exclamation" } }) : _vm._e(),
+      _vm._v(" "),
+      _vm.error ? _c("span", [_vm._v(_vm._s(_vm.error))]) : _vm._e(),
+      _vm._v(" "),
+      _vm.tip ? _c("g-icon", { attrs: { name: "info" } }) : _vm._e(),
+      _vm._v(" "),
+      _vm.tip ? _c("span", [_vm._v(_vm._s(_vm.tip))]) : _vm._e()
     ],
     1
   )
@@ -11863,7 +11964,7 @@ render._withStripped = true
       
       }
     })();
-},{"./icon.vue":"src/icon.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"node_modules/assertion-error/index.js":[function(require,module,exports) {
+},{"./icon.vue":"src/icon.vue","./button.vue":"src/button.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"node_modules/assertion-error/index.js":[function(require,module,exports) {
 /*!
  * assertion-error
  * Copyright(c) 2013 Jake Luer <jake@qualiancy.com>

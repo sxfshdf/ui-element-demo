@@ -5,7 +5,7 @@
             @click="$emit('click')">
         <g-icon :name="icon" class="icon" v-if="icon && !loading"></g-icon>
         <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
-        <div class="content" v-show="isShow">
+        <div class="content" :class="{'left':(iconPosition==='right'), 'right':(iconPosition==='left'&&icon)}" v-show="isShow">
             <slot></slot>
         </div>
     </button>
@@ -19,7 +19,9 @@
 
     export default {
         props: {
-            icon: {},
+            icon: {
+                type: String
+            },
             iconPosition: {
                 type: String,
                 default: 'left',
@@ -92,11 +94,11 @@
             color: var(--button-disabled-color);
             cursor: not-allowed;
         }
-        > .icon { order: 1; transition: all 0.3s;}
-        > .content { order: 2; margin-left: 0.3em; margin-right:0; }
+        > .icon { order: 1; transition: all 0.3s; fill: var(--color)}
+        > .content.right { order: 2; margin-left: 0.3em; margin-right:0; }
+        > .content.left { order: 1; margin-right: 0.3em; margin-left:0; }
         &.icon-right {
             > .icon { order: 2;}
-            > .content { order: 1; margin-right: 0.3em; margin-left:0;}
         }
         .loading {
             animation: spin 1s infinite linear;
