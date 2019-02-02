@@ -2,7 +2,7 @@
     <button class="g-button" :disabled="disabled"
             :class="{[`icon-${iconPosition}`]: true, [`g-button-${type}`]: (type? true: false), 'g-button-animate': !disabled,
             [`g-button-${shape}`]:(shape ? true:false), 'g-button-loading': loading}"
-            @click="$emit('click')">
+            @click="$emit('click',$event)">
         <g-icon :name="icon" class="icon" v-if="icon && !loading"></g-icon>
         <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
         <div class="content" :class="{'left':(iconPosition==='right'), 'right':(iconPosition==='left'&&icon)}" v-show="isShow">

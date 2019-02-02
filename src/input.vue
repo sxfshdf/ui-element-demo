@@ -1,13 +1,33 @@
 <template>
-    <div class="wrapper" :class="{'error':error, 'info':tip}">
-        <g-icon v-if="prefix" class="prefix" :name="icon"></g-icon>
-        <g-icon v-if="suffix" class="suffix" :name="icon"></g-icon>
+    <div class="wrapper" :class="{'error':error, 'info':tip, 'search':icon==='search'}" >
+        <div v-if="prefix" class="prefix">
+            <g-icon :name="icon"></g-icon>
+        </div>
+
+        <template v-if="suffix" >
+            <div v-if="icon==='search'" class="suffix" @click="onSearch($event)">
+                <g-icon :name="icon" ></g-icon>
+            </div>
+            <div v-else class="suffix">
+                <g-icon :name="icon"></g-icon>
+            </div>
+        </template>
+
+
         <div v-if="addonbefore || preicon" :class="{'addonbefore':addonbefore || preicon}">
             <g-icon :name="preicon" v-if="preicon"></g-icon>
             <span v-else>{{addonbefore}}</span>
         </div>
-        <input :value="value" type="text" :disabled="disabled" :readonly="readonly" :placeholder="placeholder"
+
+        <input v-if="icon==='search'|| searchbutton" :value="value" type="text" :disabled="disabled" :readonly="readonly" :placeholder="placeholder"
+               :class="{prefix, suffix, 'search':searchbutton}"
+               @keyup.enter="onSearch($event)">
+        <input v-else :value="value" type="text" :disabled="disabled" :readonly="readonly" :placeholder="placeholder"
                :class="{prefix, suffix, 'addonbefore':addonbefore || preicon, 'addonafter':addonafter || suficon}">
+
+        <g-button v-if="searchbutton === true" type="primary" icon="search" @click="onSearch($event)"></g-button>
+        <g-button v-if="searchbutton && searchbutton.length" type="primary" @click="onSearch($event)">{{searchbutton}}</g-button>
+
         <div v-if="addonafter" :class="{'addonafter': addonafter || suficon}">
             <g-icon :name="suficon" v-if="addonafter && suficon"></g-icon>
             <span v-else>{{addonafter}}</span>
@@ -70,8 +90,25 @@
             },
             suficon: {
                 type: String
-            }
-        }
+            },
+            searchbutton: [Boolean,String],
+        },
+        methods: {
+            onSearch(e) {
+                if(e.currentTarget.nodeName.toLowerCase()==='input'){
+                    let value = e.currentTarget.value
+                    this.$emit('search',value)
+                }else if(e.currentTarget.nodeName.toLowerCase()==='button') {
+                    let value = e.currentTarget.previousElementSibling.value
+                    e.currentTarget.previousElementSibling.focus()
+                    this.$emit('search',value)
+                }else {
+                    let value = e.currentTarget.nextElementSibling.value
+                    e.currentTarget.nextElementSibling.focus()
+                    this.$emit('search',value)
+                }
+            },
+        },
     }
 </script>
 
@@ -92,8 +129,22 @@
         display: inline-flex;
         align-items: center;
         position: relative;
-        > :not(:last-child) {
-            margin-right: 0.2em;
+        &:hover {
+            > input {
+                border-color: $border-color-hover;
+            }
+        }
+        > * {
+            transition: all 0.3s;
+        }
+        > input.search {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            margin-right: -1px;
+        }
+        .g-button {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
         }
         > input{
             font-size: inherit;
@@ -123,6 +174,9 @@
             }
         }
         &.error {
+            > :not(:last-child) {
+                margin-right: 0.2em;
+            }
             > input {
                 border-color: $red;
                 color: $red;
@@ -139,6 +193,9 @@
             }
         }
         &.info {
+            > :not(:last-child) {
+                margin-right: 0.2em;
+            }
             > .g-icon {
                 fill: $info-gray;
             }
@@ -147,18 +204,32 @@
                 color: $info-gray;
             }
         }
-        > .g-icon.prefix {
+        &.search {
+            .g-icon {
+                cursor: pointer;
+            }
+             .g-icon:hover {
+                fill: #333;
+            }
+        }
+        > div.prefix {
             position: absolute;
             left: 0.6em;
             fill: $info-gray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         > input.prefix {
             padding-left: 2.2em;
         }
-        > .g-icon.suffix {
+        >div.suffix {
             position: absolute;
             right: 0.6em;
             fill: $info-gray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         > input.suffix {
             padding-right: 2.2em;

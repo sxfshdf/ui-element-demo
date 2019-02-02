@@ -15,6 +15,11 @@ new Vue({
     data: {
         loading1: false,
         loading2: false
+    },
+    methods: {
+        onSearch(value) {
+            console.log(value)
+        }
     }
 })
 

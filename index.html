@@ -72,6 +72,15 @@
         <g-input  preicon="left" suficon="setting" addonafter=".com" placeholder="请输入网址"></g-input>
     </div>
     <div class="box">
+        <g-input icon="search" suffix placeholder="请输入用户名" @search="onSearch"></g-input>
+    </div>
+    <div class="box">
+        <g-input searchbutton="搜索" placeholder="请输入用户名" @search="onSearch"></g-input>
+    </div>
+    <div class="box">
+        <g-input searchbutton placeholder="请输入用户名" @search="onSearch"></g-input>
+    </div>
+    <div class="box">
         <g-button type="primary">主要按钮</g-button>
         <g-button type="primary" shape="round">主要按钮</g-button>
         <g-button type="primary" shape="round" icon="setting">主要按钮</g-button>

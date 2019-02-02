@@ -11601,7 +11601,7 @@ exports.default = _default;
       attrs: { disabled: _vm.disabled },
       on: {
         click: function($event) {
-          _vm.$emit("click")
+          _vm.$emit("click", $event)
         }
       }
     },
@@ -11801,6 +11801,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: "g-input",
   components: {
@@ -11850,6 +11870,23 @@ var _default = {
     },
     suficon: {
       type: String
+    },
+    searchbutton: [Boolean, String]
+  },
+  methods: {
+    onSearch: function onSearch(e) {
+      if (e.currentTarget.nodeName.toLowerCase() === 'input') {
+        var value = e.currentTarget.value;
+        this.$emit('search', value);
+      } else if (e.currentTarget.nodeName.toLowerCase() === 'button') {
+        var _value = e.currentTarget.previousElementSibling.value;
+        e.currentTarget.previousElementSibling.focus();
+        this.$emit('search', _value);
+      } else {
+        var _value2 = e.currentTarget.nextElementSibling.value;
+        e.currentTarget.nextElementSibling.focus();
+        this.$emit('search', _value2);
+      }
     }
   }
 };
@@ -11868,14 +11905,43 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "wrapper", class: { error: _vm.error, info: _vm.tip } },
+    {
+      staticClass: "wrapper",
+      class: { error: _vm.error, info: _vm.tip, search: _vm.icon === "search" }
+    },
     [
       _vm.prefix
-        ? _c("g-icon", { staticClass: "prefix", attrs: { name: _vm.icon } })
+        ? _c(
+            "div",
+            { staticClass: "prefix" },
+            [_c("g-icon", { attrs: { name: _vm.icon } })],
+            1
+          )
         : _vm._e(),
       _vm._v(" "),
       _vm.suffix
-        ? _c("g-icon", { staticClass: "suffix", attrs: { name: _vm.icon } })
+        ? [
+            _vm.icon === "search"
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "suffix",
+                    on: {
+                      click: function($event) {
+                        _vm.onSearch($event)
+                      }
+                    }
+                  },
+                  [_c("g-icon", { attrs: { name: _vm.icon } })],
+                  1
+                )
+              : _c(
+                  "div",
+                  { staticClass: "suffix" },
+                  [_c("g-icon", { attrs: { name: _vm.icon } })],
+                  1
+                )
+          ]
         : _vm._e(),
       _vm._v(" "),
       _vm.addonbefore || _vm.preicon
@@ -11891,21 +11957,73 @@ exports.default = _default;
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("input", {
-        class: {
-          prefix: _vm.prefix,
-          suffix: _vm.suffix,
-          addonbefore: _vm.addonbefore || _vm.preicon,
-          addonafter: _vm.addonafter || _vm.suficon
-        },
-        attrs: {
-          type: "text",
-          disabled: _vm.disabled,
-          readonly: _vm.readonly,
-          placeholder: _vm.placeholder
-        },
-        domProps: { value: _vm.value }
-      }),
+      _vm.icon === "search" || _vm.searchbutton
+        ? _c("input", {
+            class: {
+              prefix: _vm.prefix,
+              suffix: _vm.suffix,
+              search: _vm.searchbutton
+            },
+            attrs: {
+              type: "text",
+              disabled: _vm.disabled,
+              readonly: _vm.readonly,
+              placeholder: _vm.placeholder
+            },
+            domProps: { value: _vm.value },
+            on: {
+              keyup: function($event) {
+                if (
+                  !("button" in $event) &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                _vm.onSearch($event)
+              }
+            }
+          })
+        : _c("input", {
+            class: {
+              prefix: _vm.prefix,
+              suffix: _vm.suffix,
+              addonbefore: _vm.addonbefore || _vm.preicon,
+              addonafter: _vm.addonafter || _vm.suficon
+            },
+            attrs: {
+              type: "text",
+              disabled: _vm.disabled,
+              readonly: _vm.readonly,
+              placeholder: _vm.placeholder
+            },
+            domProps: { value: _vm.value }
+          }),
+      _vm._v(" "),
+      _vm.searchbutton === true
+        ? _c("g-button", {
+            attrs: { type: "primary", icon: "search" },
+            on: {
+              click: function($event) {
+                _vm.onSearch($event)
+              }
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.searchbutton && _vm.searchbutton.length
+        ? _c(
+            "g-button",
+            {
+              attrs: { type: "primary" },
+              on: {
+                click: function($event) {
+                  _vm.onSearch($event)
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.searchbutton))]
+          )
+        : _vm._e(),
       _vm._v(" "),
       _vm.addonafter
         ? _c(
@@ -11928,7 +12046,7 @@ exports.default = _default;
       _vm._v(" "),
       _vm.tip ? _c("span", [_vm._v(_vm._s(_vm.tip))]) : _vm._e()
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -23053,6 +23171,11 @@ new _vue.default({
   data: {
     loading1: false,
     loading2: false
+  },
+  methods: {
+    onSearch: function onSearch(value) {
+      console.log(value);
+    }
   }
 }); // 单元测试
 
