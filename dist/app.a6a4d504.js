@@ -11821,6 +11821,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
 var _default = {
   name: "g-input",
   components: {
@@ -11996,7 +12000,21 @@ exports.default = _default;
               readonly: _vm.readonly,
               placeholder: _vm.placeholder
             },
-            domProps: { value: _vm.value }
+            domProps: { value: _vm.value },
+            on: {
+              change: function($event) {
+                _vm.$emit("change", $event.target.value)
+              },
+              input: function($event) {
+                _vm.$emit("input", $event.target.value)
+              },
+              focus: function($event) {
+                _vm.$emit("focus", $event.target.value)
+              },
+              blur: function($event) {
+                _vm.$emit("blur", $event.target.value)
+              }
+            }
           }),
       _vm._v(" "),
       _vm.searchbutton === true
@@ -12025,12 +12043,12 @@ exports.default = _default;
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.addonafter
+      _vm.addonafter || _vm.suficon
         ? _c(
             "div",
             { class: { addonafter: _vm.addonafter || _vm.suficon } },
             [
-              _vm.addonafter && _vm.suficon
+              _vm.suficon
                 ? _c("g-icon", { attrs: { name: _vm.suficon } })
                 : _c("span", [_vm._v(_vm._s(_vm.addonafter))])
             ],
@@ -12040,11 +12058,17 @@ exports.default = _default;
       _vm._v(" "),
       _vm.error ? _c("g-icon", { attrs: { name: "exclamation" } }) : _vm._e(),
       _vm._v(" "),
-      _vm.error ? _c("span", [_vm._v(_vm._s(_vm.error))]) : _vm._e(),
+      _vm.error
+        ? _c("span", { staticClass: "errorMessage" }, [
+            _vm._v(_vm._s(_vm.error))
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _vm.tip ? _c("g-icon", { attrs: { name: "info" } }) : _vm._e(),
       _vm._v(" "),
-      _vm.tip ? _c("span", [_vm._v(_vm._s(_vm.tip))]) : _vm._e()
+      _vm.tip
+        ? _c("span", { staticClass: "tipMessage" }, [_vm._v(_vm._s(_vm.tip))])
+        : _vm._e()
     ],
     2
   )

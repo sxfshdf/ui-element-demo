@@ -52,7 +52,7 @@
         <g-input value="张三" error="输入有误"></g-input>
     </div>
     <div class="box">
-        <g-input value="张三" tip="请输入用户名"></g-input>
+        <g-input value="张三" tip="请输入用户名" @change="change"></g-input>
     </div>
     <div class="box">
         <g-input icon="setting" prefix="" placeholder="请输入用户名"></g-input>
@@ -64,7 +64,7 @@
         <g-input addonbefore="http://" addonafter=".com" placeholder="请输入网址"></g-input>
     </div>
     <div class="box">
-        <g-input preicon="left" suficon="setting" addonafter=".com" placeholder="请输入网址"></g-input>
+        <g-input preicon="left" suficon="setting" placeholder="请输入网址"></g-input>
     </div>
     <div class="box">
         <g-input icon="search" suffix="" placeholder="请输入用户名" @search="onSearch"></g-input>

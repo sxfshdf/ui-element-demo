@@ -23,20 +23,24 @@
                :class="{prefix, suffix, 'search':searchbutton}"
                @keyup.enter="onSearch($event)">
         <input v-else :value="value" type="text" :disabled="disabled" :readonly="readonly" :placeholder="placeholder"
-               :class="{prefix, suffix, 'addonbefore':addonbefore || preicon, 'addonafter':addonafter || suficon}">
+               :class="{prefix, suffix, 'addonbefore':addonbefore || preicon, 'addonafter':addonafter || suficon}"
+               @change="$emit('change', $event.target.value)"
+               @input="$emit('input', $event.target.value)"
+               @focus="$emit('focus', $event.target.value)"
+               @blur="$emit('blur', $event.target.value)">
 
         <g-button v-if="searchbutton === true" type="primary" icon="search" @click="onSearch($event)"></g-button>
         <g-button v-if="searchbutton && searchbutton.length" type="primary" @click="onSearch($event)">{{searchbutton}}</g-button>
 
-        <div v-if="addonafter" :class="{'addonafter': addonafter || suficon}">
-            <g-icon :name="suficon" v-if="addonafter && suficon"></g-icon>
+        <div v-if="addonafter || suficon" :class="{'addonafter': addonafter || suficon}">
+            <g-icon :name="suficon" v-if="suficon"></g-icon>
             <span v-else>{{addonafter}}</span>
         </div>
 
         <g-icon v-if="error" name="exclamation"></g-icon>
-        <span v-if="error">{{error}}</span>
+        <span v-if="error" class="errorMessage">{{error}}</span>
         <g-icon v-if="tip" name="info"></g-icon>
-        <span v-if="tip">{{tip}}</span>
+        <span v-if="tip" class="tipMessage">{{tip}}</span>
     </div>
 </template>
 
@@ -187,7 +191,7 @@
             > .g-icon {
                 fill: $red;
             }
-            > span {
+            > span.errorMessage {
                 font-size: 12px;
                 color: $red;
             }
@@ -199,7 +203,7 @@
             > .g-icon {
                 fill: $info-gray;
             }
-            > span {
+            > span.tipMessage {
                 font-size: 12px;
                 color: $info-gray;
             }
