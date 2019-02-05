@@ -12218,28 +12218,88 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 //
 //
 //
 //
 //
 //
+var validator = function validator(value) {
+  var keys = Object.keys(value);
+  var valid = true;
+  keys.forEach(function (key) {
+    if (!['span', 'offset'].includes(key)) {
+      valid = false;
+    }
+  });
+  return valid;
+};
+
 var _default = {
   name: "g-col",
   props: {
     span: [Number, String],
-    offset: [Number, String]
+    offset: [Number, String],
+    ipad: {
+      type: Object,
+      validator: validator
+    },
+    narrowPc: {
+      type: Object,
+      validator: validator
+    },
+    pc: {
+      type: Object,
+      validator: validator
+    },
+    widePc: {
+      type: Object,
+      validator: validator
+    }
   },
   data: function data() {
     return {
       gutter: 0
     };
   },
+  methods: {
+    createClass: function createClass(obj) {
+      var str = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      if (!obj) return [];
+      var array = [];
+
+      if (obj.span) {
+        array.push("col-".concat(str).concat(obj.span));
+      }
+
+      if (obj.offset) {
+        array.push("col-".concat(str).concat(obj.offset));
+      }
+
+      return array;
+    }
+  },
   computed: {
     colClass: function colClass() {
       var span = this.span,
-          offset = this.offset;
-      return [span && "col-".concat(span), offset && "offset-".concat(offset)];
+          offset = this.offset,
+          ipad = this.ipad,
+          narrowPc = this.narrowPc,
+          pc = this.pc,
+          widePc = this.widePc;
+      return [].concat(_toConsumableArray(this.createClass({
+        span: span,
+        offset: offset
+      })), _toConsumableArray(this.createClass(ipad, 'ipad-')), _toConsumableArray(this.createClass(narrowPc, 'narrow-pc-')), _toConsumableArray(this.createClass(pc, 'pc-')), _toConsumableArray(this.createClass(widePc, 'wide-pc-')));
     },
     colStyle: function colStyle() {
       return {

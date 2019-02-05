@@ -46,6 +46,7 @@
 <style scoped lang="scss">
   .raw {
     display: flex;
+    flex-wrap: wrap;
     /*position: relative;*/
     &.raw-flex-start {
       justify-content: flex-start;

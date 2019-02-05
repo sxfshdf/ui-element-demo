@@ -44,31 +44,9 @@
 <body>
 
 <div id="app">
-    <g-raw class="top">
-        <g-col class="demo-box" span="9">
-            <g-raw justify="start" align="top">
-                <g-col>1</g-col>
-                <g-col>2</g-col>
-                <g-col>3</g-col>
-                <g-col>4</g-col>
-            </g-raw>
-        </g-col>
-        <g-col class="demo-box" span="15">
-            <g-raw justify="end">
-                <g-col>1</g-col>
-                <g-col>2</g-col>
-                <g-col>3</g-col>
-                <g-col>4</g-col>
-                <g-col>5</g-col>
-                <g-col>6</g-col>
-                <g-col>7</g-col>
-            </g-raw>
-        </g-col>
-    </g-raw>
     <g-raw>
-        <g-col class="demo-box" span="4"></g-col>
-        <g-col class="demo-box" span="14"></g-col>
-        <g-col class="demo-box" span="6"></g-col>
+        <g-col class="demo-box" span="24" :ipad="{'span': 8}" :pc="{'span': 4}">1</g-col>
+        <g-col class="demo-box" span="24" :ipad="{'span': 16}" :pc="{'span': 18, 'offset': 2}">2</g-col>
     </g-raw>
     <hr style="margin: 20px 0">
     <div class="box">
