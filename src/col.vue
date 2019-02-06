@@ -52,7 +52,7 @@
           array.push(`col-${str}${obj.span}`)
         }
         if(obj.offset) {
-          array.push(`col-${str}${obj.offset}`)
+          array.push(`offset-${str}${obj.offset}`)
         }
         return array
       }
@@ -104,7 +104,7 @@
           width: ($n/24) * 100%;
         }
       }
-      $class: offset-ipad-;
+      $class: offset-;
       @for $n from 1 through 24 {
         &.#{$class}#{$n} {
           margin-left: ($n/24) * 100%;

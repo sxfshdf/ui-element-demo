@@ -1,12 +1,12 @@
 <template>
-  <div class="raw" :style="rawStyle" :class="rawClass">
+  <div class="row" :style="rowStyle" :class="rowClass">
     <slot></slot>
   </div>
 </template>
 
 <script>
   export default {
-    name: "g-raw",
+    name: "g-row",
     props: {
       gutter: [Number,String],
       justify: {
@@ -23,15 +23,15 @@
       }
     },
     computed: {
-      rawStyle() {
+      rowStyle() {
         return {
           marginRight: -this.gutter/2 +'px',
           marginLeft: -this.gutter/2 +'px'
         }
       },
-      rawClass() {
+      rowClass() {
         let {justify, align} = this
-        return [ justify && `raw-flex-${justify}`, align && `raw-flex-${align}`]
+        return [ justify && `row-flex-${justify}`, align && `row-flex-${align}`]
       }
     },
     mounted() {
@@ -44,29 +44,29 @@
 </script>
 
 <style scoped lang="scss">
-  .raw {
+  .row {
     display: flex;
     flex-wrap: wrap;
     /*position: relative;*/
-    &.raw-flex-start {
+    &.row-flex-start {
       justify-content: flex-start;
     }
-    &.raw-flex-end {
+    &.row-flex-end {
       justify-content: flex-end;
     }
-    &.raw-flex-space-between {
+    &.row-flex-space-between {
       justify-content: space-between;
     }
-    &.raw-flex-space-around {
+    &.row-flex-space-around {
       justify-content: space-around;
     }
-    &.raw-flex-top {
+    &.row-flex-top {
       align-items: flex-start;
     }
-    &.raw-flex-middle {
+    &.row-flex-middle {
       align-items: center;
     }
-    &.raw-flex-bottom {
+    &.row-flex-bottom {
       align-items: flex-end;
     }
   }

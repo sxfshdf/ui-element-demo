@@ -11630,7 +11630,6 @@ describe('Input', function () {
           enumerable: true
         });
         var inputElement = vm.$el.querySelector('input');
-        console.log(inputElement);
         vm.$on(eventName, callback);
         inputElement.dispatchEvent(event);
         expect(callback).to.have.been.calledWith('hi');
