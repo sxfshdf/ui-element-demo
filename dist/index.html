@@ -39,14 +39,42 @@
             height: 50px;
             background: #999;
             border: 1px solid black;
+        }
+        .layout-demo {
+            border: 1px solid red;
+            /*height: 50px;*/
         }</style>
 <link rel="stylesheet" href="/app.a6a4d504.css"></head>
 <body>
 
 <div id="app">
+    <g-layout style="height: 200px;">
+        <g-sider class="layout-demo">header</g-sider>
+        <g-layout>
+            <g-header class="layout-demo">sider</g-header>
+            <g-content class="layout-demo">content</g-content>
+            <g-footer class="layout-demo">footer</g-footer>
+        </g-layout>
+    </g-layout>
+    <hr style="margin: 20px 0">
+    <g-layout style="height: 200px;">
+        <g-header class="layout-demo">header</g-header>
+        <g-layout>
+            <g-sider class="layout-demo">sider</g-sider>
+            <g-content class="layout-demo">content</g-content>
+        </g-layout>
+        <g-footer class="layout-demo">footer</g-footer>
+    </g-layout>
+    <hr style="margin: 20px 0">
+    <g-layout style="height: 200px;">
+        <g-header class="layout-demo">header</g-header>
+        <g-content class="layout-demo">content</g-content>
+        <g-footer class="layout-demo">footer</g-footer>
+    </g-layout>
+    <hr style="margin: 20px 0">
     <g-row>
         <g-col class="demo-box" span="24" :ipad="{'span': 8}" :pc="{'span': 4}">1</g-col>
-        <g-col class="demo-box" span="24" :ipad="{'span': 16}" :pc="{'span': 18, 'offset': 2}">2</g-col>
+        <g-col class="demo-box" span="24" :ipad="{'span': 16}" :pc="{'span': 20}">2</g-col>
     </g-row>
     <hr style="margin: 20px 0">
     <div class="box">

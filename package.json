@@ -23,6 +23,7 @@
   "homepage": "https://github.com/sxfshdf/ui-element-demo#readme",
   "dependencies": {
     "chai-spies": "^1.0.0",
+    "velocity-animate": "^1.5.2",
     "vue": "^2.5.22",
     "vue-hot-reload-api": "^2.3.1"
   },
