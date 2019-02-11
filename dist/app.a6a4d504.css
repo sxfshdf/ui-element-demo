@@ -1095,4 +1095,21 @@
   flex-direction: row;
 }.content[data-v-d504b3] {
   flex-grow: 1;
+}.g-button[data-v-408b4f] {
+  margin: 10px;
+}.toast[data-v-27bbb2] {
+  font-size: 14px;
+  line-height: 1.6;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  height: 40px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  padding: 0 16px;
 }

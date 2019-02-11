@@ -48,10 +48,12 @@
 <body>
 
 <div id="app">
+    <button @click="showToast">showToast</button>
+    <hr style="margin: 20px 0">
     <g-layout style="height: 200px;">
-        <g-sider class="layout-demo">header</g-sider>
+        <g-sider class="layout-demo" style="width: 100px">sider</g-sider>
         <g-layout>
-            <g-header class="layout-demo">sider</g-header>
+            <g-header class="layout-demo" collapsible="">header</g-header>
             <g-content class="layout-demo">content</g-content>
             <g-footer class="layout-demo">footer</g-footer>
         </g-layout>

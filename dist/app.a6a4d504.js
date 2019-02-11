@@ -12523,8 +12523,30 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
 var _default = {
-  name: "g-header"
+  name: "g-header",
+  props: {// buttonMsg: {
+    //   type: String,
+    //   default: '关闭'
+    // },
+    // collapsible: {
+    //   type: Boolean,
+    //   default: false
+    // },
+  },
+  data: function data() {
+    return {
+      icon: 'left'
+    };
+  },
+  methods: {// closeSider(){
+    //   this.icon = this.icon === 'left'? 'right':'left'
+    //
+    // }
+  }
 };
 exports.default = _default;
         var $408b4f = exports.default || module.exports;
@@ -12539,7 +12561,9 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "header" }, [_vm._t("default")], 2)
+  return _c("transition", [
+    _c("div", { staticClass: "header" }, [_vm._t("default")], 2)
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12702,7 +12726,95 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/toast.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "g-totast"
+};
+exports.default = _default;
+        var $27bbb2 = exports.default || module.exports;
+      
+      if (typeof $27bbb2 === 'function') {
+        $27bbb2 = $27bbb2.options;
+      }
+    
+        /* template */
+        Object.assign($27bbb2, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "toast" }, [_vm._t("default")], 2)
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-27bbb2",
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$27bbb2', $27bbb2);
+          } else {
+            api.reload('$27bbb2', $27bbb2);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/plugin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _toast = _interopRequireDefault(require("./toast.vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = {
+  install: function install(Vue, options) {
+    Vue.prototype.$toast = function (msg) {
+      var Constructor = Vue.extend(_toast.default);
+      var toast = new Constructor();
+      toast.$slots.default = msg;
+      toast.$mount();
+      document.body.appendChild(toast.$el);
+    };
+  }
+};
+exports.default = _default;
+},{"./toast.vue":"src/toast.vue"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -12729,6 +12841,10 @@ var _sider = _interopRequireDefault(require("./sider.vue"));
 
 var _footer = _interopRequireDefault(require("./footer.vue"));
 
+var _toast = _interopRequireDefault(require("./toast.vue"));
+
+var _plugin = _interopRequireDefault(require("./plugin.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue.default.component('g-button', _button.default);
@@ -12753,6 +12869,10 @@ _vue.default.component('g-footer', _footer.default);
 
 _vue.default.component('g-sider', _sider.default);
 
+_vue.default.component('g-toast', _toast.default);
+
+_vue.default.use(_plugin.default);
+
 new _vue.default({
   el: "#app",
   data: {
@@ -12760,9 +12880,15 @@ new _vue.default({
     loading2: false,
     msg: ''
   },
+  created: function created() {},
   methods: {
     onSearch: function onSearch(value) {
       console.log(value);
+    },
+    showToast: function showToast() {
+      console.log(1);
+      this.$toast('我是一个Toast');
+      console.log(2);
     }
   }
 }); // 单元测试
@@ -12850,7 +12976,7 @@ new _vue.default({
 //     button.click()
 //     expect(spy).to.have.been.called()
 // }
-},{"vue":"node_modules/vue/dist/vue.common.js","./button.vue":"src/button.vue","./icon.vue":"src/icon.vue","./buttonGroup.vue":"src/buttonGroup.vue","./input.vue":"src/input.vue","./row.vue":"src/row.vue","./col.vue":"src/col.vue","./layout.vue":"src/layout.vue","./content.vue":"src/content.vue","./header.vue":"src/header.vue","./sider.vue":"src/sider.vue","./footer.vue":"src/footer.vue"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.common.js","./button.vue":"src/button.vue","./icon.vue":"src/icon.vue","./buttonGroup.vue":"src/buttonGroup.vue","./input.vue":"src/input.vue","./row.vue":"src/row.vue","./col.vue":"src/col.vue","./layout.vue":"src/layout.vue","./content.vue":"src/content.vue","./header.vue":"src/header.vue","./sider.vue":"src/sider.vue","./footer.vue":"src/footer.vue","./toast.vue":"src/toast.vue","./plugin.js":"src/plugin.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -12877,7 +13003,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61369" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57411" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
