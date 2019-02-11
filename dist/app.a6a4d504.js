@@ -12739,8 +12739,69 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
-  name: "g-totast"
+  name: "g-totast",
+  props: {
+    autoClose: {
+      type: Boolean,
+      default: false
+    },
+    autoCloseDelay: {
+      type: Number,
+      default: 5
+    },
+    closeButton: {
+      type: Object,
+      default: function _default() {
+        return {
+          text: '关闭',
+          callback: undefined
+        };
+      }
+    },
+    enableHtml: {
+      type: Boolean,
+      default: false
+    }
+  },
+  mounted: function mounted() {
+    this.updateStyles();
+    this.autoCloseToast();
+  },
+  methods: {
+    autoCloseToast: function autoCloseToast() {
+      var _this = this;
+
+      if (this.autoClose) {
+        setTimeout(function () {
+          _this.close();
+        }, this.autoCloseDelay * 1000);
+      }
+    },
+    updateStyles: function updateStyles() {
+      var _this2 = this;
+
+      this.$nextTick(function () {
+        _this2.$refs.line.style.height = "".concat(_this2.$refs.wrapper.getBoundingClientRect().height, "px");
+      });
+    },
+    close: function close() {
+      this.$el.remove();
+      this.$destroy();
+    },
+    clickClose: function clickClose() {
+      this.close();
+
+      if (this.closeButton && typeof this.closeButton.callback === 'function') {
+        this.closeButton.callback();
+      }
+    }
+  }
 };
 exports.default = _default;
         var $27bbb2 = exports.default || module.exports;
@@ -12755,7 +12816,26 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "toast" }, [_vm._t("default")], 2)
+  return _c("div", { ref: "wrapper", staticClass: "toast" }, [
+    _c(
+      "div",
+      { staticClass: "msg" },
+      [
+        !_vm.enableHtml
+          ? _vm._t("default")
+          : _c("div", { domProps: { innerHTML: _vm._s(_vm.$slots.default) } })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("span", { ref: "line", staticClass: "line" }),
+    _vm._v(" "),
+    _vm.closeButton
+      ? _c("span", { staticClass: "close", on: { click: _vm.clickClose } }, [
+          _vm._v(_vm._s(_vm.closeButton.text))
+        ])
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12804,9 +12884,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _default = {
   install: function install(Vue, options) {
-    Vue.prototype.$toast = function (msg) {
+    Vue.prototype.$toast = function (msg, toastOptions) {
       var Constructor = Vue.extend(_toast.default);
-      var toast = new Constructor();
+      var toast = new Constructor({
+        propsData: toastOptions
+      });
       toast.$slots.default = msg;
       toast.$mount();
       document.body.appendChild(toast.$el);
@@ -12886,9 +12968,15 @@ new _vue.default({
       console.log(value);
     },
     showToast: function showToast() {
-      console.log(1);
-      this.$toast('我是一个Toast');
-      console.log(2);
+      this.$toast('很多', {
+        closeButton: {
+          text: 'Close',
+          callback: function callback() {
+            console.log('close toast');
+          }
+        },
+        enableHtml: true
+      });
     }
   }
 }); // 单元测试

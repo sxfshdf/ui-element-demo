@@ -1102,7 +1102,7 @@
   line-height: 1.6;
   background: rgba(0, 0, 0, 0.75);
   color: #fff;
-  height: 40px;
+  min-height: 40px;
   position: fixed;
   top: 0;
   left: 50%;
@@ -1112,4 +1112,16 @@
   align-items: center;
   border-radius: 4px;
   padding: 0 16px;
+}
+.toast .close[data-v-27bbb2] {
+  flex-shrink: 0;
+}
+.toast .line[data-v-27bbb2] {
+  /*border: 1px solid red;*/
+  margin: 0 16px 0 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  height: 100%;
+}
+.toast .msg[data-v-27bbb2] {
+  padding: 8px 0;
 }

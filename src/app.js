@@ -42,9 +42,15 @@ new Vue({
             console.log(value)
         },
         showToast(){
-            console.log(1)
-            this.$toast('我是一个Toast')
-            console.log(2)
+            this.$toast('很多',{
+                closeButton: {
+                    text: 'Close',
+                    callback: ()=>{
+                        console.log('close toast')
+                    }
+                },
+                enableHtml: true
+            })
         }
 
     }
