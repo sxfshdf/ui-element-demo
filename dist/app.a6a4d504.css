@@ -1097,7 +1097,15 @@
   flex-grow: 1;
 }.g-button[data-v-408b4f] {
   margin: 10px;
-}.toast[data-v-27bbb2] {
+}@keyframes fade-in-data-v-27bbb2 {
+0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+.toast[data-v-27bbb2] {
   font-size: 14px;
   line-height: 1.6;
   background: rgba(0, 0, 0, 0.75);
@@ -1110,6 +1118,7 @@
   align-items: center;
   border-radius: 4px;
   padding: 0 16px;
+  animation: fade-in-data-v-27bbb2 0.3s;
 }
 .toast.position-top[data-v-27bbb2] {
   top: 0;
