@@ -1,5 +1,5 @@
 <template>
-  <div class="toast" ref="wrapper">
+  <div class="toast" ref="wrapper" :class="toastClass">
     <div class="msg">
       <slot v-if="!enableHtml"></slot>
       <div v-else v-html="$slots.default"></div>
@@ -33,11 +33,23 @@
       enableHtml: {
         type: Boolean,
         default: false
+      },
+      position: {
+        type: String,
+        default: 'top',
+        validate(value){
+          return ['top','bottom','middle'].indexOf(vlaue) >= 0
+        }
       }
     },
     mounted(){
       this.updateStyles()
       this.autoCloseToast()
+    },
+    computed: {
+      toastClass(){
+        return [`position-${this.position}`]
+      }
     },
     methods: {
       autoCloseToast(){
@@ -78,14 +90,24 @@
     color: #fff;
     min-height: $toast-min-height;
     position: fixed;
-    top: 0;
     left: 50%;
-    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 4px;
     padding: 0 16px;
+    &.position-top {
+      top: 0;
+      transform: translateX(-50%);
+    }
+    &.position-middle {
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &.position-bottom {
+      bottom: 0;
+      transform: translateX(-50%);
+    }
     .close {
       flex-shrink: 0;
     }

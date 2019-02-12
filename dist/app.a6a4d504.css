@@ -1104,14 +1104,24 @@
   color: #fff;
   min-height: 40px;
   position: fixed;
-  top: 0;
   left: 50%;
-  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 4px;
   padding: 0 16px;
+}
+.toast.position-top[data-v-27bbb2] {
+  top: 0;
+  transform: translateX(-50%);
+}
+.toast.position-middle[data-v-27bbb2] {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.toast.position-bottom[data-v-27bbb2] {
+  bottom: 0;
+  transform: translateX(-50%);
 }
 .toast .close[data-v-27bbb2] {
   flex-shrink: 0;

@@ -12126,13 +12126,13 @@ var _default = {
     justify: {
       type: String,
       validate: function validate(value) {
-        return ['start', 'end', 'center', 'space-between', 'space-around'].includes(value);
+        return ['start', 'end', 'center', 'space-between', 'space-around'].indexOf(value) >= 0;
       }
     },
     align: {
       type: String,
       validate: function validate(value) {
-        return ['top', 'middle', 'bottom'].includes(value);
+        return ['top', 'middle', 'bottom'].indexOf(value) >= 0;
       }
     }
   },
@@ -12767,11 +12767,23 @@ var _default = {
     enableHtml: {
       type: Boolean,
       default: false
+    },
+    position: {
+      type: String,
+      default: 'top',
+      validate: function validate(value) {
+        return ['top', 'bottom', 'middle'].indexOf(vlaue) >= 0;
+      }
     }
   },
   mounted: function mounted() {
     this.updateStyles();
     this.autoCloseToast();
+  },
+  computed: {
+    toastClass: function toastClass() {
+      return ["position-".concat(this.position)];
+    }
   },
   methods: {
     autoCloseToast: function autoCloseToast() {
@@ -12816,26 +12828,30 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { ref: "wrapper", staticClass: "toast" }, [
-    _c(
-      "div",
-      { staticClass: "msg" },
-      [
-        !_vm.enableHtml
-          ? _vm._t("default")
-          : _c("div", { domProps: { innerHTML: _vm._s(_vm.$slots.default) } })
-      ],
-      2
-    ),
-    _vm._v(" "),
-    _c("span", { ref: "line", staticClass: "line" }),
-    _vm._v(" "),
-    _vm.closeButton
-      ? _c("span", { staticClass: "close", on: { click: _vm.clickClose } }, [
-          _vm._v(_vm._s(_vm.closeButton.text))
-        ])
-      : _vm._e()
-  ])
+  return _c(
+    "div",
+    { ref: "wrapper", staticClass: "toast", class: _vm.toastClass },
+    [
+      _c(
+        "div",
+        { staticClass: "msg" },
+        [
+          !_vm.enableHtml
+            ? _vm._t("default")
+            : _c("div", { domProps: { innerHTML: _vm._s(_vm.$slots.default) } })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("span", { ref: "line", staticClass: "line" }),
+      _vm._v(" "),
+      _vm.closeButton
+        ? _c("span", { staticClass: "close", on: { click: _vm.clickClose } }, [
+            _vm._v(_vm._s(_vm.closeButton.text))
+          ])
+        : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12975,7 +12991,8 @@ new _vue.default({
             console.log('close toast');
           }
         },
-        enableHtml: true
+        enableHtml: true,
+        position: 'top'
       });
     }
   }

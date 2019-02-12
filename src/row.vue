@@ -12,13 +12,13 @@
       justify: {
         type: String,
         validate(value) {
-          return ['start','end','center','space-between','space-around'].includes(value)
+          return ['start','end','center','space-between','space-around'].indexOf(value) >= 0
         }
       },
       align: {
         type: String,
         validate(value) {
-          return ['top','middle','bottom'].includes(value)
+          return ['top','middle','bottom'].indexOf(value) >= 0
         }
       }
     },

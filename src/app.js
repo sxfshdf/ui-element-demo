@@ -49,7 +49,8 @@ new Vue({
                         console.log('close toast')
                     }
                 },
-                enableHtml: true
+                enableHtml: true,
+                position: 'top'
             })
         }
 
