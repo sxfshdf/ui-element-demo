@@ -52,7 +52,7 @@ new Vue({
         },
         showToast(position){
             this.$toast('很多',{
-                autoCloseDelay: 2,
+                autoClose: 2,
                 closeButton: {
                     text: 'Close',
                     callback: ()=>{

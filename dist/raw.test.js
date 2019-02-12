@@ -11150,13 +11150,13 @@ var _default = {
     justify: {
       type: String,
       validate: function validate(value) {
-        return ['start', 'end', 'center', 'space-between', 'space-around'].includes(value);
+        return ['start', 'end', 'center', 'space-between', 'space-around'].indexOf(value) >= 0;
       }
     },
     align: {
       type: String,
       validate: function validate(value) {
-        return ['top', 'middle', 'bottom'].includes(value);
+        return ['top', 'middle', 'bottom'].indexOf(value) >= 0;
       }
     }
   },
@@ -11176,7 +11176,6 @@ var _default = {
   mounted: function mounted() {
     var _this = this;
 
-    console.log(this.$children);
     this.$children.forEach(function (vm) {
       vm.gutter = _this.gutter;
     });
