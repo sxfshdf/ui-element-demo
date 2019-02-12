@@ -12804,6 +12804,7 @@ var _default = {
     },
     close: function close() {
       this.$el.remove();
+      this.$emit('close');
       this.$destroy();
     },
     clickClose: function clickClose() {
@@ -12898,20 +12899,42 @@ var _toast = _interopRequireDefault(require("./toast.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var currentToast;
 var _default = {
   install: function install(Vue, options) {
     Vue.prototype.$toast = function (msg, toastOptions) {
-      var Constructor = Vue.extend(_toast.default);
-      var toast = new Constructor({
-        propsData: toastOptions
+      if (currentToast) {
+        currentToast.close();
+      }
+
+      currentToast = createToast({
+        Vue: Vue,
+        msg: msg,
+        propsData: toastOptions,
+        onClose: function onClose() {
+          currentToast = null;
+        }
       });
-      toast.$slots.default = msg;
-      toast.$mount();
-      document.body.appendChild(toast.$el);
     };
   }
 };
 exports.default = _default;
+
+function createToast(_ref) {
+  var Vue = _ref.Vue,
+      msg = _ref.msg,
+      propsData = _ref.propsData,
+      onClose = _ref.onClose;
+  var Constructor = Vue.extend(_toast.default);
+  var toast = new Constructor({
+    propsData: propsData
+  });
+  toast.$slots.default = msg;
+  toast.$mount();
+  this.$on('close', onClose);
+  document.body.appendChild(toast.$el);
+  return toast;
+}
 },{"./toast.vue":"src/toast.vue"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
