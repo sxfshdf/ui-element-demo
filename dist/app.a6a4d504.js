@@ -12733,6 +12733,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
 //
 //
 //
@@ -12782,7 +12787,7 @@ var _default = {
   },
   computed: {
     toastClass: function toastClass() {
-      return ["position-".concat(this.position)];
+      return _defineProperty({}, "position-".concat(this.position), true);
     }
   },
   methods: {
@@ -12799,7 +12804,7 @@ var _default = {
       var _this2 = this;
 
       this.$nextTick(function () {
-        _this2.$refs.line.style.height = "".concat(_this2.$refs.wrapper.getBoundingClientRect().height, "px");
+        _this2.$refs.line.style.height = "".concat(_this2.$refs.toast.getBoundingClientRect().height, "px");
       });
     },
     close: function close() {
@@ -12829,10 +12834,8 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { ref: "wrapper", staticClass: "toast", class: _vm.toastClass },
-    [
+  return _c("div", { staticClass: "wrapper", class: _vm.toastClass }, [
+    _c("div", { ref: "toast", staticClass: "toast" }, [
       _c(
         "div",
         { staticClass: "msg" },
@@ -12851,8 +12854,8 @@ exports.default = _default;
             _vm._v(_vm._s(_vm.closeButton.text))
           ])
         : _vm._e()
-    ]
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12931,7 +12934,7 @@ function createToast(_ref) {
   });
   toast.$slots.default = msg;
   toast.$mount();
-  this.$on('close', onClose);
+  toast.$on('close', onClose);
   document.body.appendChild(toast.$el);
   return toast;
 }
@@ -13006,8 +13009,18 @@ new _vue.default({
     onSearch: function onSearch(value) {
       console.log(value);
     },
-    showToast: function showToast() {
+    showToast1: function showToast1() {
+      this.showToast('top');
+    },
+    showToast2: function showToast2() {
+      this.showToast('middle');
+    },
+    showToast3: function showToast3() {
+      this.showToast('bottom');
+    },
+    showToast: function showToast(position) {
       this.$toast('很多', {
+        autoCloseDelay: 2,
         closeButton: {
           text: 'Close',
           callback: function callback() {
@@ -13015,7 +13028,7 @@ new _vue.default({
           }
         },
         enableHtml: true,
-        position: 'top'
+        position: position
       });
     }
   }

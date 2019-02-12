@@ -41,8 +41,18 @@ new Vue({
         onSearch(value) {
             console.log(value)
         },
-        showToast(){
+        showToast1(){
+            this.showToast('top')
+        },
+        showToast2(){
+            this.showToast('middle')
+        },
+        showToast3(){
+            this.showToast('bottom')
+        },
+        showToast(position){
             this.$toast('很多',{
+                autoCloseDelay: 2,
                 closeButton: {
                     text: 'Close',
                     callback: ()=>{
@@ -50,7 +60,7 @@ new Vue({
                     }
                 },
                 enableHtml: true,
-                position: 'top'
+                position
             })
         }
 
