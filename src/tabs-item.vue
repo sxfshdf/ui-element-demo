@@ -23,7 +23,7 @@
         required: true
       }
     },
-    created() {
+    mounted() {
       this.eventBus.$on('update:selected',(name)=>{
         this.active = this.name === name
       })
@@ -37,7 +37,7 @@
     },
     methods: {
       xxx(){
-        this.eventBus.$emit('update:selected',this.name)
+        this.eventBus.$emit('update:selected',this.name, this)
       }
     }
 
@@ -45,16 +45,34 @@
 </script>
 
 <style scoped lang="scss">
+  $default-color: #333;
+  $active-color: #0080ff;
+  $hover-color: #399cff;
+  *{transition: all 0.3s}
   .tabs-item {
     padding: 0 1em;
+    margin-right: 1em;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid red;
     height: 100%;
     cursor: pointer;
+    color: $default-color;
     &.active {
-      background: #999;
+      color: $active-color;
+      > .g-icon {
+        fill: $active-color
+      }
+    }
+    &:hover {
+      color: $hover-color;
+      > .g-icon{
+        fill: $hover-color
+      }
+    }
+    > .g-icon{
+      margin-right: 0.2em;
+      fill: $default-color
     }
   }
 </style>

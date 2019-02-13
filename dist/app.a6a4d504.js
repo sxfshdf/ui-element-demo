@@ -12981,7 +12981,17 @@ var _default = {
     }
   },
   mounted: function mounted() {
-    this.eventBus.$emit('update:selected', this.selected);
+    var _this = this;
+
+    this.$children.forEach(function (child) {
+      if (child.$options.name === 'g-tabs-head') {
+        child.$children.forEach(function (item) {
+          if (item.$options.name === 'g-tabs-item' && item.name === _this.selected) {
+            _this.eventBus.$emit('update:selected', _this.selected, item);
+          }
+        });
+      }
+    });
   }
 };
 exports.default = _default;
@@ -13048,8 +13058,22 @@ exports.default = void 0;
 //
 //
 //
+//
+//
 var _default = {
-  name: "g-tabs-head"
+  name: "g-tabs-head",
+  inject: ['eventBus'],
+  mounted: function mounted() {
+    var _this = this;
+
+    this.eventBus.$on('update:selected', function (item, vm) {
+      var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
+          width = _vm$$el$getBoundingCl.width;
+
+      _this.$refs.line.style.width = "".concat(width, "px");
+      _this.$refs.line.style.left = "".concat(vm.$el.offsetLeft, "px");
+    });
+  }
 };
 exports.default = _default;
         var $7f9646 = exports.default || module.exports;
@@ -13069,6 +13093,10 @@ exports.default = _default;
     { staticClass: "tabs-head" },
     [
       _vm._t("default"),
+      _vm._v(" "),
+      _c("div", { ref: "line", staticClass: "line" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "line-bg" }),
       _vm._v(" "),
       _c("div", { staticClass: "actions" }, [_vm._t("actions")], 2)
     ],
@@ -13139,7 +13167,7 @@ var _default = {
       required: true
     }
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
     this.eventBus.$on('update:selected', function (name) {
@@ -13155,7 +13183,7 @@ var _default = {
   },
   methods: {
     xxx: function xxx() {
-      this.eventBus.$emit('update:selected', this.name);
+      this.eventBus.$emit('update:selected', this.name, this);
     }
   }
 };
@@ -13331,12 +13359,14 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "tabs-pane", class: _vm.paneClass },
-    [_vm._t("default")],
-    2
-  )
+  return _vm.active
+    ? _c(
+        "div",
+        { staticClass: "tabs-pane", class: _vm.paneClass },
+        [_vm._t("default")],
+        2
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
