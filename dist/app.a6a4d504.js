@@ -12753,7 +12753,7 @@ var _default = {
   name: "g-totast",
   props: {
     autoClose: {
-      type: Boolean,
+      type: Boolean | Number,
       default: 3,
       validator: function validator(value) {
         return value === false || typeof value === 'number';
@@ -13067,6 +13067,8 @@ var _default = {
     var _this = this;
 
     this.eventBus.$on('update:selected', function (item, vm) {
+      if (vm.disabled) return;
+
       var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
           width = _vm$$el$getBoundingCl.width;
 
@@ -13098,7 +13100,7 @@ exports.default = _default;
       _vm._v(" "),
       _c("div", { staticClass: "line-bg" }),
       _vm._v(" "),
-      _c("div", { staticClass: "actions" }, [_vm._t("actions")], 2)
+      _c("div", { staticClass: "actions-wrapper" }, [_vm._t("actions")], 2)
     ],
     2
   )
@@ -13177,12 +13179,14 @@ var _default = {
   computed: {
     itemClass: function itemClass() {
       return {
-        active: this.active
+        active: this.active,
+        disabled: this.disabled
       };
     }
   },
   methods: {
-    xxx: function xxx() {
+    changeTab: function changeTab() {
+      if (this.disabled) return;
       this.eventBus.$emit('update:selected', this.name, this);
     }
   }
@@ -13202,7 +13206,11 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "tabs-item", class: _vm.itemClass, on: { click: _vm.xxx } },
+    {
+      staticClass: "tabs-item",
+      class: _vm.itemClass,
+      on: { click: _vm.changeTab }
+    },
     [_vm._t("default")],
     2
   )

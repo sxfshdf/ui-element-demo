@@ -1210,7 +1210,7 @@
   width: 100%;
   background: #eee;
 }
-.tabs-head > .actions[data-v-7f9646] {
+.tabs-head > .actions-wrapper[data-v-7f9646] {
   margin-left: auto;
 }*[data-v-707953] {
   transition: all 0.3s;
@@ -1240,6 +1240,13 @@
 .tabs-item > .g-icon[data-v-707953] {
   margin-right: 0.2em;
   fill: #333;
+}
+.tabs-item.disabled[data-v-707953] {
+  color: rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
+}
+.tabs-item.disabled > .g-icon[data-v-707953] {
+  fill: rgba(0, 0, 0, 0.25);
 }.tabs-pane[data-v-373bac] {
   padding: 1em;
 }

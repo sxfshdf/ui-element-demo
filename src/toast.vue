@@ -16,7 +16,7 @@
     name: "g-totast",
     props: {
       autoClose: {
-        type: Boolean,
+        type: Boolean | Number,
         default: 3,
         validator(value) {
           return value === false || typeof value === 'number'

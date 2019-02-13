@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-item" @click="xxx" :class="itemClass">
+  <div class="tabs-item" @click="changeTab" :class="itemClass">
     <slot></slot>
   </div>
 </template>
@@ -31,12 +31,14 @@
     computed: {
       itemClass(){
         return {
-          active: this.active
+          active: this.active,
+          disabled: this.disabled
         }
       }
     },
     methods: {
-      xxx(){
+      changeTab(){
+        if(this.disabled) return
         this.eventBus.$emit('update:selected',this.name, this)
       }
     }
@@ -48,6 +50,7 @@
   $default-color: #333;
   $active-color: #0080ff;
   $hover-color: #399cff;
+  $disabled-color: rgba(0,0,0,0.25);
   *{transition: all 0.3s}
   .tabs-item {
     padding: 0 1em;
@@ -73,6 +76,13 @@
     > .g-icon{
       margin-right: 0.2em;
       fill: $default-color
+    }
+    &.disabled {
+      color: $disabled-color;
+      cursor: not-allowed;
+      > .g-icon {
+        fill: $disabled-color
+      }
     }
   }
 </style>

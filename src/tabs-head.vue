@@ -3,7 +3,7 @@
     <slot></slot>
     <div class="line" ref="line"></div>
     <div class="line-bg"></div>
-    <div class="actions">
+    <div class="actions-wrapper">
       <slot name="actions"></slot>
     </div>
   </div>
@@ -15,6 +15,7 @@
     inject: ['eventBus'],
     mounted(){
       this.eventBus.$on('update:selected',(item, vm)=>{
+        if(vm.disabled) return
         let {width} = vm.$el.getBoundingClientRect()
         this.$refs.line.style.width = `${width}px`
         this.$refs.line.style.left = `${vm.$el.offsetLeft}px`
@@ -50,7 +51,7 @@
       width: 100%;
       background: $line-bg-color;
     }
-    > .actions {
+    > .actions-wrapper {
       margin-left: auto;
     }
   }
