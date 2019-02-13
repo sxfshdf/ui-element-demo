@@ -16,18 +16,21 @@
     },
     data(){
       return {
-        active: false
+        active: false,
+        direction: ''
       }
     },
     created(){
-      this.eventBus.$on('update:selected',(name)=>{
+      this.eventBus.$on('update:selected',(name, vm, direction)=>{
         this.active = this.name === name
+        this.direction = direction
       })
     },
     computed: {
       paneClass(){
         return {
-          active: this.active
+          active: this.active,
+          [`${this.direction}`]: true
         }
       }
     }
@@ -36,9 +39,12 @@
 
 <style scoped lang="scss">
   .tabs-pane {
-    padding: 1em;
-    &.active {
 
+    &.horizontal {
+      padding: 1em;
+    }
+    &.vertical {
+      padding: 0.5em 2em;
     }
   }
 </style>

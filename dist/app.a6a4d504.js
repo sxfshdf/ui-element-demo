@@ -12987,11 +12987,16 @@ var _default = {
       if (child.$options.name === 'g-tabs-head') {
         child.$children.forEach(function (item) {
           if (item.$options.name === 'g-tabs-item' && item.name === _this.selected) {
-            _this.eventBus.$emit('update:selected', _this.selected, item);
+            _this.eventBus.$emit('update:selected', _this.selected, item, _this.direction);
           }
         });
       }
     });
+  },
+  computed: {
+    tabsClass: function tabsClass() {
+      return [this.direction];
+    }
   }
 };
 exports.default = _default;
@@ -13007,7 +13012,12 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "tabs" }, [_vm._t("default")], 2)
+  return _c(
+    "div",
+    { staticClass: "tabs", class: _vm.tabsClass },
+    [_vm._t("default")],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13063,18 +13073,33 @@ exports.default = void 0;
 var _default = {
   name: "g-tabs-head",
   inject: ['eventBus'],
+  data: function data() {
+    return {
+      direction: ''
+    };
+  },
   mounted: function mounted() {
     var _this = this;
 
-    this.eventBus.$on('update:selected', function (item, vm) {
+    this.eventBus.$on('update:selected', function (item, vm, direction) {
+      _this.direction = direction;
       if (vm.disabled) return;
 
-      var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
-          width = _vm$$el$getBoundingCl.width;
+      if (direction === 'vertical') {
+        _this.$refs.line.style.top = "".concat(vm.$el.offsetTop, "px");
+      } else {
+        var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
+            width = _vm$$el$getBoundingCl.width;
 
-      _this.$refs.line.style.width = "".concat(width, "px");
-      _this.$refs.line.style.left = "".concat(vm.$el.offsetLeft, "px");
+        _this.$refs.line.style.width = "".concat(width, "px");
+        _this.$refs.line.style.left = "".concat(vm.$el.offsetLeft, "px");
+      }
     });
+  },
+  computed: {
+    headClass: function headClass() {
+      return [this.direction];
+    }
   }
 };
 exports.default = _default;
@@ -13092,7 +13117,7 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "tabs-head" },
+    { staticClass: "tabs-head", class: _vm.headClass },
     [
       _vm._t("default"),
       _vm._v(" "),
@@ -13145,6 +13170,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -13156,7 +13184,8 @@ var _default = {
   inject: ['eventBus'],
   data: function data() {
     return {
-      active: false
+      active: false,
+      direction: ''
     };
   },
   props: {
@@ -13172,22 +13201,23 @@ var _default = {
   mounted: function mounted() {
     var _this = this;
 
-    this.eventBus.$on('update:selected', function (name) {
+    this.eventBus.$on('update:selected', function (name, vm, direction) {
       _this.active = _this.name === name;
+      _this.direction = direction;
     });
   },
   computed: {
     itemClass: function itemClass() {
-      return {
+      return _defineProperty({
         active: this.active,
         disabled: this.disabled
-      };
+      }, "".concat(this.direction), true);
     }
   },
   methods: {
     changeTab: function changeTab() {
       if (this.disabled) return;
-      this.eventBus.$emit('update:selected', this.name, this);
+      this.eventBus.$emit('update:selected', this.name, this, this.direction);
     }
   }
 };
@@ -13319,6 +13349,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -13336,21 +13369,23 @@ var _default = {
   },
   data: function data() {
     return {
-      active: false
+      active: false,
+      direction: ''
     };
   },
   created: function created() {
     var _this = this;
 
-    this.eventBus.$on('update:selected', function (name) {
+    this.eventBus.$on('update:selected', function (name, vm, direction) {
       _this.active = _this.name === name;
+      _this.direction = direction;
     });
   },
   computed: {
     paneClass: function paneClass() {
-      return {
+      return _defineProperty({
         active: this.active
-      };
+      }, "".concat(this.direction), true);
     }
   }
 };

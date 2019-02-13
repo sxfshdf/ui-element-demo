@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs">
+  <div class="tabs" :class="tabsClass">
     <slot></slot>
   </div>
 </template>
@@ -37,15 +37,24 @@
         if(child.$options.name === 'g-tabs-head'){
           child.$children.forEach(item=>{
             if(item.$options.name === 'g-tabs-item' && item.name === this.selected){
-              this.eventBus.$emit('update:selected',this.selected, item)
+              this.eventBus.$emit('update:selected',this.selected, item, this.direction)
             }
           })
         }
       })
+    },
+    computed: {
+      tabsClass(){
+        return [this.direction]
+      }
     }
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  .tabs{
+    &.vertical{
+      display: flex;
+    }
+  }
 </style>

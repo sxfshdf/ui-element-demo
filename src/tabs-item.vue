@@ -10,7 +10,8 @@
     inject: ['eventBus'],
     data(){
       return {
-        active: false
+        active: false,
+        direction: ''
       }
     },
     props: {
@@ -24,22 +25,24 @@
       }
     },
     mounted() {
-      this.eventBus.$on('update:selected',(name)=>{
+      this.eventBus.$on('update:selected',(name,vm,direction)=>{
         this.active = this.name === name
+        this.direction = direction
       })
     },
     computed: {
       itemClass(){
         return {
           active: this.active,
-          disabled: this.disabled
+          disabled: this.disabled,
+          [`${this.direction}`]: true
         }
       }
     },
     methods: {
       changeTab(){
         if(this.disabled) return
-        this.eventBus.$emit('update:selected',this.name, this)
+        this.eventBus.$emit('update:selected',this.name, this, this.direction)
       }
     }
 
@@ -51,16 +54,25 @@
   $active-color: #0080ff;
   $hover-color: #399cff;
   $disabled-color: rgba(0,0,0,0.25);
+  $tab-height: 40px;
   *{transition: all 0.3s}
   .tabs-item {
-    padding: 0 1em;
-    margin-right: 1em;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
     cursor: pointer;
     color: $default-color;
+    /*border: 1px solid red;*/
+    &.horizontal {
+      padding: 0 1em;
+      margin-right: 1em;
+      height: 100%;
+    }
+    &.vertical {
+      height: $tab-height;
+      padding: 0 2em;
+      margin-bottom: 1em;
+    }
     &.active {
       color: $active-color;
       > .g-icon {
