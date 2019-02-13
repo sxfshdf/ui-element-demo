@@ -12944,6 +12944,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _vue = _interopRequireDefault(require("vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 //
 //
 //
@@ -12951,7 +12956,33 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: "g-tabs"
+  name: "g-tabs",
+  data: function data() {
+    return {
+      eventBus: new _vue.default()
+    };
+  },
+  provide: function provide() {
+    return {
+      eventBus: this.eventBus
+    };
+  },
+  props: {
+    selected: {
+      type: String,
+      required: true
+    },
+    direction: {
+      type: String,
+      default: 'horizontal',
+      validator: function validator(value) {
+        return ['horizontal', 'vertical'].indexOf(value) >= 0;
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.eventBus.$emit('update:selected', this.selected);
+  }
 };
 exports.default = _default;
         var $d11285 = exports.default || module.exports;
@@ -13001,13 +13032,16 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/tabs-head.vue":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.common.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js"}],"src/tabs-head.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+//
+//
+//
 //
 //
 //
@@ -13030,7 +13064,16 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "tabs-head" }, [_vm._t("default")], 2)
+  return _c(
+    "div",
+    { staticClass: "tabs-head" },
+    [
+      _vm._t("default"),
+      _vm._v(" "),
+      _c("div", { staticClass: "actions" }, [_vm._t("actions")], 2)
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13079,7 +13122,42 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: "g-tabs-item"
+  name: "g-tabs-item",
+  inject: ['eventBus'],
+  data: function data() {
+    return {
+      active: false
+    };
+  },
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    name: {
+      type: [String, Number],
+      required: true
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    this.eventBus.$on('update:selected', function (name) {
+      _this.active = _this.name === name;
+    });
+  },
+  computed: {
+    itemClass: function itemClass() {
+      return {
+        active: this.active
+      };
+    }
+  },
+  methods: {
+    xxx: function xxx() {
+      this.eventBus.$emit('update:selected', this.name);
+    }
+  }
 };
 exports.default = _default;
         var $707953 = exports.default || module.exports;
@@ -13094,7 +13172,12 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "tabs-item" }, [_vm._t("default")], 2)
+  return _c(
+    "div",
+    { staticClass: "tabs-item", class: _vm.itemClass, on: { click: _vm.xxx } },
+    [_vm._t("default")],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13207,7 +13290,33 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: "g-tabs-pane"
+  name: "g-tabs-pane",
+  inject: ['eventBus'],
+  props: {
+    name: {
+      type: [String, Number],
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      active: false
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.eventBus.$on('update:selected', function (name) {
+      _this.active = _this.name === name;
+    });
+  },
+  computed: {
+    paneClass: function paneClass() {
+      return {
+        active: this.active
+      };
+    }
+  }
 };
 exports.default = _default;
         var $373bac = exports.default || module.exports;
@@ -13222,7 +13331,12 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "tabs-pane" }, [_vm._t("default")], 2)
+  return _c(
+    "div",
+    { staticClass: "tabs-pane", class: _vm.paneClass },
+    [_vm._t("default")],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13339,6 +13453,7 @@ _vue.default.use(_plugin.default);
 new _vue.default({
   el: "#app",
   data: {
+    selectedTab: 'sport',
     loading1: false,
     loading2: false,
     msg: ''

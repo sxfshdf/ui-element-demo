@@ -1187,4 +1187,26 @@
 }
 .toast .msg[data-v-27bbb2] {
   padding: 8px 0;
+}.tabs-head[data-v-7f9646] {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid red;
+  height: 40px;
+}
+.tabs-head > .actions[data-v-7f9646] {
+  margin-left: auto;
+}.tabs-item[data-v-707953] {
+  padding: 0 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid red;
+  height: 100%;
+  cursor: pointer;
+}
+.tabs-item.active[data-v-707953] {
+  background: #999;
+}.tabs-pane.active[data-v-373bac] {
+  background: #999;
 }
