@@ -11277,7 +11277,7 @@ describe('Toast', function () {
       done();
     });
   });
-  it('接收 closeButton', function () {
+  it('接收 closeButton', function (done) {
     var callback = sinon.fake();
 
     var Constructor = _vue.default.extend(_toast.default);
@@ -11292,8 +11292,11 @@ describe('Toast', function () {
     }).$mount();
     var closeButton = vm.$el.querySelector('.close');
     expect(closeButton.textContent.trim()).to.equal('知道了');
-    closeButton.click();
-    expect(callback).to.have.been.called;
+    setTimeout(function () {
+      closeButton.click();
+      expect(callback).to.have.been.called;
+      done();
+    }, 300);
   });
   it('接收 enableHtml', function () {
     var Constructor = _vue.default.extend(_toast.default);
