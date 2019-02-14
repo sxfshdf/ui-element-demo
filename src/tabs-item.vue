@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-item" @click="changeTab" :class="itemClass">
+  <div class="tabs-item" @click="changeTab" :class="itemClass" :data-name="name">
     <slot></slot>
   </div>
 </template>
@@ -25,10 +25,12 @@
       }
     },
     mounted() {
-      this.eventBus.$on('update:selected',(name,vm,direction)=>{
-        this.active = this.name === name
-        this.direction = direction
-      })
+      if(this.eventBus){
+        this.eventBus.$on('update:selected',(name,vm,direction)=>{
+          this.active = this.name === name
+          this.direction = direction
+        })
+      }
     },
     computed: {
       itemClass(){
@@ -42,7 +44,8 @@
     methods: {
       changeTab(){
         if(this.disabled) return
-        this.eventBus.$emit('update:selected',this.name, this, this.direction)
+        this.eventBus && this.eventBus.$emit('update:selected',this.name, this, this.direction)
+        this.$emit('click',this) // 测试使用
       }
     }
 

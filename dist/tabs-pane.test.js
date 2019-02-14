@@ -11130,7 +11130,165 @@ function getOuterHTML(el) {
 
 Vue.compile = compileToFunctions;
 module.exports = Vue;
-},{}],"dgLN":[function(require,module,exports) {
+},{}],"n6Xd":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _vue = _interopRequireDefault(require("vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "g-tabs",
+  data: function data() {
+    return {
+      eventBus: new _vue.default()
+    };
+  },
+  provide: function provide() {
+    return {
+      eventBus: this.eventBus
+    };
+  },
+  props: {
+    selected: {
+      type: String,
+      required: true
+    },
+    direction: {
+      type: String,
+      default: 'horizontal',
+      validator: function validator(value) {
+        return ['horizontal', 'vertical'].indexOf(value) >= 0;
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    if (this.$children.length === 0) {
+      console && console.warn && console.warn('tabs的子组件应该是tabs-head和tabs-body，但你没有写子组件');
+    }
+
+    this.$children.forEach(function (child) {
+      if (child.$options.name === 'g-tabs-head') {
+        child.$children.forEach(function (item) {
+          if (item.$options.name === 'g-tabs-item' && item.name === _this.selected) {
+            _this.eventBus.$emit('update:selected', _this.selected, item, _this.direction);
+          }
+        });
+      }
+    });
+  },
+  computed: {
+    tabsClass: function tabsClass() {
+      return [this.direction];
+    }
+  }
+};
+exports.default = _default;
+        var $d11285 = exports.default || module.exports;
+      
+      if (typeof $d11285 === 'function') {
+        $d11285 = $d11285.options;
+      }
+    
+        /* template */
+        Object.assign($d11285, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs",class:_vm.tabsClass},[_vm._t("default")],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-d11285",
+            functional: undefined
+          };
+        })());
+      
+},{"vue":"ApMz"}],"Q07j":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "g-tabs-head",
+  inject: ['eventBus'],
+  data: function data() {
+    return {
+      direction: ''
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.eventBus.$on('update:selected', function (item, vm, direction) {
+      _this.direction = direction;
+      if (vm.disabled) return;
+
+      if (direction === 'vertical') {
+        _this.$refs.line.style.top = "".concat(vm.$el.offsetTop, "px");
+      } else {
+        var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
+            width = _vm$$el$getBoundingCl.width;
+
+        _this.$refs.line.style.width = "".concat(width, "px");
+        _this.$refs.line.style.left = "".concat(vm.$el.offsetLeft, "px");
+      }
+    });
+  },
+  computed: {
+    headClass: function headClass() {
+      return [this.direction];
+    }
+  }
+};
+exports.default = _default;
+        var $7f9646 = exports.default || module.exports;
+      
+      if (typeof $7f9646 === 'function') {
+        $7f9646 = $7f9646.options;
+      }
+    
+        /* template */
+        Object.assign($7f9646, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs-head",class:_vm.headClass},[_vm._t("default"),_vm._v(" "),_c('div',{ref:"line",staticClass:"line"}),_vm._v(" "),_c('div',{staticClass:"line-bg"}),_vm._v(" "),_c('div',{staticClass:"actions-wrapper"},[_vm._t("actions")],2)],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-7f9646",
+            functional: undefined
+          };
+        })());
+      
+},{}],"albi":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11146,7 +11304,79 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
+var _default = {
+  name: "g-tabs-item",
+  inject: ['eventBus'],
+  data: function data() {
+    return {
+      active: false,
+      direction: ''
+    };
+  },
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    name: {
+      type: [String, Number],
+      required: true
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    if (this.eventBus) {
+      this.eventBus.$on('update:selected', function (name, vm, direction) {
+        _this.active = _this.name === name;
+        _this.direction = direction;
+      });
+    }
+  },
+  computed: {
+    itemClass: function itemClass() {
+      return _defineProperty({
+        active: this.active,
+        disabled: this.disabled
+      }, "".concat(this.direction), true);
+    }
+  },
+  methods: {
+    changeTab: function changeTab() {
+      if (this.disabled) return;
+      this.eventBus && this.eventBus.$emit('update:selected', this.name, this, this.direction);
+      this.$emit('click', this); // 测试使用
+    }
+  }
+};
+exports.default = _default;
+        var $707953 = exports.default || module.exports;
+      
+      if (typeof $707953 === 'function') {
+        $707953 = $707953.options;
+      }
+    
+        /* template */
+        Object.assign($707953, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs-item",class:_vm.itemClass,attrs:{"data-name":_vm.name},on:{"click":_vm.changeTab}},[_vm._t("default")],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-707953",
+            functional: undefined
+          };
+        })());
+      
+},{}],"Ydtc":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 //
 //
 //
@@ -11154,173 +11384,144 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 var _default = {
-  name: "g-totast",
-  props: {
-    autoClose: {
-      type: Boolean | Number,
-      default: 3,
-      validator: function validator(value) {
-        return value === false || typeof value === 'number';
-      }
-    },
-    closeButton: {
-      type: Object,
-      default: function _default() {
-        return {
-          text: '关闭',
-          callback: undefined
-        };
-      }
-    },
-    enableHtml: {
-      type: Boolean,
-      default: false
-    },
-    position: {
-      type: String,
-      default: 'top',
-      validate: function validate(value) {
-        return ['top', 'bottom', 'middle'].indexOf(vlaue) >= 0;
-      }
-    }
-  },
-  mounted: function mounted() {
-    this.updateStyles();
-    this.autoCloseToast();
-  },
-  computed: {
-    toastClass: function toastClass() {
-      return _defineProperty({}, "position-".concat(this.position), true);
-    }
-  },
-  methods: {
-    autoCloseToast: function autoCloseToast() {
-      var _this = this;
-
-      if (this.autoClose) {
-        setTimeout(function () {
-          _this.close();
-        }, this.autoClose * 1000);
-      }
-    },
-    updateStyles: function updateStyles() {
-      var _this2 = this;
-
-      this.$nextTick(function () {
-        _this2.$refs.line.style.height = "".concat(_this2.$refs.toast.getBoundingClientRect().height, "px");
-      });
-    },
-    close: function close() {
-      this.$el.remove();
-      this.$emit('close');
-      this.$destroy();
-    },
-    clickClose: function clickClose() {
-      this.close();
-
-      if (this.closeButton && typeof this.closeButton.callback === 'function') {
-        this.closeButton.callback();
-      }
-    }
-  }
+  name: "g-tabs-body"
 };
 exports.default = _default;
-        var $27bbb2 = exports.default || module.exports;
+        var $83217f = exports.default || module.exports;
       
-      if (typeof $27bbb2 === 'function') {
-        $27bbb2 = $27bbb2.options;
+      if (typeof $83217f === 'function') {
+        $83217f = $83217f.options;
       }
     
         /* template */
-        Object.assign($27bbb2, (function () {
-          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper",class:_vm.toastClass},[_c('div',{ref:"toast",staticClass:"toast"},[_c('div',{staticClass:"msg"},[(!_vm.enableHtml)?_vm._t("default"):_c('div',{domProps:{"innerHTML":_vm._s(_vm.$slots.default)}})],2),_vm._v(" "),_c('span',{ref:"line",staticClass:"line"}),_vm._v(" "),(_vm.closeButton)?_c('span',{staticClass:"close",on:{"click":_vm.clickClose}},[_vm._v(_vm._s(_vm.closeButton.text))]):_vm._e()])])}
+        Object.assign($83217f, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs-body"},[_vm._t("default")],2)}
 var staticRenderFns = []
 
           return {
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-27bbb2",
+            _scopeId: "data-v-83217f",
             functional: undefined
           };
         })());
       
-},{}],"jRN6":[function(require,module,exports) {
+},{}],"vREI":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "g-tabs-pane",
+  inject: ['eventBus'],
+  props: {
+    name: {
+      type: [String, Number],
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      active: false,
+      direction: ''
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    if (this.eventBus) {
+      this.eventBus.$on('update:selected', function (name, vm, direction) {
+        _this.active = _this.name === name;
+        _this.direction = direction;
+      });
+    }
+  },
+  computed: {
+    paneClass: function paneClass() {
+      return _defineProperty({
+        active: this.active
+      }, "".concat(this.direction), true);
+    }
+  }
+};
+exports.default = _default;
+        var $373bac = exports.default || module.exports;
+      
+      if (typeof $373bac === 'function') {
+        $373bac = $373bac.options;
+      }
+    
+        /* template */
+        Object.assign($373bac, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.active)?_c('div',{staticClass:"tabs-pane",class:_vm.paneClass,attrs:{"data-name":_vm.name}},[_vm._t("default")],2):_vm._e()}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-373bac",
+            functional: undefined
+          };
+        })());
+      
+},{}],"5HzD":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
 
-var _toast = _interopRequireDefault(require("../src/toast"));
+var _tabs = _interopRequireDefault(require("../src/tabs.vue"));
+
+var _tabsHead = _interopRequireDefault(require("../src/tabs-head.vue"));
+
+var _tabsItem = _interopRequireDefault(require("../src/tabs-item.vue"));
+
+var _tabsBody = _interopRequireDefault(require("../src/tabs-body.vue"));
+
+var _tabsPane = _interopRequireDefault(require("../src/tabs-pane.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var expect = chai.expect;
+
+_vue.default.component('g-tabs', _tabs.default);
+
+_vue.default.component('g-tabs-head', _tabsHead.default);
+
+_vue.default.component('g-tabs-item', _tabsItem.default);
+
+_vue.default.component('g-tabs-body', _tabsBody.default);
+
+_vue.default.component('g-tabs-pane', _tabsPane.default);
+
 _vue.default.config.productionTip = false;
 _vue.default.config.devtools = false;
-describe('Toast', function () {
+describe('TabsPane', function () {
   it('存在.', function () {
-    expect(_toast.default).to.be.ok;
+    expect(_tabsPane.default).to.exist;
   });
-  it('接收 autoClose', function (done) {
-    var div = document.createElement(div);
-    document.body.appendChild(div);
-
-    var Constructor = _vue.default.extend(_toast.default);
+  it('接收 name', function () {
+    var Constructor = _vue.default.extend(_tabsItem.default);
 
     var vm = new Constructor({
       propsData: {
-        autoClose: 1
-      }
-    }).$mount(div);
-    vm.$on('close', function () {
-      expect(document.body.contains(vm.$el)).to.equal(false);
-      done();
-    });
-  });
-  it('接收 closeButton', function (done) {
-    var callback = sinon.fake();
-
-    var Constructor = _vue.default.extend(_toast.default);
-
-    var vm = new Constructor({
-      propsData: {
-        closeButton: {
-          text: '知道了',
-          callback: callback
-        }
+        name: 'sport'
       }
     }).$mount();
-    var closeButton = vm.$el.querySelector('.close');
-    expect(closeButton.textContent.trim()).to.equal('知道了');
-    setTimeout(function () {
-      closeButton.click();
-      expect(callback).to.have.been.called;
-      done();
-    }, 300);
-  });
-  it('接收 enableHtml', function () {
-    var Constructor = _vue.default.extend(_toast.default);
-
-    var vm = new Constructor({
-      propsData: {
-        enableHtml: true
-      }
-    });
-    vm.$slots.default = '<strong id="test">hello</strong>';
-    vm.$mount();
-    var strong = vm.$el.querySelector('#test');
-    expect(strong).to.be.exist;
-  });
-  it('接收 position', function () {
-    var Constructor = _vue.default.extend(_toast.default);
-
-    var vm = new Constructor({
-      propsData: {
-        position: 'bottom'
-      }
-    }).$mount();
-    expect(vm.$el.classList.contains('position-bottom')).to.eq(true);
+    expect(vm.$el.getAttribute('data-name')).to.be.eq('sport');
   });
 });
-},{"vue":"ApMz","../src/toast":"dgLN"}]},{},["jRN6"], null)
-//# sourceMappingURL=/toast.test.map
+},{"vue":"ApMz","../src/tabs.vue":"n6Xd","../src/tabs-head.vue":"Q07j","../src/tabs-item.vue":"albi","../src/tabs-body.vue":"Ydtc","../src/tabs-pane.vue":"vREI"}]},{},["5HzD"], null)
+//# sourceMappingURL=/tabs-pane.test.map

@@ -12983,6 +12983,10 @@ var _default = {
   mounted: function mounted() {
     var _this = this;
 
+    if (this.$children.length === 0) {
+      console && console.warn && console.warn('tabs的子组件应该是tabs-head和tabs-body，但你没有写子组件');
+    }
+
     this.$children.forEach(function (child) {
       if (child.$options.name === 'g-tabs-head') {
         child.$children.forEach(function (item) {
@@ -13201,10 +13205,12 @@ var _default = {
   mounted: function mounted() {
     var _this = this;
 
-    this.eventBus.$on('update:selected', function (name, vm, direction) {
-      _this.active = _this.name === name;
-      _this.direction = direction;
-    });
+    if (this.eventBus) {
+      this.eventBus.$on('update:selected', function (name, vm, direction) {
+        _this.active = _this.name === name;
+        _this.direction = direction;
+      });
+    }
   },
   computed: {
     itemClass: function itemClass() {
@@ -13217,7 +13223,8 @@ var _default = {
   methods: {
     changeTab: function changeTab() {
       if (this.disabled) return;
-      this.eventBus.$emit('update:selected', this.name, this, this.direction);
+      this.eventBus && this.eventBus.$emit('update:selected', this.name, this, this.direction);
+      this.$emit('click', this); // 测试使用
     }
   }
 };
@@ -13239,6 +13246,7 @@ exports.default = _default;
     {
       staticClass: "tabs-item",
       class: _vm.itemClass,
+      attrs: { "data-name": _vm.name },
       on: { click: _vm.changeTab }
     },
     [_vm._t("default")],
@@ -13376,10 +13384,12 @@ var _default = {
   created: function created() {
     var _this = this;
 
-    this.eventBus.$on('update:selected', function (name, vm, direction) {
-      _this.active = _this.name === name;
-      _this.direction = direction;
-    });
+    if (this.eventBus) {
+      this.eventBus.$on('update:selected', function (name, vm, direction) {
+        _this.active = _this.name === name;
+        _this.direction = direction;
+      });
+    }
   },
   computed: {
     paneClass: function paneClass() {
@@ -13405,7 +13415,11 @@ exports.default = _default;
   return _vm.active
     ? _c(
         "div",
-        { staticClass: "tabs-pane", class: _vm.paneClass },
+        {
+          staticClass: "tabs-pane",
+          class: _vm.paneClass,
+          attrs: { "data-name": _vm.name }
+        },
         [_vm._t("default")],
         2
       )

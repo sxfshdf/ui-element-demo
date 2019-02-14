@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-pane" :class="paneClass" v-if="active">
+  <div class="tabs-pane" :class="paneClass" v-if="active" :data-name="name">
     <slot></slot>
   </div>
 </template>
@@ -21,10 +21,12 @@
       }
     },
     created(){
-      this.eventBus.$on('update:selected',(name, vm, direction)=>{
-        this.active = this.name === name
-        this.direction = direction
-      })
+      if(this.eventBus){
+        this.eventBus.$on('update:selected',(name, vm, direction)=>{
+          this.active = this.name === name
+          this.direction = direction
+        })
+      }
     },
     computed: {
       paneClass(){
