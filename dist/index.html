@@ -48,12 +48,30 @@
 <body>
 
 <div id="app">
-    <div style="padding-top: 100px; padding-left: 50px; border: 1px solid red;" @click="yyy">
+    <div style="padding-top: 100px; padding-left: 50px;" @click="yyy">
         <g-popover>
             <template slot="content">
-                <div>hahaha</div>
+                <div>我是 Popover</div>
             </template>
-            <button>点击</button>
+            <g-button>点击</g-button>
+        </g-popover>
+        <g-popover position="bottom">
+            <template slot="content">
+                <div>我是 Popover</div>
+            </template>
+            <g-button>点击</g-button>
+        </g-popover>
+        <g-popover position="left">
+            <template slot="content">
+                <div>我是 Popover</div>
+            </template>
+            <g-button>点击</g-button>
+        </g-popover>
+        <g-popover position="right">
+            <template slot="content">
+                <div>我是 Popover</div>
+            </template>
+            <g-button>点击</g-button>
         </g-popover>
     </div>
 

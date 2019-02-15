@@ -1,8 +1,8 @@
 <template>
   <div class="tabs-head" :class="headClass">
     <slot></slot>
-    <div class="line" ref="line"></div>
     <div class="line-bg"></div>
+    <div class="line" ref="line"></div>
     <div class="actions-wrapper">
       <slot name="actions"></slot>
     </div>
@@ -55,15 +55,6 @@
       > .actions-wrapper {
         margin-left: auto;
       }
-      > .line {
-        position: absolute;
-        bottom: 0;
-        height: 2px;
-        background: $line-selected-color;
-        z-index: 1;
-        border-radius: 1px;
-        transition: all 0.3s;
-      }
       > .line-bg {
         position: absolute;
         bottom: 0;
@@ -71,26 +62,36 @@
         width: 100%;
         background: $line-bg-color;
       }
+      > .line {
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        background: $line-selected-color;
+        /*z-index: 1;*/
+        border-radius: 1px;
+        transition: all 0.3s;
+      }
     }
     &.vertical{
       flex-direction: column;
       align-items: center;
-      > .line {
-        position: absolute;
-        right: 0;
-        height: $tab-height;
-        width: 2px;
-        background: $line-selected-color;
-        z-index: 1;
-        border-radius: 1px;
-        transition: all 0.3s;
-      }
+
       > .line-bg {
         position: absolute;
         right: 0;
         height: 100%;
         width: 2px;
         background: $line-bg-color;
+      }
+      > .line {
+        position: absolute;
+        right: 0;
+        height: $tab-height;
+        width: 2px;
+        background: $line-selected-color;
+        /*z-index: 1;*/
+        border-radius: 1px;
+        transition: all 0.3s;
       }
     }
 

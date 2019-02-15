@@ -13125,9 +13125,9 @@ exports.default = _default;
     [
       _vm._t("default"),
       _vm._v(" "),
-      _c("div", { ref: "line", staticClass: "line" }),
-      _vm._v(" "),
       _c("div", { staticClass: "line-bg" }),
+      _vm._v(" "),
+      _c("div", { ref: "line", staticClass: "line" }),
       _vm._v(" "),
       _c("div", { staticClass: "actions-wrapper" }, [_vm._t("actions")], 2)
     ],
@@ -13476,8 +13476,18 @@ exports.default = void 0;
 //
 //
 //
+//
 var _default = {
   name: "popover",
+  props: {
+    position: {
+      type: String,
+      default: 'top',
+      validator: function validator(value) {
+        return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0;
+      }
+    }
+  },
   data: function data() {
     return {
       visible: false
@@ -13485,26 +13495,49 @@ var _default = {
   },
   methods: {
     positionContent: function positionContent() {
-      // 将popover内容放到body最后，解决父元素有overflow时不显示的bug
-      document.body.appendChild(this.$refs.contentWrapper); // 获取 trigger 位置信息
+      var _this$$refs = this.$refs,
+          contentWrapper = _this$$refs.contentWrapper,
+          triggerWrapper = _this$$refs.triggerWrapper; // 将popover内容放到body最后，解决父元素有overflow时不显示的bug
 
-      var _this$$refs$triggerWr = this.$refs.triggerWrapper.getBoundingClientRect(),
-          height = _this$$refs$triggerWr.height,
-          width = _this$$refs$triggerWr.width,
-          left = _this$$refs$triggerWr.left,
-          top = _this$$refs$triggerWr.top; // 设置 popover 浮层位置
+      document.body.appendChild(contentWrapper); // 获取 trigger 位置信息
+
+      var _triggerWrapper$getBo = triggerWrapper.getBoundingClientRect(),
+          height = _triggerWrapper$getBo.height,
+          width = _triggerWrapper$getBo.width,
+          left = _triggerWrapper$getBo.left,
+          top = _triggerWrapper$getBo.top; // 设置 popover 浮层位置
 
 
-      this.$refs.contentWrapper.style.top = top + window.scrollY + 'px';
-      this.$refs.contentWrapper.style.left = left + window.scrollX + 'px';
+      if (this.position === 'top') {
+        contentWrapper.style.top = top + window.scrollY + 'px';
+        contentWrapper.style.left = left + window.scrollX + 'px';
+      } else if (this.position === 'bottom') {
+        contentWrapper.style.top = top + height + window.scrollY + 'px';
+        contentWrapper.style.left = left + window.scrollX + 'px';
+      } else if (this.position === 'left') {
+        var _contentWrapper$getBo = contentWrapper.getBoundingClientRect(),
+            height2 = _contentWrapper$getBo.height;
+
+        contentWrapper.style.top = top + (height - height2) / 2 + window.scrollY + 'px';
+        contentWrapper.style.left = left + window.scrollX + 'px';
+      } else if (this.position === 'right') {
+        var _contentWrapper$getBo2 = contentWrapper.getBoundingClientRect(),
+            _height = _contentWrapper$getBo2.height;
+
+        contentWrapper.style.top = top + (height - _height) / 2 + window.scrollY + 'px';
+        contentWrapper.style.left = left + width + window.scrollX + 'px';
+      }
     },
     clickDocument: function clickDocument(e) {
       if (this.$refs.popover && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {
         return;
       }
 
+      if (this.$refs.contentWrapper && (this.$refs.contentWrapper === e.target || this.$refs.contentWrapper.contains(e.target))) {
+        return;
+      }
+
       this.close();
-      console.log('关闭');
     },
     close: function close() {
       this.visible = false;
@@ -13551,15 +13584,27 @@ exports.default = _default;
       _vm.visible
         ? _c(
             "div",
-            { ref: "contentWrapper", staticClass: "content-wrapper" },
+            {
+              ref: "contentWrapper",
+              staticClass: "content-wrapper",
+              class: ((_obj = {}),
+              (_obj["position-" + _vm.position] = true),
+              _obj)
+            },
             [_vm._t("content")],
             2
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { ref: "triggerWrapper" }, [_vm._t("default")], 2)
+      _c(
+        "span",
+        { ref: "triggerWrapper", staticStyle: { display: "inline-block" } },
+        [_vm._t("default")],
+        2
+      )
     ]
   )
+  var _obj
 }
 var staticRenderFns = []
 render._withStripped = true
