@@ -1285,4 +1285,12 @@
 }
 .tabs-pane.vertical[data-v-373bac] {
   padding: 0.5em 2em;
+}.popover[data-v-d3db7a] {
+  display: inline-block;
+  vertical-align: top;
+}
+.content-wrapper[data-v-d3db7a] {
+  position: absolute;
+  border: 1px solid red;
+  transform: translateY(-100%);
 }
