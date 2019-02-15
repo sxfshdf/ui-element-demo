@@ -32,24 +32,45 @@
         let{contentWrapper, triggerWrapper, } = this.$refs
         // 将popover内容放到body最后，解决父元素有overflow时不显示的bug
         document.body.appendChild(contentWrapper)
+        let {height: height2} = contentWrapper.getBoundingClientRect()
         // 获取 trigger 位置信息
         let {height, width, left, top} = triggerWrapper.getBoundingClientRect()
-        // 设置 popover 浮层位置
-        if(this.position === 'top') {
-          contentWrapper.style.top = top + window.scrollY + 'px'
-          contentWrapper.style.left = left+ window.scrollX + 'px'
-        }else if(this.position === 'bottom') {
-          contentWrapper.style.top = top + height + window.scrollY + 'px'
-          contentWrapper.style.left = left+ window.scrollX + 'px'
-        }else if(this.position === 'left') {
-          let {height: height2} = contentWrapper.getBoundingClientRect()
-          contentWrapper.style.top = top + (height-height2)/2 + window.scrollY + 'px'
-          contentWrapper.style.left = left + window.scrollX + 'px'
-        }else if(this.position === 'right') {
-          let {height: height2} = contentWrapper.getBoundingClientRect()
-          contentWrapper.style.top = top + (height-height2)/2 + window.scrollY + 'px'
-          contentWrapper.style.left = left + width + window.scrollX + 'px'
+        let positions = {
+          top: {
+            top: top + window.scrollY,
+            left: left+ window.scrollX
+          },
+          bottom: {
+            top: top + height + window.scrollY,
+            left: left+ window.scrollX
+          },
+          left: {
+            top: top + (height-height2)/2 + window.scrollY,
+            left: left + window.scrollX
+          },
+          right: {
+            top: top + (height-height2)/2 + window.scrollY,
+            left: left + width + window.scrollX
+          }
         }
+        contentWrapper.style.top = positions[this.position].top + 'px'
+        contentWrapper.style.left = positions[this.position].left + 'px'
+        // // 设置 popover 浮层位置
+        // if(this.position === 'top') {
+        //   contentWrapper.style.top =  + 'px'
+        //   contentWrapper.style.left =  + 'px'
+        // }else if(this.position === 'bottom') {
+        //   contentWrapper.style.top =  + 'px'
+        //   contentWrapper.style.left = l + 'px'
+        // }else if(this.position === 'left') {
+        //
+        //   contentWrapper.style.top =  + 'px'
+        //   contentWrapper.style.left =  + 'px'
+        // }else if(this.position === 'right') {
+        //   let {height: height2} = contentWrapper.getBoundingClientRect()
+        //   contentWrapper.style.top =  + 'px'
+        //   contentWrapper.style.left =  + 'px'
+        // }
 
       },
       clickDocument(e){

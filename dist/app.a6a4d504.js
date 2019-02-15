@@ -13499,34 +13499,53 @@ var _default = {
           contentWrapper = _this$$refs.contentWrapper,
           triggerWrapper = _this$$refs.triggerWrapper; // 将popover内容放到body最后，解决父元素有overflow时不显示的bug
 
-      document.body.appendChild(contentWrapper); // 获取 trigger 位置信息
+      document.body.appendChild(contentWrapper);
+
+      var _contentWrapper$getBo = contentWrapper.getBoundingClientRect(),
+          height2 = _contentWrapper$getBo.height; // 获取 trigger 位置信息
+
 
       var _triggerWrapper$getBo = triggerWrapper.getBoundingClientRect(),
           height = _triggerWrapper$getBo.height,
           width = _triggerWrapper$getBo.width,
           left = _triggerWrapper$getBo.left,
-          top = _triggerWrapper$getBo.top; // 设置 popover 浮层位置
+          top = _triggerWrapper$getBo.top;
 
-
-      if (this.position === 'top') {
-        contentWrapper.style.top = top + window.scrollY + 'px';
-        contentWrapper.style.left = left + window.scrollX + 'px';
-      } else if (this.position === 'bottom') {
-        contentWrapper.style.top = top + height + window.scrollY + 'px';
-        contentWrapper.style.left = left + window.scrollX + 'px';
-      } else if (this.position === 'left') {
-        var _contentWrapper$getBo = contentWrapper.getBoundingClientRect(),
-            height2 = _contentWrapper$getBo.height;
-
-        contentWrapper.style.top = top + (height - height2) / 2 + window.scrollY + 'px';
-        contentWrapper.style.left = left + window.scrollX + 'px';
-      } else if (this.position === 'right') {
-        var _contentWrapper$getBo2 = contentWrapper.getBoundingClientRect(),
-            _height = _contentWrapper$getBo2.height;
-
-        contentWrapper.style.top = top + (height - _height) / 2 + window.scrollY + 'px';
-        contentWrapper.style.left = left + width + window.scrollX + 'px';
-      }
+      var positions = {
+        top: {
+          top: top + window.scrollY,
+          left: left + window.scrollX
+        },
+        bottom: {
+          top: top + height + window.scrollY,
+          left: left + window.scrollX
+        },
+        left: {
+          top: top + (height - height2) / 2 + window.scrollY,
+          left: left + window.scrollX
+        },
+        right: {
+          top: top + (height - height2) / 2 + window.scrollY,
+          left: left + width + window.scrollX
+        }
+      };
+      contentWrapper.style.top = positions[this.position].top + 'px';
+      contentWrapper.style.left = positions[this.position].left + 'px'; // // 设置 popover 浮层位置
+      // if(this.position === 'top') {
+      //   contentWrapper.style.top =  + 'px'
+      //   contentWrapper.style.left =  + 'px'
+      // }else if(this.position === 'bottom') {
+      //   contentWrapper.style.top =  + 'px'
+      //   contentWrapper.style.left = l + 'px'
+      // }else if(this.position === 'left') {
+      //
+      //   contentWrapper.style.top =  + 'px'
+      //   contentWrapper.style.left =  + 'px'
+      // }else if(this.position === 'right') {
+      //   let {height: height2} = contentWrapper.getBoundingClientRect()
+      //   contentWrapper.style.top =  + 'px'
+      //   contentWrapper.style.left =  + 'px'
+      // }
     },
     clickDocument: function clickDocument(e) {
       if (this.$refs.popover && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {
