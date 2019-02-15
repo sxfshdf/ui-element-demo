@@ -13484,33 +13484,49 @@ var _default = {
     };
   },
   methods: {
-    onClick: function onClick() {
+    positionContent: function positionContent() {
+      // 将popover内容放到body最后，解决父元素有overflow时不显示的bug
+      document.body.appendChild(this.$refs.contentWrapper); // 获取 trigger 位置信息
+
+      var _this$$refs$triggerWr = this.$refs.triggerWrapper.getBoundingClientRect(),
+          height = _this$$refs$triggerWr.height,
+          width = _this$$refs$triggerWr.width,
+          left = _this$$refs$triggerWr.left,
+          top = _this$$refs$triggerWr.top; // 设置 popover 浮层位置
+
+
+      this.$refs.contentWrapper.style.top = top + window.scrollY + 'px';
+      this.$refs.contentWrapper.style.left = left + window.scrollX + 'px';
+    },
+    clickDocument: function clickDocument(e) {
+      if (this.$refs.popover && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {
+        return;
+      }
+
+      this.close();
+      console.log('关闭');
+    },
+    close: function close() {
+      this.visible = false;
+      document.removeEventListener('click', this.clickDocument);
+    },
+    onShowPopover: function onShowPopover() {
       var _this = this;
 
-      this.visible = !this.visible;
+      this.visible = true;
+      this.$nextTick(function () {
+        _this.positionContent();
 
-      if (this.visible) {
-        this.$nextTick(function () {
-          // 将popover内容放到body最后，解决父元素有overflow时不显示的bug
-          document.body.appendChild(_this.$refs.contentWrapper); // 获取 trigger 位置信息
-
-          var _this$$refs$triggerWr = _this.$refs.triggerWrapper.getBoundingClientRect(),
-              height = _this$$refs$triggerWr.height,
-              width = _this$$refs$triggerWr.width,
-              left = _this$$refs$triggerWr.left,
-              top = _this$$refs$triggerWr.top; // 设置 popover 浮层位置
-
-
-          _this.$refs.contentWrapper.style.top = top + window.scrollY + 'px';
-          _this.$refs.contentWrapper.style.left = left + window.scrollX + 'px';
-
-          var eventHandler = function eventHandler() {
-            _this.visible = false;
-            document.removeEventListener('click', eventHandler);
-          };
-
-          document.addEventListener('click', eventHandler);
-        });
+        document.addEventListener('click', _this.clickDocument);
+      });
+    },
+    onClick: function onClick(event) {
+      if (this.$refs.triggerWrapper.contains(event.target)) {
+        if (this.visible) {
+          this.close();
+        } else {
+          this.onShowPopover();
+        }
       }
     }
   }
@@ -13530,28 +13546,12 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "popover",
-      on: {
-        click: function($event) {
-          $event.stopPropagation()
-          return _vm.onClick($event)
-        }
-      }
-    },
+    { ref: "popover", staticClass: "popover", on: { click: _vm.onClick } },
     [
       _vm.visible
         ? _c(
             "div",
-            {
-              ref: "contentWrapper",
-              staticClass: "content-wrapper",
-              on: {
-                click: function($event) {
-                  $event.stopPropagation()
-                }
-              }
-            },
+            { ref: "contentWrapper", staticClass: "content-wrapper" },
             [_vm._t("content")],
             2
           )
@@ -13687,6 +13687,9 @@ new _vue.default({
   },
   created: function created() {},
   methods: {
+    yyy: function yyy() {
+      console.log('yyy');
+    },
     onSearch: function onSearch(value) {
       console.log(value);
     },

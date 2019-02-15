@@ -53,6 +53,9 @@ new Vue({
     created(){
     },
     methods: {
+        yyy(){
+          console.log('yyy')
+        },
         onSearch(value) {
             console.log(value)
         },
