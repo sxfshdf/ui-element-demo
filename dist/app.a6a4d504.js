@@ -13477,6 +13477,8 @@ exports.default = void 0;
 //
 //
 //
+//
+//
 var _default = {
   name: "popover",
   props: {
@@ -13486,12 +13488,30 @@ var _default = {
       validator: function validator(value) {
         return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0;
       }
+    },
+    trigger: {
+      type: String,
+      default: 'click',
+      validator: function validator(value) {
+        return ['click', 'hover'].indexOf(value) >= 0;
+      }
     }
   },
   data: function data() {
     return {
-      visible: false
+      visible: false,
+      timeout: ''
     };
+  },
+  mounted: function mounted() {
+    if (this.trigger === 'click') {
+      this.$refs.popover.addEventListener('click', this.onClick);
+    }
+
+    if (this.trigger === 'hover') {
+      this.$refs.popover.addEventListener('mouseenter', this.onShowPopover);
+      this.$refs.popover.addEventListener('mouseleave', this.setTime);
+    }
   },
   methods: {
     positionContent: function positionContent() {
@@ -13530,47 +13550,64 @@ var _default = {
         }
       };
       contentWrapper.style.top = positions[this.position].top + 'px';
-      contentWrapper.style.left = positions[this.position].left + 'px'; // // 设置 popover 浮层位置
-      // if(this.position === 'top') {
-      //   contentWrapper.style.top =  + 'px'
-      //   contentWrapper.style.left =  + 'px'
-      // }else if(this.position === 'bottom') {
-      //   contentWrapper.style.top =  + 'px'
-      //   contentWrapper.style.left = l + 'px'
-      // }else if(this.position === 'left') {
-      //
-      //   contentWrapper.style.top =  + 'px'
-      //   contentWrapper.style.left =  + 'px'
-      // }else if(this.position === 'right') {
-      //   let {height: height2} = contentWrapper.getBoundingClientRect()
-      //   contentWrapper.style.top =  + 'px'
-      //   contentWrapper.style.left =  + 'px'
-      // }
+      contentWrapper.style.left = positions[this.position].left + 'px';
     },
-    clickDocument: function clickDocument(e) {
-      if (this.$refs.popover && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {
+    clickDocument: function clickDocument(event) {
+      if (this.$refs.popover && (this.$refs.popover === event.target || this.$refs.popover.contains(event.target))) {
         return;
       }
 
-      if (this.$refs.contentWrapper && (this.$refs.contentWrapper === e.target || this.$refs.contentWrapper.contains(e.target))) {
+      if (this.$refs.contentWrapper && (this.$refs.contentWrapper === event.target || this.$refs.contentWrapper.contains(event.target))) {
         return;
       }
 
       this.close();
     },
+    hoverContent: function hoverContent() {
+      this.$refs.contentWrapper.addEventListener('mouseenter', this.clearTimeout);
+      this.$refs.contentWrapper.addEventListener('mouseleave', this.setTime);
+    },
+    setTime: function setTime() {
+      var _this = this;
+
+      this.timeout = setTimeout(function () {
+        _this.close();
+      }, 200);
+    },
+    clearTimeout: function clearTimeout() {
+      if (this.timeout) {
+        window.clearTimeout(this.timeout);
+        this.timeout = '';
+      }
+    },
     close: function close() {
       this.visible = false;
       document.removeEventListener('click', this.clickDocument);
+      document.removeEventListener('mouseenter', this.onShowPopover);
+      document.removeEventListener('mouseenter', this.clearTimeout);
+      document.removeEventListener('mouseleave', this.setTime);
     },
     onShowPopover: function onShowPopover() {
-      var _this = this;
+      var _this2 = this;
 
       this.visible = true;
-      this.$nextTick(function () {
-        _this.positionContent();
 
-        document.addEventListener('click', _this.clickDocument);
-      });
+      if (this.trigger === 'click') {
+        this.$nextTick(function () {
+          _this2.positionContent();
+
+          document.addEventListener('click', _this2.clickDocument);
+        });
+      }
+
+      if (this.trigger === 'hover') {
+        this.clearTimeout();
+        this.$nextTick(function () {
+          _this2.positionContent();
+
+          _this2.hoverContent();
+        });
+      }
     },
     onClick: function onClick(event) {
       if (this.$refs.triggerWrapper.contains(event.target)) {
@@ -13598,22 +13635,24 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { ref: "popover", staticClass: "popover", on: { click: _vm.onClick } },
+    { ref: "popover", staticClass: "popover" },
     [
-      _vm.visible
-        ? _c(
-            "div",
-            {
-              ref: "contentWrapper",
-              staticClass: "content-wrapper",
-              class: ((_obj = {}),
-              (_obj["position-" + _vm.position] = true),
-              _obj)
-            },
-            [_vm._t("content")],
-            2
-          )
-        : _vm._e(),
+      _c("transition", { attrs: { name: "slide-fade" } }, [
+        _vm.visible
+          ? _c(
+              "div",
+              {
+                ref: "contentWrapper",
+                staticClass: "content-wrapper",
+                class: ((_obj = {}),
+                (_obj["position-" + _vm.position] = true),
+                _obj)
+              },
+              [_vm._t("content")],
+              2
+            )
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c(
         "span",
@@ -13621,7 +13660,8 @@ exports.default = _default;
         [_vm._t("default")],
         2
       )
-    ]
+    ],
+    1
   )
   var _obj
 }
@@ -13892,7 +13932,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57411" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51605" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

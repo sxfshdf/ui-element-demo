@@ -1,9 +1,11 @@
 <template>
-  <div class="popover" @click="onClick" ref="popover">
+  <div class="popover" ref="popover">
+    <transition name="slide-fade">
     <div ref="contentWrapper" class="content-wrapper"
          :class="{[`position-${position}`]:true}" v-if="visible">
       <slot name="content"></slot>
     </div>
+    </transition>
     <span ref="triggerWrapper" style="display: inline-block;">
       <slot></slot>
     </span>
@@ -11,6 +13,7 @@
 </template>
 
 <script>
+
   export default {
     name: "popover",
     props : {
@@ -20,11 +23,28 @@
         validator(value) {
           return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
         }
+      },
+      trigger: {
+        type: String,
+        default: 'click',
+        validator(value) {
+          return ['click','hover'].indexOf(value) >= 0
+        }
       }
     },
     data(){
       return {
-        visible: false
+        visible: false,
+        timeout: ''
+      }
+    },
+    mounted(){
+      if(this.trigger === 'click'){
+        this.$refs.popover.addEventListener('click',this.onClick)
+      }
+      if(this.trigger === 'hover') {
+        this.$refs.popover.addEventListener('mouseenter', this.onShowPopover)
+        this.$refs.popover.addEventListener('mouseleave', this.setTime)
       }
     },
     methods:{
@@ -55,41 +75,52 @@
         }
         contentWrapper.style.top = positions[this.position].top + 'px'
         contentWrapper.style.left = positions[this.position].left + 'px'
-        // // 设置 popover 浮层位置
-        // if(this.position === 'top') {
-        //   contentWrapper.style.top =  + 'px'
-        //   contentWrapper.style.left =  + 'px'
-        // }else if(this.position === 'bottom') {
-        //   contentWrapper.style.top =  + 'px'
-        //   contentWrapper.style.left = l + 'px'
-        // }else if(this.position === 'left') {
-        //
-        //   contentWrapper.style.top =  + 'px'
-        //   contentWrapper.style.left =  + 'px'
-        // }else if(this.position === 'right') {
-        //   let {height: height2} = contentWrapper.getBoundingClientRect()
-        //   contentWrapper.style.top =  + 'px'
-        //   contentWrapper.style.left =  + 'px'
-        // }
-
       },
-      clickDocument(e){
+      clickDocument(event){
         if (this.$refs.popover &&
-          (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {return}
+          (this.$refs.popover === event.target || this.$refs.popover.contains(event.target))) {return}
         if (this.$refs.contentWrapper &&
-          (this.$refs.contentWrapper === e.target || this.$refs.contentWrapper.contains(e.target))) {return}
+          (this.$refs.contentWrapper === event.target || this.$refs.contentWrapper.contains(event.target))) {return}
         this.close()
+      },
+      hoverContent(){
+        this.$refs.contentWrapper.addEventListener('mouseenter',this.clearTimeout)
+        this.$refs.contentWrapper.addEventListener('mouseleave', this.setTime)
+      },
+      setTime(){
+        this.timeout= setTimeout(()=>{
+          this.close()
+        },200)
+      },
+      clearTimeout(){
+        if(this.timeout){
+          window.clearTimeout(this.timeout)
+          this.timeout = ''
+        }
       },
       close(){
         this.visible = false
         document.removeEventListener('click', this.clickDocument)
+        document.removeEventListener('mouseenter',this.onShowPopover)
+        document.removeEventListener('mouseenter',this.clearTimeout)
+        document.removeEventListener('mouseleave',this.setTime)
       },
       onShowPopover(){
         this.visible = true
-        this.$nextTick(()=>{
-          this.positionContent()
-          document.addEventListener('click', this.clickDocument)
-        })
+        if(this.trigger === 'click'){
+          this.$nextTick(()=>{
+            this.positionContent()
+            document.addEventListener('click', this.clickDocument)
+          })
+        }
+        if(this.trigger === 'hover'){
+          this.clearTimeout()
+          this.$nextTick(()=>{
+            this.positionContent()
+            this.hoverContent()
+          })
+        }
+
       },
       onClick(event){
         if(this.$refs.triggerWrapper.contains(event.target)){
@@ -107,6 +138,16 @@
 <style scoped lang="scss">
   $popover-border: #eee;
   $font-color: #333;
+
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to{
+    opacity: 0;
+  }
   .popover {
     display: inline-block;
     vertical-align: top;
@@ -135,10 +176,12 @@
       }
       &::before {
         border-top: 6px solid $popover-border;
+        border-bottom: none;
         top: 100%;
       }
       &::after {
         border-top: 6px solid #fff;
+        border-bottom: none;
         top: calc(100% - 1px);
       }
     }
@@ -149,10 +192,12 @@
       }
       &::before {
         border-bottom: 6px solid $popover-border;
+        border-top: none;
         bottom: 100%;
       }
       &::after {
         border-bottom: 6px solid #fff;
+        border-top: none;
         bottom: calc(100% - 1px);
       }
     }
@@ -166,10 +211,12 @@
       }
       &::before {
         border-left: 6px solid $popover-border;
+        border-right: none;
         bottom: 100%;
       }
       &::after {
         border-left: 6px solid #fff;
+        border-right: none;
         bottom: calc(100% - 1px);
       }
     }
@@ -182,10 +229,12 @@
       }
       &::before {
         border-right: 6px solid $popover-border;
+        border-left: none;
         bottom: 100%;
       }
       &::after {
         border-right: 6px solid #fff;
+        border-left: none;
         bottom: calc(100% - 1px);
       }
     }
