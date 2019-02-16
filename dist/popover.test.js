@@ -11130,18 +11130,21 @@ function getOuterHTML(el) {
 
 Vue.compile = compileToFunctions;
 module.exports = Vue;
-},{}],"n6Xd":[function(require,module,exports) {
+},{}],"gkB5":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _vue = _interopRequireDefault(require("vue"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11149,379 +11152,205 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 var _default = {
-  name: "g-tabs",
-  data: function data() {
-    return {
-      eventBus: new _vue.default()
-    };
-  },
-  provide: function provide() {
-    return {
-      eventBus: this.eventBus
-    };
-  },
+  name: "popover",
   props: {
-    selected: {
+    position: {
       type: String,
-      required: true
-    },
-    direction: {
-      type: String,
-      default: 'horizontal',
+      default: 'top',
       validator: function validator(value) {
-        return ['horizontal', 'vertical'].indexOf(value) >= 0;
+        return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0;
       }
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    if (this.$children.length === 0) {
-      console && console.warn && console.warn('tabs的子组件应该是tabs-head和tabs-body，但你没有写子组件');
-    }
-
-    this.$children.forEach(function (child) {
-      if (child.$options.name === 'g-tabs-head') {
-        child.$children.forEach(function (item) {
-          if (item.$options.name === 'g-tabs-item' && item.name === _this.selected) {
-            _this.eventBus.$emit('update:selected', _this.selected, item, _this.direction);
-          }
-        });
-      }
-    });
-  },
-  computed: {
-    tabsClass: function tabsClass() {
-      return [this.direction];
-    }
-  }
-};
-exports.default = _default;
-        var $d11285 = exports.default || module.exports;
-      
-      if (typeof $d11285 === 'function') {
-        $d11285 = $d11285.options;
-      }
-    
-        /* template */
-        Object.assign($d11285, (function () {
-          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs",class:_vm.tabsClass},[_vm._t("default")],2)}
-var staticRenderFns = []
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: "data-v-d11285",
-            functional: undefined
-          };
-        })());
-      
-},{"vue":"ApMz"}],"Q07j":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = {
-  name: "g-tabs-head",
-  inject: ['eventBus'],
-  data: function data() {
-    return {
-      direction: ''
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.eventBus.$on('update:selected', function (item, vm, direction) {
-      _this.direction = direction;
-      if (vm.disabled) return;
-
-      if (direction === 'vertical') {
-        _this.$refs.line.style.top = "".concat(vm.$el.offsetTop, "px");
-      } else {
-        var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
-            width = _vm$$el$getBoundingCl.width;
-
-        _this.$refs.line.style.width = "".concat(width, "px");
-        _this.$refs.line.style.left = "".concat(vm.$el.offsetLeft, "px");
-      }
-    });
-  },
-  computed: {
-    headClass: function headClass() {
-      return [this.direction];
-    }
-  }
-};
-exports.default = _default;
-        var $7f9646 = exports.default || module.exports;
-      
-      if (typeof $7f9646 === 'function') {
-        $7f9646 = $7f9646.options;
-      }
-    
-        /* template */
-        Object.assign($7f9646, (function () {
-          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs-head",class:_vm.headClass},[_vm._t("default"),_vm._v(" "),_c('div',{staticClass:"line-bg"}),_vm._v(" "),_c('div',{ref:"line",staticClass:"line"}),_vm._v(" "),_c('div',{staticClass:"actions-wrapper"},[_vm._t("actions")],2)],2)}
-var staticRenderFns = []
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: "data-v-7f9646",
-            functional: undefined
-          };
-        })());
-      
-},{}],"albi":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-var _default = {
-  name: "g-tabs-item",
-  inject: ['eventBus'],
-  data: function data() {
-    return {
-      active: false,
-      direction: ''
-    };
-  },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false
     },
-    name: {
-      type: [String, Number],
-      required: true
+    trigger: {
+      type: String,
+      default: 'click',
+      validator: function validator(value) {
+        return ['click', 'hover'].indexOf(value) >= 0;
+      }
     }
+  },
+  data: function data() {
+    return {
+      visible: false,
+      timeout: ''
+    };
   },
   mounted: function mounted() {
-    var _this = this;
+    if (this.trigger === 'click') {
+      this.$refs.popover.addEventListener('click', this.onClick);
+    }
 
-    if (this.eventBus) {
-      this.eventBus.$on('update:selected', function (name, vm, direction) {
-        _this.active = _this.name === name;
-        _this.direction = direction;
-      });
+    if (this.trigger === 'hover') {
+      this.$refs.popover.addEventListener('mouseenter', this.onShowPopover);
+      this.$refs.popover.addEventListener('mouseleave', this.setTime);
     }
   },
-  computed: {
-    itemClass: function itemClass() {
-      return _defineProperty({
-        active: this.active,
-        disabled: this.disabled
-      }, "".concat(this.direction), true);
+  destroyed: function destroyed() {
+    if (this.trigger === 'click') {
+      this.$refs.popover.addEventListener('click', this.onClick);
+    } else {
+      this.$refs.popover.removeEventListener('mouseenter', this.onShowPopover);
+      this.$refs.popover.removeEventListener('mouseleave', this.setTime);
+      this.$refs.contentWrapper.removeEventListener('mouseenter', this.clearTimeout);
+      this.$refs.contentWrapper.removeEventListener('mouseleave', this.setTime);
     }
   },
   methods: {
-    changeTab: function changeTab() {
-      if (this.disabled) return;
-      this.eventBus && this.eventBus.$emit('update:selected', this.name, this, this.direction);
-      this.$emit('click', this); // 测试使用
+    positionContent: function positionContent() {
+      var _this$$refs = this.$refs,
+          contentWrapper = _this$$refs.contentWrapper,
+          triggerWrapper = _this$$refs.triggerWrapper; // 将popover内容放到body最后，解决父元素有overflow时不显示的bug
+
+      document.body.appendChild(contentWrapper);
+
+      var _contentWrapper$getBo = contentWrapper.getBoundingClientRect(),
+          height2 = _contentWrapper$getBo.height; // 获取 trigger 位置信息
+
+
+      var _triggerWrapper$getBo = triggerWrapper.getBoundingClientRect(),
+          height = _triggerWrapper$getBo.height,
+          width = _triggerWrapper$getBo.width,
+          left = _triggerWrapper$getBo.left,
+          top = _triggerWrapper$getBo.top;
+
+      var positions = {
+        top: {
+          top: top + window.scrollY,
+          left: left + window.scrollX
+        },
+        bottom: {
+          top: top + height + window.scrollY,
+          left: left + window.scrollX
+        },
+        left: {
+          top: top + (height - height2) / 2 + window.scrollY,
+          left: left + window.scrollX
+        },
+        right: {
+          top: top + (height - height2) / 2 + window.scrollY,
+          left: left + width + window.scrollX
+        }
+      };
+      contentWrapper.style.top = positions[this.position].top + 'px';
+      contentWrapper.style.left = positions[this.position].left + 'px';
+    },
+    clickDocument: function clickDocument(event) {
+      if (this.$refs.popover && (this.$refs.popover === event.target || this.$refs.popover.contains(event.target))) {
+        return;
+      }
+
+      if (this.$refs.contentWrapper && (this.$refs.contentWrapper === event.target || this.$refs.contentWrapper.contains(event.target))) {
+        return;
+      }
+
+      this.close();
+    },
+    setTime: function setTime() {
+      var _this = this;
+
+      this.timeout = setTimeout(function () {
+        _this.close();
+      }, 200);
+    },
+    clearTimeout: function clearTimeout() {
+      if (this.timeout) {
+        window.clearTimeout(this.timeout);
+        this.timeout = '';
+      }
+    },
+    close: function close() {
+      this.visible = false;
+      document.removeEventListener('click', this.clickDocument);
+    },
+    onShowPopover: function onShowPopover() {
+      var _this2 = this;
+
+      this.visible = true;
+
+      if (this.trigger === 'click') {
+        this.$nextTick(function () {
+          _this2.positionContent();
+
+          document.addEventListener('click', _this2.clickDocument);
+        });
+      }
+
+      if (this.trigger === 'hover') {
+        this.clearTimeout();
+        this.$nextTick(function () {
+          _this2.positionContent();
+
+          _this2.$refs.contentWrapper.addEventListener('mouseenter', _this2.clearTimeout);
+
+          _this2.$refs.contentWrapper.addEventListener('mouseleave', _this2.setTime);
+        });
+      }
+    },
+    onClick: function onClick(event) {
+      if (this.$refs.triggerWrapper.contains(event.target)) {
+        if (this.visible) {
+          this.close();
+        } else {
+          this.onShowPopover();
+        }
+      }
     }
   }
 };
 exports.default = _default;
-        var $707953 = exports.default || module.exports;
+        var $d3db7a = exports.default || module.exports;
       
-      if (typeof $707953 === 'function') {
-        $707953 = $707953.options;
+      if (typeof $d3db7a === 'function') {
+        $d3db7a = $d3db7a.options;
       }
     
         /* template */
-        Object.assign($707953, (function () {
-          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs-item",class:_vm.itemClass,attrs:{"data-name":_vm.name},on:{"click":_vm.changeTab}},[_vm._t("default")],2)}
+        Object.assign($d3db7a, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"popover",staticClass:"popover"},[_c('transition',{attrs:{"name":"slide-fade"}},[(_vm.visible)?_c('div',{ref:"contentWrapper",staticClass:"content-wrapper",class:( _obj = {}, _obj[("position-" + _vm.position)] = true, _obj )},[_vm._t("content")],2):_vm._e()]),_vm._v(" "),_c('span',{ref:"triggerWrapper",staticStyle:{"display":"inline-block"}},[_vm._t("default")],2)],1)
+var _obj;}
 var staticRenderFns = []
 
           return {
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-707953",
+            _scopeId: "data-v-d3db7a",
             functional: undefined
           };
         })());
       
-},{}],"Ydtc":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-//
-//
-//
-//
-//
-//
-var _default = {
-  name: "g-tabs-body"
-};
-exports.default = _default;
-        var $83217f = exports.default || module.exports;
-      
-      if (typeof $83217f === 'function') {
-        $83217f = $83217f.options;
-      }
-    
-        /* template */
-        Object.assign($83217f, (function () {
-          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs-body"},[_vm._t("default")],2)}
-var staticRenderFns = []
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: "data-v-83217f",
-            functional: undefined
-          };
-        })());
-      
-},{}],"vREI":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-var _default = {
-  name: "g-tabs-pane",
-  inject: ['eventBus'],
-  props: {
-    name: {
-      type: [String, Number],
-      required: true
-    }
-  },
-  data: function data() {
-    return {
-      active: false,
-      direction: ''
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    if (this.eventBus) {
-      this.eventBus.$on('update:selected', function (name, vm, direction) {
-        _this.active = _this.name === name;
-        _this.direction = direction;
-      });
-    }
-  },
-  computed: {
-    paneClass: function paneClass() {
-      return _defineProperty({
-        active: this.active
-      }, "".concat(this.direction), true);
-    }
-  }
-};
-exports.default = _default;
-        var $373bac = exports.default || module.exports;
-      
-      if (typeof $373bac === 'function') {
-        $373bac = $373bac.options;
-      }
-    
-        /* template */
-        Object.assign($373bac, (function () {
-          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.active)?_c('div',{staticClass:"tabs-pane",class:_vm.paneClass,attrs:{"data-name":_vm.name}},[_vm._t("default")],2):_vm._e()}
-var staticRenderFns = []
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: "data-v-373bac",
-            functional: undefined
-          };
-        })());
-      
-},{}],"5HzD":[function(require,module,exports) {
+},{}],"3cMD":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
 
-var _tabs = _interopRequireDefault(require("../src/tabs.vue"));
-
-var _tabsHead = _interopRequireDefault(require("../src/tabs-head.vue"));
-
-var _tabsItem = _interopRequireDefault(require("../src/tabs-item.vue"));
-
-var _tabsBody = _interopRequireDefault(require("../src/tabs-body.vue"));
-
-var _tabsPane = _interopRequireDefault(require("../src/tabs-pane.vue"));
+var _popover = _interopRequireDefault(require("../src/popover"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var expect = chai.expect;
-
-_vue.default.component('g-tabs', _tabs.default);
-
-_vue.default.component('g-tabs-head', _tabsHead.default);
-
-_vue.default.component('g-tabs-item', _tabsItem.default);
-
-_vue.default.component('g-tabs-body', _tabsBody.default);
-
-_vue.default.component('g-tabs-pane', _tabsPane.default);
-
 _vue.default.config.productionTip = false;
 _vue.default.config.devtools = false;
-describe('TabsPane', function () {
+describe('Popover', function () {
   it('存在.', function () {
-    expect(_tabsPane.default).to.exist;
+    expect(_popover.default).to.be.ok;
   });
-  it('接收 name', function () {
-    var Constructor = _vue.default.extend(_tabsItem.default);
+  it('可以设置 position', function (done) {
+    _vue.default.component('g-popover', _popover.default);
 
-    var vm = new Constructor({
-      propsData: {
-        name: 'sport'
-      }
-    }).$mount();
-    expect(vm.$el.getAttribute('data-name')).to.be.eq('sport');
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    div.innerHTML = "\n      <g-popover position=\"bottom\" ref=\"a\">\n            <template slot=\"content\">\n                <div>\u6211\u662F Popover <a href=\"http://qq.com\">QQ</a></div>\n            </template>\n            <button>\u70B9\u51FB</button>\n        </g-popover>\n    ";
+    var vm = new _vue.default({
+      el: div
+    });
+    vm.$el.querySelector('button').click();
+    vm.$nextTick(function () {
+      var contentWrapper = vm.$refs.a.$refs.contentWrapper;
+      expect(contentWrapper.classList.contains('position-bottom')).to.be.true;
+      done();
+    });
   });
 });
-},{"vue":"ApMz","../src/tabs.vue":"n6Xd","../src/tabs-head.vue":"Q07j","../src/tabs-item.vue":"albi","../src/tabs-body.vue":"Ydtc","../src/tabs-pane.vue":"vREI"}]},{},["5HzD"], null)
-//# sourceMappingURL=/tabs-pane.test.map
+},{"vue":"ApMz","../src/popover":"gkB5"}]},{},["3cMD"], null)
+//# sourceMappingURL=/popover.test.map

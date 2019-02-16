@@ -47,6 +47,16 @@
         this.$refs.popover.addEventListener('mouseleave', this.setTime)
       }
     },
+    destroyed(){
+      if(this.trigger === 'click'){
+        this.$refs.popover.addEventListener('click',this.onClick)
+      }else{
+        this.$refs.popover.removeEventListener('mouseenter', this.onShowPopover)
+        this.$refs.popover.removeEventListener('mouseleave', this.setTime)
+        this.$refs.contentWrapper.removeEventListener('mouseenter',this.clearTimeout)
+        this.$refs.contentWrapper.removeEventListener('mouseleave',this.setTime)
+      }
+    },
     methods:{
       positionContent(){
         let{contentWrapper, triggerWrapper, } = this.$refs
@@ -83,10 +93,6 @@
           (this.$refs.contentWrapper === event.target || this.$refs.contentWrapper.contains(event.target))) {return}
         this.close()
       },
-      hoverContent(){
-        this.$refs.contentWrapper.addEventListener('mouseenter',this.clearTimeout)
-        this.$refs.contentWrapper.addEventListener('mouseleave', this.setTime)
-      },
       setTime(){
         this.timeout= setTimeout(()=>{
           this.close()
@@ -101,9 +107,6 @@
       close(){
         this.visible = false
         document.removeEventListener('click', this.clickDocument)
-        document.removeEventListener('mouseenter',this.onShowPopover)
-        document.removeEventListener('mouseenter',this.clearTimeout)
-        document.removeEventListener('mouseleave',this.setTime)
       },
       onShowPopover(){
         this.visible = true
@@ -117,7 +120,8 @@
           this.clearTimeout()
           this.$nextTick(()=>{
             this.positionContent()
-            this.hoverContent()
+            this.$refs.contentWrapper.addEventListener('mouseenter',this.clearTimeout)
+            this.$refs.contentWrapper.addEventListener('mouseleave', this.setTime)
           })
         }
 

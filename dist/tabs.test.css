@@ -12,15 +12,6 @@
 .tabs-head.horizontal > .actions-wrapper[data-v-7f9646] {
   margin-left: auto;
 }
-.tabs-head.horizontal > .line[data-v-7f9646] {
-  position: absolute;
-  bottom: 0;
-  height: 2px;
-  background: #0080ff;
-  z-index: 1;
-  border-radius: 1px;
-  transition: all 0.3s;
-}
 .tabs-head.horizontal > .line-bg[data-v-7f9646] {
   position: absolute;
   bottom: 0;
@@ -28,19 +19,18 @@
   width: 100%;
   background: #eee;
 }
+.tabs-head.horizontal > .line[data-v-7f9646] {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: #0080ff;
+  /*z-index: 1;*/
+  border-radius: 1px;
+  transition: all 0.3s;
+}
 .tabs-head.vertical[data-v-7f9646] {
   flex-direction: column;
   align-items: center;
-}
-.tabs-head.vertical > .line[data-v-7f9646] {
-  position: absolute;
-  right: 0;
-  height: 40px;
-  width: 2px;
-  background: #0080ff;
-  z-index: 1;
-  border-radius: 1px;
-  transition: all 0.3s;
 }
 .tabs-head.vertical > .line-bg[data-v-7f9646] {
   position: absolute;
@@ -48,6 +38,16 @@
   height: 100%;
   width: 2px;
   background: #eee;
+}
+.tabs-head.vertical > .line[data-v-7f9646] {
+  position: absolute;
+  right: 0;
+  height: 40px;
+  width: 2px;
+  background: #0080ff;
+  /*z-index: 1;*/
+  border-radius: 1px;
+  transition: all 0.3s;
 }*[data-v-707953] {
   transition: all 0.3s;
 }

@@ -13513,6 +13513,16 @@ var _default = {
       this.$refs.popover.addEventListener('mouseleave', this.setTime);
     }
   },
+  destroyed: function destroyed() {
+    if (this.trigger === 'click') {
+      this.$refs.popover.addEventListener('click', this.onClick);
+    } else {
+      this.$refs.popover.removeEventListener('mouseenter', this.onShowPopover);
+      this.$refs.popover.removeEventListener('mouseleave', this.setTime);
+      this.$refs.contentWrapper.removeEventListener('mouseenter', this.clearTimeout);
+      this.$refs.contentWrapper.removeEventListener('mouseleave', this.setTime);
+    }
+  },
   methods: {
     positionContent: function positionContent() {
       var _this$$refs = this.$refs,
@@ -13563,10 +13573,6 @@ var _default = {
 
       this.close();
     },
-    hoverContent: function hoverContent() {
-      this.$refs.contentWrapper.addEventListener('mouseenter', this.clearTimeout);
-      this.$refs.contentWrapper.addEventListener('mouseleave', this.setTime);
-    },
     setTime: function setTime() {
       var _this = this;
 
@@ -13583,9 +13589,6 @@ var _default = {
     close: function close() {
       this.visible = false;
       document.removeEventListener('click', this.clickDocument);
-      document.removeEventListener('mouseenter', this.onShowPopover);
-      document.removeEventListener('mouseenter', this.clearTimeout);
-      document.removeEventListener('mouseleave', this.setTime);
     },
     onShowPopover: function onShowPopover() {
       var _this2 = this;
@@ -13605,7 +13608,9 @@ var _default = {
         this.$nextTick(function () {
           _this2.positionContent();
 
-          _this2.hoverContent();
+          _this2.$refs.contentWrapper.addEventListener('mouseenter', _this2.clearTimeout);
+
+          _this2.$refs.contentWrapper.addEventListener('mouseleave', _this2.setTime);
         });
       }
     },
