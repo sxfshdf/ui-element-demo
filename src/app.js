@@ -53,7 +53,7 @@ new Vue({
         loading1: false,
         loading2: false,
         msg: '',
-        selected: ['1']
+        selected: ['2','3']
     },
     created(){
     },

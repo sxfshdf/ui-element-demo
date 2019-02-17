@@ -11265,7 +11265,6 @@ var _default = {
     onShowPopover: function onShowPopover() {
       var _this2 = this;
 
-      console.log('open');
       this.visible = true;
 
       if (this.trigger === 'click') {

@@ -4,7 +4,6 @@
   display: flex;
   justify-content: flex-start;
   position: relative;
-  /*border: 1px solid green;*/
 }
 .tabs-head.horizontal[data-v-7f9646] {
   height: 40px;
@@ -57,7 +56,6 @@
   justify-content: center;
   cursor: pointer;
   color: #333;
-  /*border: 1px solid red;*/
 }
 .tabs-item.horizontal[data-v-707953] {
   padding: 0 1em;

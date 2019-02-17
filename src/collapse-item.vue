@@ -1,11 +1,11 @@
 <template>
   <div class="collapseItem">
-    <div class="title" @click="toggle" :class="{'is-active':show}">
+    <div class="title" @click="toggle" :class="{'is-active':show}" :data-name="name">
       {{title}}
       <g-icon name="arrow-small" :class="{'is-active':show}" v-if="arrow"></g-icon>
     </div>
     <div class="contentWrapper" :class="{'is-active':show}" :data-name="name">
-      <div class="content" v-show="show">
+      <div class="content" v-if="show">
         <slot></slot>
       </div>
     </div>
@@ -37,11 +37,12 @@
     },
     inject: ['eventBus'],
     mounted(){
-      this.eventBus.$on('update:selected', names=>{
+
+      this.eventBus && this.eventBus.$on('update:selected', names =>{
         if(names.indexOf(this.name)>=0){
-          this.open()
+          this.show = true
         }else{
-          this.close()
+          this.show = false
         }
       })
     },
@@ -52,12 +53,6 @@
         }else{
           this.eventBus.$emit('update:addSelected',this.name)
         }
-      },
-      open(){
-        this.show = true
-      },
-      close(){
-        this.show = false
       }
     }
   }
