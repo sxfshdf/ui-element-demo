@@ -11523,19 +11523,8 @@ var _icon = _interopRequireDefault(require("./icon.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 _vue.default.component('g-icon', _icon.default);
 
 var _default = {
@@ -11570,6 +11559,24 @@ var _default = {
   computed: {
     isShow: function isShow() {
       return this.$slots.default;
+    },
+    buttonClass: function buttonClass() {
+      var _ref;
+
+      var iconPosition = this.iconPosition,
+          type = this.type,
+          disabled = this.disabled,
+          shape = this.shape,
+          loading = this.loading;
+      return _ref = {}, _defineProperty(_ref, "icon-".concat(iconPosition), true), _defineProperty(_ref, "g-button-".concat(type), type ? true : false), _defineProperty(_ref, 'g-button-animate', !disabled), _defineProperty(_ref, "g-button-".concat(shape), shape ? true : false), _defineProperty(_ref, 'g-button-loading', loading), _ref;
+    },
+    contentClass: function contentClass() {
+      var iconPosition = this.iconPosition,
+          icon = this.icon;
+      return {
+        'left': iconPosition === 'right',
+        'right': iconPosition === 'left' && icon
+      };
     }
   }
 };
@@ -11590,14 +11597,7 @@ exports.default = _default;
     "button",
     {
       staticClass: "g-button",
-      class: ((_obj = {
-        "g-button-animate": !_vm.disabled,
-        "g-button-loading": _vm.loading
-      }),
-      (_obj["icon-" + _vm.iconPosition] = true),
-      (_obj["g-button-" + _vm.type] = _vm.type ? true : false),
-      (_obj["g-button-" + _vm.shape] = _vm.shape ? true : false),
-      _obj),
+      class: _vm.buttonClass,
       attrs: { disabled: _vm.disabled },
       on: {
         click: function($event) {
@@ -11629,10 +11629,7 @@ exports.default = _default;
             }
           ],
           staticClass: "content",
-          class: {
-            left: _vm.iconPosition === "right",
-            right: _vm.iconPosition === "left" && _vm.icon
-          }
+          class: _vm.contentClass
         },
         [_vm._t("default")],
         2
@@ -11640,7 +11637,6 @@ exports.default = _default;
     ],
     1
   )
-  var _obj
 }
 var staticRenderFns = []
 render._withStripped = true
