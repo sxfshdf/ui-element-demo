@@ -13703,6 +13703,287 @@ render._withStripped = true
       
       }
     })();
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/collapse.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _vue = _interopRequireDefault(require("vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "g-collapse",
+  props: {
+    selected: {
+      type: Array
+    },
+    single: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      eventBus: new _vue.default()
+    };
+  },
+  provide: function provide() {
+    return {
+      eventBus: this.eventBus
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.eventBus.$emit('update:selected', this.selected);
+    var selectedCpoy = JSON.parse(JSON.stringify(this.selected));
+    this.eventBus.$on('update:removeSelected', function (name) {
+      var index = selectedCpoy.indexOf(name);
+      selectedCpoy.splice(index, 1);
+
+      _this.eventBus.$emit('update:selected', selectedCpoy);
+
+      _this.$emit('update:selected', selectedCpoy);
+    });
+    this.eventBus.$on('update:addSelected', function (name) {
+      if (_this.single) {
+        selectedCpoy = [name];
+
+        _this.eventBus.$emit('update:selected', selectedCpoy);
+
+        _this.$emit('update:selected', selectedCpoy);
+      } else {
+        selectedCpoy.push(name);
+
+        _this.eventBus.$emit('update:selected', selectedCpoy);
+
+        _this.$emit('update:selected', selectedCpoy);
+      }
+    });
+  }
+};
+exports.default = _default;
+        var $625e49 = exports.default || module.exports;
+      
+      if (typeof $625e49 === 'function') {
+        $625e49 = $625e49.options;
+      }
+    
+        /* template */
+        Object.assign($625e49, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "collapse" }, [_vm._t("default")], 2)
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-625e49",
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$625e49', $625e49);
+          } else {
+            api.reload('$625e49', $625e49);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"vue":"node_modules/vue/dist/vue.common.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js"}],"src/collapse-item.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "g-collapse-item",
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    arrow: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data: function data() {
+    return {
+      show: false
+    };
+  },
+  inject: ['eventBus'],
+  mounted: function mounted() {
+    var _this = this;
+
+    this.eventBus.$on('update:selected', function (names) {
+      if (names.indexOf(_this.name) >= 0) {
+        _this.open();
+      } else {
+        _this.close();
+      }
+    });
+  },
+  methods: {
+    toggle: function toggle() {
+      if (this.show) {
+        this.eventBus.$emit('update:removeSelected', this.name);
+      } else {
+        this.eventBus.$emit('update:addSelected', this.name);
+      }
+    },
+    open: function open() {
+      this.show = true;
+    },
+    close: function close() {
+      this.show = false;
+    }
+  }
+};
+exports.default = _default;
+        var $289211 = exports.default || module.exports;
+      
+      if (typeof $289211 === 'function') {
+        $289211 = $289211.options;
+      }
+    
+        /* template */
+        Object.assign($289211, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "collapseItem" }, [
+    _c(
+      "div",
+      {
+        staticClass: "title",
+        class: { "is-active": _vm.show },
+        on: { click: _vm.toggle }
+      },
+      [
+        _vm._v("\n    " + _vm._s(_vm.title) + "\n    "),
+        _vm.arrow
+          ? _c("g-icon", {
+              class: { "is-active": _vm.show },
+              attrs: { name: "arrow-small" }
+            })
+          : _vm._e()
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "contentWrapper",
+        class: { "is-active": _vm.show },
+        attrs: { "data-name": _vm.name }
+      },
+      [
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.show,
+                expression: "show"
+              }
+            ],
+            staticClass: "content"
+          },
+          [_vm._t("default")],
+          2
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-289211",
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$289211', $289211);
+          } else {
+            api.reload('$289211', $289211);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
@@ -13746,6 +14027,10 @@ var _tabsPane = _interopRequireDefault(require("./tabs-pane.vue"));
 
 var _popover = _interopRequireDefault(require("./popover.vue"));
 
+var _collapse = _interopRequireDefault(require("./collapse.vue"));
+
+var _collapseItem = _interopRequireDefault(require("./collapse-item.vue"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue.default.component('g-button', _button.default);
@@ -13784,6 +14069,10 @@ _vue.default.component('g-tabs-pane', _tabsPane.default);
 
 _vue.default.component('g-popover', _popover.default);
 
+_vue.default.component('g-collapse', _collapse.default);
+
+_vue.default.component('g-collapse-item', _collapseItem.default);
+
 _vue.default.use(_plugin.default);
 
 new _vue.default({
@@ -13792,13 +14081,11 @@ new _vue.default({
     selectedTab: 'sport',
     loading1: false,
     loading2: false,
-    msg: ''
+    msg: '',
+    selected: ['1']
   },
   created: function created() {},
   methods: {
-    yyy: function yyy() {
-      console.log('yyy');
-    },
     onSearch: function onSearch(value) {
       console.log(value);
     },
@@ -13910,7 +14197,7 @@ new _vue.default({
 //     button.click()
 //     expect(spy).to.have.been.called()
 // }
-},{"vue":"node_modules/vue/dist/vue.common.js","./button.vue":"src/button.vue","./icon.vue":"src/icon.vue","./buttonGroup.vue":"src/buttonGroup.vue","./input.vue":"src/input.vue","./row.vue":"src/row.vue","./col.vue":"src/col.vue","./layout.vue":"src/layout.vue","./content.vue":"src/content.vue","./header.vue":"src/header.vue","./sider.vue":"src/sider.vue","./footer.vue":"src/footer.vue","./toast.vue":"src/toast.vue","./plugin.js":"src/plugin.js","./tabs.vue":"src/tabs.vue","./tabs-head.vue":"src/tabs-head.vue","./tabs-item.vue":"src/tabs-item.vue","./tabs-body.vue":"src/tabs-body.vue","./tabs-pane.vue":"src/tabs-pane.vue","./popover.vue":"src/popover.vue"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.common.js","./button.vue":"src/button.vue","./icon.vue":"src/icon.vue","./buttonGroup.vue":"src/buttonGroup.vue","./input.vue":"src/input.vue","./row.vue":"src/row.vue","./col.vue":"src/col.vue","./layout.vue":"src/layout.vue","./content.vue":"src/content.vue","./header.vue":"src/header.vue","./sider.vue":"src/sider.vue","./footer.vue":"src/footer.vue","./toast.vue":"src/toast.vue","./plugin.js":"src/plugin.js","./tabs.vue":"src/tabs.vue","./tabs-head.vue":"src/tabs-head.vue","./tabs-item.vue":"src/tabs-item.vue","./tabs-body.vue":"src/tabs-body.vue","./tabs-pane.vue":"src/tabs-pane.vue","./popover.vue":"src/popover.vue","./collapse.vue":"src/collapse.vue","./collapse-item.vue":"src/collapse-item.vue"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

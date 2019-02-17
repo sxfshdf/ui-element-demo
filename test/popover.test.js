@@ -50,11 +50,17 @@ describe('Popover', () => {
     const vm = new Vue({
       el: div
     })
-    let event = new Event('mouseenter')
+    let event = new MouseEvent('mouseenter')
     vm.$el.dispatchEvent(event)
     vm.$nextTick(()=>{
-      const {contentWrapper} = vm.$refs.a.$refs
-      
+
+      // vm.$nextTick(()=>{
+        // const {contentWrapper} = vm.$refs.a.$refs
+        // console.log(contentWrapper)
+      let contentWrapper = document.body.querySelector('.content-wrapper')
+      expect(contentWrapper).to.be.exist
+      done()
+      // })
     })
   })
 })

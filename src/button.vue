@@ -55,18 +55,35 @@
 </script>
 
 <style lang="scss" scoped>
+    $button-height: 32px;
+    $font-size: 14px;
+    $button-bg: #fff;
+    $button-active-bg: #fff;
+    $border-radius: 4px;
+    $color: #555;
+    $button-active-color: #0080ff;
+    $border-color: #bbb;
+    $border-color-hover: #0080ff;
+    $button-primary-bg: #0080ff;
+    $button-primary-color: #fff;
+    $button-primary-border: #1890ff;
+    $button-primary-bg-focus: #399cff;
+    $button-primary-bg-active: #006fdb;
+    $button-disabled-bg: #f5f5f5;
+    $button-disabled-color: rgba(0,0,0,0.25);
+    $button-disabled-border: #ccc;
     @keyframes spin {
         0%{ transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
     .g-button {
-        height: var(--button-height);
-        font-size: var(--font-size);
-        color: var(--color);
+        height: $button-height;
+        font-size: $font-size;
+        color: $color;
         padding: 0 1em;
-        border-radius: var(--border-radius);
-        border: 1px solid var(--border-color);
-        background: var(--button-bg);
+        border-radius: $border-radius;
+        border: 1px solid $border-color;
+        background: $button-bg;
         display: inline-flex; justify-content: center; align-items: center;
         vertical-align: middle;
         overflow: hidden;
@@ -74,27 +91,27 @@
         transition: all 0.3s;
         cursor: pointer;
         &:hover {
-            border-color: var(--border-color-hover);
-            color: var(--button-active-color);
+            border-color: $border-color-hover;
+            color: $button-active-bg;
             > .icon { fill: #0080ff;}
         }
         &:active {
-            border-color: var(--border-color-hover);
-            color: var(--button-active-color);
+            border-color: $border-color-hover;
+            color: $button-active-color;
         }
         &:focus {
             outline: none;
-            border-color: var(--border-color-hover);
-            color: var(--button-active-color);
+            border-color: $border-color-hover;
+            color: $button-active-color;
             > .icon { fill: #0080ff;}
         }
         &[disabled] {
-            background: var(--button-disabled-bg);
-            border: 1px solid var(--button-disabled-border);
-            color: var(--button-disabled-color);
+            background: $button-disabled-bg;
+            border: 1px solid $button-disabled-border;
+            color: $button-disabled-color;
             cursor: not-allowed;
         }
-        > .icon { order: 1; transition: all 0.3s; fill: var(--color)}
+        > .icon { order: 1; transition: all 0.3s; fill: $color}
         > .content.right { order: 2; margin-left: 0.3em; margin-right:0; }
         > .content.left { order: 1; margin-right: 0.3em; margin-left:0; }
         &.icon-right {
@@ -124,28 +141,28 @@
 
 
     .g-button-primary {
-        background: var(--button-primary-bg);
-        color: var(--button-primary-color);
-        border: var(--button-primary-border);
+        background: $button-primary-bg;
+        color: $button-primary-color;
+        border: $button-primary-border;
         cursor: pointer;
         &:focus {
-            background: var(--button-primary-bg-focus);
+            background: $button-primary-bg-focus;
             color: #fff;
             .icon {
                 fill: #fff;
             }
         }
         &:hover {
-            background: var(--button-primary-bg-focus);
+            background: $button-primary-bg-focus;
             color: #fff;
             .icon {
                 fill: #fff;
             }
         }
         &[disabled] {
-            background: var(--button-disabled-bg);
-            border: 1px solid var(--button-disabled-border);
-            color: var(--button-disabled-color);
+            background: $button-disabled-bg;
+            border: 1px solid $button-disabled-border;
+            color: $button-disabled-color;
             cursor: not-allowed;
         }
         .icon {

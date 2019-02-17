@@ -49,7 +49,6 @@
     display: flex;
     justify-content: flex-start;
     position: relative;
-    /*border: 1px solid green;*/
     &.horizontal {
       height: $tab-height;
       > .actions-wrapper {

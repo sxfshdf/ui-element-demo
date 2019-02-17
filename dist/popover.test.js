@@ -11265,6 +11265,7 @@ var _default = {
     onShowPopover: function onShowPopover() {
       var _this2 = this;
 
+      console.log('open');
       this.visible = true;
 
       if (this.trigger === 'click') {
@@ -11349,6 +11350,26 @@ describe('Popover', function () {
       var contentWrapper = vm.$refs.a.$refs.contentWrapper;
       expect(contentWrapper.classList.contains('position-bottom')).to.be.true;
       done();
+    });
+  });
+  it('可以设置 trigger', function (done) {
+    _vue.default.component('g-popover', _popover.default);
+
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    div.innerHTML = "\n      <g-popover trigger=\"hover\" ref=\"a\">\n            <template slot=\"content\">\n                <div>\u6211\u662F Popover <a href=\"http://qq.com\">QQ</a></div>\n            </template>\n            <button>\u70B9\u51FB</button>\n        </g-popover>\n    ";
+    var vm = new _vue.default({
+      el: div
+    });
+    var event = new MouseEvent('mouseenter');
+    vm.$el.dispatchEvent(event);
+    vm.$nextTick(function () {
+      // vm.$nextTick(()=>{
+      // const {contentWrapper} = vm.$refs.a.$refs
+      // console.log(contentWrapper)
+      var contentWrapper = document.body.querySelector('.content-wrapper');
+      expect(contentWrapper).to.be.exist;
+      done(); // })
     });
   });
 });

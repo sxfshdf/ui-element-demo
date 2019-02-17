@@ -6,25 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>* { margin: 0; padding: 0; box-sizing: border-box;font-family: Arial;}
-        :root {
-            --button-height: 32px;
-            --font-size: 14px;
-            --button-bg: #fff;
-            --button-active-bg: #fff;
-            --border-radius: 4px;
-            --color: #555;
-            --button-active-color: #0080ff;
-            --border-color: #bbb;
-            --border-color-hover: #0080ff;
-            --button-primary-bg: #0080ff;
-            --button-primary-color: #fff;
-            --button-primary-border: #1890ff;
-            --button-primary-bg-focus: #399cff;
-            --button-primary-bg-active: #006fdb;
-            --button-disabled-bg: #f5f5f5;
-            --button-disabled-color: rgba(0,0,0,0.25);
-            --button-disabled-border: #ccc;
-        }
         #app {
             margin: 20px;
         }</style>
@@ -48,7 +29,17 @@
 <body>
 
 <div id="app">
-    <div style="padding-top: 100px; padding-left: 50px;" @click="yyy">
+    <g-collapse :selected.sync="selected">
+        <g-collapse-item title="标题1" name="1">
+            <div>内容1内容1内容1内容1内容1内容1</div>
+            <div>内容1内容1内容1内容1内容1内容1</div>
+        </g-collapse-item>
+        <g-collapse-item title="标题2" name="2" :arrow="false">内容2内容2内容2内容2内容2内容2</g-collapse-item>
+        <g-collapse-item title="标题3" name="3">内容3内容3内容3内容3内容3内容3</g-collapse-item>
+        <g-collapse-item title="标题4" name="4">标题4标题4标题4标题4标题4标题4标题4</g-collapse-item>
+    </g-collapse>
+    <hr style="margin: 20px 0">
+    <div style="padding-top: 100px; padding-left: 50px;">
         <g-popover>
             <template slot="content">
                 <div>我是 Popover <a href="http://qq.com">QQ</a></div>
@@ -227,7 +218,7 @@
 
 
 <script src="/app.a6a4d504.js"></script>
-<script src="//at.alicdn.com/t/font_1023339_2vvs11zlwhl.js"></script>
+<script src="//at.alicdn.com/t/font_1023339_fcih4ufrp1s.js"></script>
 
 </body>
 </html>
