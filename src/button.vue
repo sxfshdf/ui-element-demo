@@ -107,7 +107,7 @@
         cursor: pointer;
         &:hover {
             border-color: $border-color-hover;
-            color: $button-active-bg;
+            color: $button-active-color;
             > .icon { fill: #0080ff;}
         }
         &:active {
