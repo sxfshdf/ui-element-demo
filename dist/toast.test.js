@@ -11154,7 +11154,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 var _default = {
-  name: "g-totast",
+  name: "g-toast",
   props: {
     autoClose: {
       type: Boolean | Number,
@@ -11164,7 +11164,7 @@ var _default = {
       }
     },
     closeButton: {
-      type: Object,
+      type: Object | Boolean,
       default: function _default() {
         return {
           text: '关闭',
@@ -11207,7 +11207,9 @@ var _default = {
       var _this2 = this;
 
       this.$nextTick(function () {
-        _this2.$refs.line.style.height = "".concat(_this2.$refs.toast.getBoundingClientRect().height, "px");
+        if (_this2.closeButton) {
+          _this2.$refs.line.style.height = "".concat(_this2.$refs.toast.getBoundingClientRect().height, "px");
+        }
       });
     },
     close: function close() {
@@ -11233,7 +11235,7 @@ exports.default = _default;
     
         /* template */
         Object.assign($27bbb2, (function () {
-          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper",class:_vm.toastClass},[_c('div',{ref:"toast",staticClass:"toast"},[_c('div',{staticClass:"msg"},[(!_vm.enableHtml)?_vm._t("default"):_c('div',{domProps:{"innerHTML":_vm._s(_vm.$slots.default)}})],2),_vm._v(" "),_c('span',{ref:"line",staticClass:"line"}),_vm._v(" "),(_vm.closeButton)?_c('span',{staticClass:"close",on:{"click":_vm.clickClose}},[_vm._v(_vm._s(_vm.closeButton.text))]):_vm._e()])])}
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper",class:_vm.toastClass},[_c('div',{ref:"toast",staticClass:"toast"},[_c('div',{staticClass:"msg"},[(!_vm.enableHtml)?_vm._t("default"):_c('div',{domProps:{"innerHTML":_vm._s(_vm.$slots.default)}})],2),_vm._v(" "),(_vm.closeButton)?_c('span',{ref:"line",staticClass:"line"}):_vm._e(),_vm._v(" "),(_vm.closeButton)?_c('span',{staticClass:"close",on:{"click":_vm.clickClose}},[_vm._v(_vm._s(_vm.closeButton.text))]):_vm._e()])])}
 var staticRenderFns = []
 
           return {
