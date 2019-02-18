@@ -5,7 +5,7 @@
         <slot v-if="!enableHtml"></slot>
         <div v-else v-html="$slots.default"></div>
       </div>
-      <span class="line" ref="line"></span>
+      <span class="line" v-if="closeButton" ref="line"></span>
       <span v-if="closeButton" class="close" @click="clickClose">{{closeButton.text}}</span>
     </div>
   </div>
@@ -13,7 +13,7 @@
 
 <script>
   export default {
-    name: "g-totast",
+    name: "g-toast",
     props: {
       autoClose: {
         type: Boolean | Number,
@@ -24,7 +24,7 @@
       },
 
       closeButton: {
-        type: Object,
+        type: Object | Boolean,
         default(){
           return {
             text: '关闭',
@@ -63,7 +63,9 @@
       },
       updateStyles(){
         this.$nextTick(()=>{
-          this.$refs.line.style.height = `${this.$refs.toast.getBoundingClientRect().height}px`
+          if(this.closeButton){
+            this.$refs.line.style.height = `${this.$refs.toast.getBoundingClientRect().height}px`
+          }
         })
       },
       close(){

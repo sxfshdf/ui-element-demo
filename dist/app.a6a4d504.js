@@ -12794,7 +12794,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 var _default = {
-  name: "g-totast",
+  name: "g-toast",
   props: {
     autoClose: {
       type: Boolean | Number,
@@ -12804,7 +12804,7 @@ var _default = {
       }
     },
     closeButton: {
-      type: Object,
+      type: Object | Boolean,
       default: function _default() {
         return {
           text: '关闭',
@@ -12847,7 +12847,9 @@ var _default = {
       var _this2 = this;
 
       this.$nextTick(function () {
-        _this2.$refs.line.style.height = "".concat(_this2.$refs.toast.getBoundingClientRect().height, "px");
+        if (_this2.closeButton) {
+          _this2.$refs.line.style.height = "".concat(_this2.$refs.toast.getBoundingClientRect().height, "px");
+        }
       });
     },
     close: function close() {
@@ -12890,7 +12892,9 @@ exports.default = _default;
         2
       ),
       _vm._v(" "),
-      _c("span", { ref: "line", staticClass: "line" }),
+      _vm.closeButton
+        ? _c("span", { ref: "line", staticClass: "line" })
+        : _vm._e(),
       _vm._v(" "),
       _vm.closeButton
         ? _c("span", { staticClass: "close", on: { click: _vm.clickClose } }, [
