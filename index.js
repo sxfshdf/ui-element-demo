@@ -10,7 +10,6 @@ import Header from './src/header.vue'
 import Sider from './src/sider.vue'
 import Footer from './src/footer.vue'
 import Toast from './src/toast.vue'
-import plugin from './src/plugin.js'
 import Tabs from './src/tabs.vue'
 import TabsHead from './src/tabs-head.vue'
 import TabsItem from './src/tabs-item.vue'
@@ -19,6 +18,8 @@ import TabsPane from './src/tabs-pane.vue'
 import Popover from './src/popover.vue'
 import Collapse from './src/collapse.vue'
 import CollapseItem from './src/collapse-item.vue'
+import Plugin from './src/plugin'
+import IconFont from './src/iconFont'
 
 export {
   Button,
@@ -41,5 +42,6 @@ export {
   Popover,
   Collapse,
   CollapseItem,
-  plugin
+  Plugin,
+  IconFont
 }
