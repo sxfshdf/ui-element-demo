@@ -19,7 +19,7 @@ import Popover from './src/popover.vue'
 import Collapse from './src/collapse.vue'
 import CollapseItem from './src/collapse-item.vue'
 import Plugin from './src/plugin.js'
-import IconFont from './src/iconFont.js'
+import IconFont from './src/svg.js'
 
 export {
   Button,

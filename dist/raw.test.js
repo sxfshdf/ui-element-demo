@@ -11190,7 +11190,7 @@ exports.default = _default;
     
         /* template */
         Object.assign($1681e8, (function () {
-          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row",class:_vm.rowClass,style:(_vm.rowStyle)},[_vm._t("default")],2)}
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"g-row",class:_vm.rowClass,style:(_vm.rowStyle)},[_vm._t("default")],2)}
 var staticRenderFns = []
 
           return {
@@ -11309,7 +11309,7 @@ exports.default = _default;
     
         /* template */
         Object.assign($40f3b3, (function () {
-          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col",class:_vm.colClass,style:(_vm.colStyle)},[_vm._t("default")],2)}
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"g-col",class:_vm.colClass,style:(_vm.colStyle)},[_vm._t("default")],2)}
 var staticRenderFns = []
 
           return {
@@ -11351,8 +11351,8 @@ describe('Raw', function () {
       el: div
     });
     setTimeout(function () {
-      var cols = vm.$el.querySelectorAll('.col');
-      var row = vm.$el.querySelector('.row');
+      var cols = vm.$el.querySelectorAll('.g-col');
+      var row = vm.$el.querySelector('.g-row');
       expect(getComputedStyle(row).marginLeft).to.eq('-10px');
       expect(getComputedStyle(row).marginRight).to.eq('-10px');
       expect(getComputedStyle(cols[0]).paddingLeft).to.eq('10px');
@@ -11375,6 +11375,7 @@ describe('Raw', function () {
       }
     }).$mount(div);
     var element = vm.$el;
+    console.log('xxx', element);
     expect(getComputedStyle(element).alignItems).to.eq('flex-start');
     div.remove();
     vm.$el.remove();

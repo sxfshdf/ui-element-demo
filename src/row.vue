@@ -1,5 +1,5 @@
 <template>
-  <div class="row" :style="rowStyle" :class="rowClass">
+  <div class="g-row" :style="rowStyle" :class="rowClass">
     <slot></slot>
   </div>
 </template>
@@ -43,10 +43,9 @@
 </script>
 
 <style scoped lang="scss">
-  .row {
+  .g-row {
     display: flex;
     flex-wrap: wrap;
-    /*position: relative;*/
     &.row-flex-start {
       justify-content: flex-start;
     }

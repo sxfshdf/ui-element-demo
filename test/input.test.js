@@ -76,8 +76,7 @@ describe('Input', () => {
     it('接收 prefix', ()=> {
       vm = new Constructor({
         propsData: {
-          prefix: true,
-          icon: 'setting'
+          prefix: 'setting',
         }
       }).$mount()
       const useElement = vm.$el.querySelector('use')
@@ -89,8 +88,7 @@ describe('Input', () => {
     it('接收 suffix', ()=> {
       vm = new Constructor({
         propsData: {
-          suffix: true,
-          icon: 'setting'
+          suffix: 'setting',
         }
       }).$mount()
       const useElement = vm.$el.querySelector('use')
@@ -208,7 +206,7 @@ describe('Input', () => {
           searchbutton: 'search'
         }
       }).$mount()
-      const divElement = vm.$el.querySelector('button > .content')
+      const divElement = vm.$el.querySelector('button > .button-content')
       expect(divElement.innerHTML).to.equal('search')
       const buttonElement = vm.$el.querySelector('button')
       let callback = sinon.fake()

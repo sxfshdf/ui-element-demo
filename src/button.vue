@@ -4,7 +4,7 @@
             @click="$emit('click',$event)">
         <g-icon :name="icon" class="icon" v-if="icon && !loading"></g-icon>
         <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
-        <div class="content" :class="contentClass" v-show="isShow">
+        <div class="button-content" :class="contentClass" v-show="isShow">
             <slot></slot>
         </div>
     </button>
@@ -12,9 +12,7 @@
 
 <script>
 
-    import Vue from 'vue'
     import Icon from './icon.vue'
-    Vue.component('g-icon', Icon)
 
     export default {
         props: {
@@ -44,6 +42,9 @@
                 type: Boolean,
                 default: false
             }
+        },
+        components:{
+            'g-icon': Icon
         },
         computed: {
             isShow() {
@@ -125,10 +126,13 @@
             border: 1px solid $button-disabled-border;
             color: $button-disabled-color;
             cursor: not-allowed;
+            .icon{
+                fill: $button-disabled-color;
+            }
         }
         > .icon { order: 1; transition: all 0.3s; fill: $color}
-        > .content.right { order: 2; margin-left: 0.3em; margin-right:0; }
-        > .content.left { order: 1; margin-right: 0.3em; margin-left:0; }
+        > .button-content.right { order: 2; margin-left: 0.3em; margin-right:0; }
+        > .button-content.left { order: 1; margin-right: 0.3em; margin-left:0; }
         &.icon-right {
             > .icon { order: 2;}
         }
@@ -183,6 +187,7 @@
         .icon {
             fill: #fff;
         }
+
     }
     .g-button-loading:before {
         position: absolute;

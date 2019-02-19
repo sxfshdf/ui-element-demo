@@ -1,12 +1,18 @@
 <template>
     <svg aria-hidden="true" class="g-icon">
-        <use :xlink:href=`#icon-${name}`></use>
+        <use :xlink:href=iconName></use>
     </svg>
 </template>
 <script>
-    import './iconFont.js'
+    import './svg.js'
     export default {
-        props: ['name']
+        name: 'g-icon',
+        props: ['name'],
+        computed: {
+            iconName(){
+                return　`#icon-${this.name}`
+            }
+        }
     }
 </script>
 <style lang="scss" scoped>

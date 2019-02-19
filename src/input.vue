@@ -1,15 +1,15 @@
 <template>
     <div class="wrapper" :class="{'error':error, 'info':tip, 'search':icon==='search'}" >
         <div v-if="prefix" class="prefix">
-            <g-icon :name="icon"></g-icon>
+            <g-icon :name="prefix"></g-icon>
         </div>
 
         <template v-if="suffix" >
-            <div v-if="icon==='search'" class="suffix" @click="onSearch($event)">
-                <g-icon :name="icon" ></g-icon>
+            <div v-if="suffix==='search'" class="suffix search" @click="onSearch($event)">
+                <g-icon :name="suffix" ></g-icon>
             </div>
             <div v-else class="suffix">
-                <g-icon :name="icon"></g-icon>
+                <g-icon :name="suffix"></g-icon>
             </div>
         </template>
 
@@ -19,7 +19,7 @@
             <span v-else>{{addonbefore}}</span>
         </div>
 
-        <input v-if="icon==='search'|| searchbutton" :value="value" type="text" :disabled="disabled" :readonly="readonly" :placeholder="placeholder"
+        <input v-if="suffix==='search'|| searchbutton || prefix==='search' " :value="value" type="text" :disabled="disabled" :readonly="readonly" :placeholder="placeholder"
                :class="{prefix, suffix, 'search':searchbutton}"
                @keyup.enter="onSearch($event)">
         <input v-else :value="value" type="text" :disabled="disabled" :readonly="readonly" :placeholder="placeholder"
@@ -70,12 +70,10 @@
                 type: String,
             },
             prefix: {
-                type: Boolean,
-                default: false
+                type: String,
             },
             suffix: {
-                type: Boolean,
-                default: false
+                type: String,
             },
             icon: {
                 type: String
@@ -133,6 +131,7 @@
         display: inline-flex;
         align-items: center;
         position: relative;
+        vertical-align: top;
         &:hover {
             > input {
                 border-color: $border-color-hover;
@@ -208,12 +207,12 @@
                 color: $info-gray;
             }
         }
-        &.search {
+        & .search {
             .g-icon {
                 cursor: pointer;
             }
              .g-icon:hover {
-                fill: #333;
+                fill: $border-color-hover;
             }
         }
         > div.prefix {

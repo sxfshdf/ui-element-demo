@@ -4,6 +4,7 @@
     </div>
 </template>
 <script>
+
     export default {
         mounted() {
             for( let node of this.$el.children ){

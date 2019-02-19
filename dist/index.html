@@ -142,13 +142,13 @@
         <g-footer class="layout-demo">footer</g-footer>
     </g-layout>
     <hr style="margin: 20px 0">
-    <g-row>
+    <g-row gutter="20">
         <g-col class="demo-box" span="24" :ipad="{'span': 8}" :pc="{'span': 4}">1</g-col>
         <g-col class="demo-box" span="24" :ipad="{'span': 16}" :pc="{'span': 20}">2</g-col>
     </g-row>
     <hr style="margin: 20px 0">
     <div class="box">
-        <g-input value="张三"></g-input>
+        <g-input value="张三" placeholder="请输入用户名"></g-input>
     </div>
     <div class="box">
         <g-input value="张三" disabled=""></g-input>
@@ -163,10 +163,10 @@
         <g-input value="张三" tip="请输入用户名"></g-input>
     </div>
     <div class="box">
-        <g-input icon="setting" prefix="" placeholder="请输入用户名"></g-input>
+        <g-input prefix="setting" placeholder="请输入用户名"></g-input>
     </div>
     <div class="box">
-        <g-input icon="setting" suffix="" placeholder="请输入用户名"></g-input>
+        <g-input suffix="setting" placeholder="请输入用户名"></g-input>
     </div>
     <div class="box">
         <g-input addonbefore="http://" addonafter=".com" placeholder="请输入网址"></g-input>
@@ -175,7 +175,7 @@
         <g-input preicon="left" suficon="setting" placeholder="请输入网址"></g-input>
     </div>
     <div class="box">
-        <g-input icon="search" suffix="" placeholder="请输入用户名" @search="onSearch"></g-input>
+        <g-input suffix="search" placeholder="请输入用户名" @search="onSearch"></g-input>
     </div>
     <div class="box">
         <g-input searchbutton="搜索" placeholder="请输入用户名" @search="onSearch"></g-input>

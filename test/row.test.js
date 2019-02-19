@@ -28,8 +28,8 @@ describe('Raw', () => {
     })
 
     setTimeout(()=>{
-      const cols = vm.$el.querySelectorAll('.col')
-      const row = vm.$el.querySelector('.row')
+      const cols = vm.$el.querySelectorAll('.g-col')
+      const row = vm.$el.querySelector('.g-row')
       expect(getComputedStyle(row).marginLeft).to.eq('-10px')
       expect(getComputedStyle(row).marginRight).to.eq('-10px')
       expect(getComputedStyle(cols[0]).paddingLeft).to.eq('10px')
