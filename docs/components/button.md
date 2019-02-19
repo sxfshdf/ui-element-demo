@@ -3,7 +3,8 @@ title: Button
 ---
 # Button
 #### 基本用法
-<br>
+<p style="font-size: 14px; color: #666">默认和primary两种按钮类型，通过shape可以设置按钮形状。</p>
+<hr style="margin-bottom: 1.5em;">
 <button-default/>
 
 ``` html

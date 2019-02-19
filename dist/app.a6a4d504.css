@@ -347,6 +347,9 @@
 .g-row.row-flex-end[data-v-1681e8] {
     justify-content: flex-end;
 }
+.g-row.row-flex-center[data-v-1681e8] {
+    justify-content: center;
+}
 .g-row.row-flex-space-between[data-v-1681e8] {
     justify-content: space-between;
 }

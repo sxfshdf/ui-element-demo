@@ -52,6 +52,9 @@
     &.row-flex-end {
       justify-content: flex-end;
     }
+    &.row-flex-center {
+      justify-content: center;
+    }
     &.row-flex-space-between {
       justify-content: space-between;
     }
