@@ -1,5 +1,5 @@
 <template>
-  <div class="layout" :class="layoutClass">
+  <div class="g-layout" :class="layoutClass">
     <slot></slot>
   </div>
 </template>
@@ -25,7 +25,7 @@
 </script>
 
 <style scoped lang="scss">
-  .layout {
+  .g-layout {
     display: flex;
     flex-direction: column;
     flex-grow: 1;

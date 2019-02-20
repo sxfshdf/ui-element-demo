@@ -26,6 +26,7 @@
     <g-col span="6"><div class="demoCol-dark">col-6</div></g-col>
   </g-row>
 
+
 </div>
 </template>
 <style scoped>

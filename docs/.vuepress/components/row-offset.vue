@@ -11,6 +11,7 @@
     <g-col span="4" offset="4"><div class="demoCol-dark">col-4</div></g-col>
     <g-col span="4"><div class="demoCol-light">col-4</div></g-col>
   </g-row>
+
 </div>
 </template>
 <style scoped>

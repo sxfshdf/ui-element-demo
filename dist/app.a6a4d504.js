@@ -12455,7 +12455,7 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "layout", class: _vm.layoutClass },
+    { staticClass: "g-layout", class: _vm.layoutClass },
     [_vm._t("default")],
     2
   )
@@ -12522,7 +12522,7 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "content" }, [_vm._t("default")], 2)
+  return _c("div", { staticClass: "g-content" }, [_vm._t("default")], 2)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12609,7 +12609,7 @@ exports.default = _default;
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("transition", [
-    _c("div", { staticClass: "header" }, [_vm._t("default")], 2)
+    _c("div", { staticClass: "g-header" }, [_vm._t("default")], 2)
   ])
 }
 var staticRenderFns = []
@@ -12674,7 +12674,7 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "sider" }, [_vm._t("default")], 2)
+  return _c("div", { staticClass: "g-sider" }, [_vm._t("default")], 2)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12738,7 +12738,7 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "footer" }, [_vm._t("default")], 2)
+  return _c("div", { staticClass: "g-footer" }, [_vm._t("default")], 2)
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -1093,15 +1093,15 @@
     margin-left: 100%;
 }
 }
-.layout[data-v-81fe2d] {
+.g-layout[data-v-81fe2d] {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
-.layout.has-sider[data-v-81fe2d] {
+.g-layout.has-sider[data-v-81fe2d] {
     flex-direction: row;
 }
-.content[data-v-d504b3] {
+.g-content[data-v-d504b3] {
   flex-grow: 1;
 }
 .g-button[data-v-408b4f] {

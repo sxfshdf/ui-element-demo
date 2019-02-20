@@ -1,6 +1,6 @@
 <template>
   <transition>
-    <div class="header">
+    <div class="g-header">
       <!--<g-button v-if="collapsible" @click="closeSider" shape="circle" :icon="icon"></g-button>-->
       <slot></slot>
     </div>

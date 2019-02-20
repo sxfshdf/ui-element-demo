@@ -3,7 +3,8 @@ title: Input
 ---
 # Input
 #### 基本用法
-<br>
+<p style="font-size: 14px; color: #666">input 基本用法。</p>
+<hr style="margin-bottom: 1.5em;">
 <input-default/>
 
 ``` html
@@ -12,7 +13,8 @@ title: Input
 <br>
 
 #### 禁用状态
-<br>
+<p style="font-size: 14px; color: #666">disabled 设置input禁用状态。</p>
+<hr style="margin-bottom: 1.5em;">
 <input-disabled/>
 
 ``` html
@@ -21,7 +23,8 @@ title: Input
 <br>
 
 #### 只读状态
-<br>
+<p style="font-size: 14px; color: #666">readonly 设置input只读状态。</p>
+<hr style="margin-bottom: 1.5em;">
 <input-readonly/>
 
 ``` html
@@ -30,7 +33,8 @@ title: Input
 <br>
 
 #### 带 icon 的输入框
-<br>
+<p style="font-size: 14px; color: #666">设置input中是否带图标。</p>
+<hr style="margin-bottom: 1.5em;">
 <input-icon/>
 
 ``` html
@@ -40,7 +44,8 @@ title: Input
 <br>
 
 #### 带前置/后置的输入框
-<br>
+<p style="font-size: 14px; color: #666">设置input前缀和后缀。</p>
+<hr style="margin-bottom: 1.5em;">
 <input-addon/>
 
 ``` html
@@ -51,7 +56,8 @@ title: Input
 <br>
 
 #### 带错误/提示的输入框
-<br>
+<p style="font-size: 14px; color: #666">设置input错误提示以及输入提示。</p>
+<hr style="margin-bottom: 1.5em;">
 <input-recomend/>
 
 ``` html
@@ -61,7 +67,8 @@ title: Input
 <br>
 
 #### 搜索框
-<br>
+<p style="font-size: 14px; color: #666">设置 input 搜索框。</p>
+<hr style="margin-bottom: 1.5em;">
 <input-search/>
 
 ``` html

@@ -18,7 +18,8 @@ title: Button
 <br>
 
 #### 禁用状态
-<br>
+<p style="font-size: 14px; color: #666">通过 disabled 设置按钮禁用状态。</p>
+<hr style="margin-bottom: 1.5em;">
 <button-disable/>
 
 ``` html
@@ -29,7 +30,8 @@ title: Button
 <br>
 
 #### 图标按钮
-<br>
+<p style="font-size: 14px; color: #666">通过 icon 设置按钮是否添加图标。</p>
+<hr style="margin-bottom: 1.5em;">
 <button-icon/>
 
 ``` html
@@ -41,7 +43,8 @@ title: Button
 <br>
 
 #### 加载中
-<br>
+<p style="font-size: 14px; color: #666">通过 loading 设置按钮是否加载中状态。</p>
+<hr style="margin-bottom: 1.5em;">
 <button-loading/>
 
 ``` html
@@ -53,14 +56,25 @@ title: Button
 <br>
 
 #### 按钮组合
-<br>
+<p style="font-size: 14px; color: #666">通过  g-button-group 标签设置按钮组合，icon-position 可以设置按钮左右位置，默认 left。</p>
+<hr style="margin-bottom: 1.5em;">
 <button-groups/>
 
 ``` html
-<g-button icon="edit">编辑</g-button>
-<g-button icon="search" ></g-button>
-<g-button type="primary" icon="edit">编辑</g-button>
-<g-button type="primary" icon="search" ></g-button>
+<g-button-group>
+  <g-button icon="left">上一页</g-button>
+  <g-button icon="right" icon-position="right">下一页</g-button>
+</g-button-group>
+<g-button-group>
+  <g-button  type="primary">L</g-button>
+  <g-button  type="primary">M</g-button>
+  <g-button  type="primary">R</g-button>
+</g-button-group>
+<g-button-group>
+  <g-button icon="edit" type="primary"></g-button>
+  <g-button icon="share" type="primary"></g-button>
+  <g-button icon="delete" icon-position="right" type="primary"></g-button>
+</g-button-group>
 ```
 <br>
 
