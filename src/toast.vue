@@ -22,7 +22,6 @@
           return value === false || typeof value === 'number'
         }
       },
-
       closeButton: {
         type: Object | Boolean,
         default(){
@@ -109,6 +108,7 @@
     left: 50%;
     position: fixed;
     transform: translateX(-50%);
+    z-index: 100;
     &.position-top {
       top: 0;
       .toast {

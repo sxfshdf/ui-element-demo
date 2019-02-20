@@ -1,0 +1,37 @@
+<template>
+  <div>
+    <g-button @click="showToast">去除关闭按钮</g-button>
+  </div>
+
+</template>
+
+<script>
+  import Toast from '../../../src/toast'
+  import Plugin from '../../../src/plugin.js'
+  import Button from '../../../src/button'
+  import Vue from 'vue'
+
+  Vue.use(Plugin)
+
+  export default {
+    name: "toast-demo",
+    components: {
+      'g-toast': Toast,
+      'g-button': Button
+    },
+    methods: {
+      showToast(){
+        this.$toast('没有关闭按钮了',{
+          autoClose: 2,
+          closeButton: false,
+        })
+      }
+    }
+  }
+</script>
+
+<style scoped lang="scss">
+  .g-button{
+    margin-right: 0.5em;
+  }
+</style>

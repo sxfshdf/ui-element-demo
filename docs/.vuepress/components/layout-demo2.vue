@@ -50,6 +50,7 @@
       background: #f5f5f5;
       display: flex;
       align-items: center;
+      height: 100px;
       justify-content: center;
     }
     .g-footer{

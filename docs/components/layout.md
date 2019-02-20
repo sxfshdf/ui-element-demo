@@ -2,7 +2,7 @@
 title: Layout
 ---
 
-# Input
+# Layout
 #### 基本用法
 <p style="font-size: 14px; color: #666">layout 基本用法。</p>
 <hr style="margin-bottom: 1.5em;">
