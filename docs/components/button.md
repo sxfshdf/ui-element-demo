@@ -5,7 +5,9 @@ title: Button
 #### 基本用法
 <p style="font-size: 14px; color: #666">默认和primary两种按钮类型，通过shape可以设置按钮形状。</p>
 <hr style="margin-bottom: 1.5em;">
+<ClientOnly>
 <button-default/>
+</ClientOnly>
 
 ``` html
 <g-button @click="onClick">默认按钮</g-button>
@@ -20,7 +22,9 @@ title: Button
 #### 禁用状态
 <p style="font-size: 14px; color: #666">通过 disabled 设置按钮禁用状态。</p>
 <hr style="margin-bottom: 1.5em;">
+<ClientOnly>
 <button-disable/>
+</ClientOnly>
 
 ``` html
 <g-button disabled>默认按钮</g-button>
@@ -32,7 +36,9 @@ title: Button
 #### 图标按钮
 <p style="font-size: 14px; color: #666">通过 icon 设置按钮是否添加图标。</p>
 <hr style="margin-bottom: 1.5em;">
+<ClientOnly>
 <button-icon/>
+</ClientOnly>
 
 ``` html
 <g-button icon="edit">编辑</g-button>
@@ -45,7 +51,9 @@ title: Button
 #### 加载中
 <p style="font-size: 14px; color: #666">通过 loading 设置按钮是否加载中状态。</p>
 <hr style="margin-bottom: 1.5em;">
+<ClientOnly>
 <button-loading/>
+</ClientOnly>
 
 ``` html
 <g-button icon="edit">编辑</g-button>
@@ -58,7 +66,9 @@ title: Button
 #### 按钮组合
 <p style="font-size: 14px; color: #666">通过  g-button-group 标签设置按钮组合，icon-position 可以设置按钮左右位置，默认 left。</p>
 <hr style="margin-bottom: 1.5em;">
+<ClientOnly>
 <button-groups/>
+</ClientOnly>
 
 ``` html
 <g-button-group>
