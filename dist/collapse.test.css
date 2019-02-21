@@ -1,3 +1,7 @@
+.g-icon[data-v-dded69] {
+  height: 1em;
+  width: 1em;
+}
 .collapseItem[data-v-289211] {
   border-top: 1px solid #eee;
 }
@@ -27,14 +31,11 @@
 .collapseItem > .contentWrapper[data-v-289211] {
     overflow: hidden;
     transition: height 2s;
+    line-height: 1.6em;
 }
-.collapseItem > .contentWrapper .content[data-v-289211] {
+.collapseItem > .contentWrapper .g-collapse-content[data-v-289211] {
       padding-bottom: 1em;
-      color: #666;
+      color: #888;
       border-bottom: 1px solid;
       border-bottom-color: #eee;
-}
-.g-icon[data-v-dded69] {
-  height: 1em;
-  width: 1em;
 }

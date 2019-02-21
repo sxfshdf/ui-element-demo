@@ -58,10 +58,10 @@
   justify-content: center;
   cursor: pointer;
   color: #333;
+  padding: 0 1.5em;
 }
 .tabs-item.horizontal[data-v-707953] {
-    padding: 0 1em;
-    margin-right: 1em;
+    /*margin-right: 1em;*/
     height: 100%;
 }
 .tabs-item.vertical[data-v-707953] {

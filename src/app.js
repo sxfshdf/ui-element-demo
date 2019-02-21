@@ -49,7 +49,7 @@ Vue.use(plugin)
 new Vue({
     el: "#app",
     data: {
-        selectedTab: 'sport',
+        selectedTab: 'finance',
         loading1: false,
         loading2: false,
         msg: '',

@@ -1,6 +1,6 @@
 <template>
     <svg aria-hidden="true" class="g-icon">
-        <use :xlink:href=iconName></use>
+        <use :xlink:href="'#icon-'+name"></use>
     </svg>
 </template>
 <script>
@@ -8,11 +8,11 @@
     export default {
         name: 'g-icon',
         props: ['name'],
-        computed: {
-            iconName(){
-                return　`#icon-${this.name}`
-            }
-        }
+        // computed: {
+        //     iconName(){
+        //         return　`#icon-${this.name}`
+        //     }
+        // }
     }
 </script>
 <style lang="scss" scoped>

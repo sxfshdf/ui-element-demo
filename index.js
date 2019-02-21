@@ -18,7 +18,7 @@ import TabsPane from './src/tabs-pane.vue'
 import Popover from './src/popover.vue'
 import Collapse from './src/collapse.vue'
 import CollapseItem from './src/collapse-item.vue'
-import Plugin from './src/plugin.js'
+import ToastPlugin from './src/plugin.js'
 import IconFont from './src/svg.js'
 
 export {
@@ -42,6 +42,6 @@ export {
   Popover,
   Collapse,
   CollapseItem,
-  Plugin,
+  ToastPlugin,
   IconFont
 }

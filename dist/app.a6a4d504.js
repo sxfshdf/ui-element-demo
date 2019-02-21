@@ -11504,12 +11504,12 @@ require("./svg.js");
 //
 var _default = {
   name: 'g-icon',
-  props: ['name'],
-  computed: {
-    iconName: function iconName() {
-      return "#icon-".concat(this.name);
-    }
-  }
+  props: ['name'] // computed: {
+  //     iconName(){
+  //         return　`#icon-${this.name}`
+  //     }
+  // }
+
 };
 exports.default = _default;
         var $dded69 = exports.default || module.exports;
@@ -11527,7 +11527,7 @@ exports.default = _default;
   return _c(
     "svg",
     { staticClass: "g-icon", attrs: { "aria-hidden": "true" } },
-    [_c("use", { attrs: { "xlink:href": _vm.iconName } })]
+    [_c("use", { attrs: { "xlink:href": "#icon-" + _vm.name } })]
   )
 }
 var staticRenderFns = []
@@ -13144,10 +13144,14 @@ var _default = {
         _this.$refs.line.style.top = "".concat(vm.$el.offsetTop, "px");
       } else {
         var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
-            width = _vm$$el$getBoundingCl.width;
+            width = _vm$$el$getBoundingCl.width,
+            left = _vm$$el$getBoundingCl.left;
+
+        var _this$$refs$head$getB = _this.$refs.head.getBoundingClientRect(),
+            left2 = _this$$refs$head$getB.left;
 
         _this.$refs.line.style.width = "".concat(width, "px");
-        _this.$refs.line.style.left = "".concat(vm.$el.offsetLeft, "px");
+        _this.$refs.line.style.left = "".concat(vm.$el.offsetLeft, "px"); // this.$refs.line.style.left = `${left-left2}px`
       }
     });
   },
@@ -13172,7 +13176,7 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "tabs-head", class: _vm.headClass },
+    { ref: "head", staticClass: "tabs-head", class: _vm.headClass },
     [
       _vm._t("default"),
       _vm._v(" "),
@@ -13566,12 +13570,12 @@ var _default = {
   },
   destroyed: function destroyed() {
     if (this.trigger === 'click') {
-      this.$refs.popover.addEventListener('click', this.onClick);
+      this.$refs.popover && this.$refs.popover.addEventListener('click', this.onClick);
     } else {
-      this.$refs.popover.removeEventListener('mouseenter', this.onShowPopover);
-      this.$refs.popover.removeEventListener('mouseleave', this.setTime);
-      this.$refs.contentWrapper.removeEventListener('mouseenter', this.clearTimeout);
-      this.$refs.contentWrapper.removeEventListener('mouseleave', this.setTime);
+      this.$refs.popover && this.$refs.popover.removeEventListener('mouseenter', this.onShowPopover);
+      this.$refs.popover && this.$refs.popover.removeEventListener('mouseleave', this.setTime);
+      this.$refs.contentWrapper && this.$refs.contentWrapper.removeEventListener('mouseenter', this.clearTimeout);
+      this.$refs.contentWrapper && this.$refs.contentWrapper.removeEventListener('mouseleave', this.setTime);
     }
   },
   methods: {
@@ -13878,6 +13882,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _icon = _interopRequireDefault(require("./icon"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 //
 //
 //
@@ -13907,6 +13916,9 @@ var _default = {
       type: Boolean,
       default: true
     }
+  },
+  components: {
+    'g-icon': _icon.default
   },
   data: function data() {
     return {
@@ -13978,7 +13990,12 @@ exports.default = _default;
       },
       [
         _vm.show
-          ? _c("div", { staticClass: "content" }, [_vm._t("default")], 2)
+          ? _c(
+              "div",
+              { staticClass: "g-collapse-content" },
+              [_vm._t("default")],
+              2
+            )
           : _vm._e()
       ]
     )
@@ -14017,7 +14034,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
+},{"./icon":"src/icon.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -14111,7 +14128,7 @@ _vue.default.use(_plugin.default);
 new _vue.default({
   el: "#app",
   data: {
-    selectedTab: 'sport',
+    selectedTab: 'finance',
     loading1: false,
     loading2: false,
     msg: '',

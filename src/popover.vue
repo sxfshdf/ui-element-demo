@@ -49,12 +49,12 @@
     },
     destroyed(){
       if(this.trigger === 'click'){
-        this.$refs.popover.addEventListener('click',this.onClick)
+        this.$refs.popover && this.$refs.popover.addEventListener('click',this.onClick)
       }else{
-        this.$refs.popover.removeEventListener('mouseenter', this.onShowPopover)
-        this.$refs.popover.removeEventListener('mouseleave', this.setTime)
-        this.$refs.contentWrapper.removeEventListener('mouseenter',this.clearTimeout)
-        this.$refs.contentWrapper.removeEventListener('mouseleave',this.setTime)
+        this.$refs.popover && this.$refs.popover.removeEventListener('mouseenter', this.onShowPopover)
+        this.$refs.popover && this.$refs.popover.removeEventListener('mouseleave', this.setTime)
+        this.$refs.contentWrapper && this.$refs.contentWrapper.removeEventListener('mouseenter',this.clearTimeout)
+        this.$refs.contentWrapper && this.$refs.contentWrapper.removeEventListener('mouseleave',this.setTime)
       }
     },
     methods:{
@@ -165,6 +165,7 @@
     max-width: 20em;
     background: #fff;
     color: $font-color;
+    z-index: 100;
     filter: drop-shadow(0 0px 4px rgba(0,0,0,0.15));
     &::after, &::before {
       content: '';

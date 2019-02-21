@@ -9,9 +9,14 @@ title: Toast
 <toast-demo/>
 
 ``` html
-<g-button @click="$toast('我是弹窗')">show-top</g-button>
-<g-button @click="$toast('我是弹窗',({position: 'middle'}))">show-middle</g-button>
-<g-button @click="$toast('我是弹窗',({position: 'bottom'}))">show-bottom</g-button>
+<g-button @click="$toast('我是弹窗')">Top</g-button>
+<g-button @click="$toast('我是弹窗',({position: 'middle'}))">Middle</g-button>
+<g-button @click="$toast('我是弹窗',({position: 'bottom'}))">Bottom</g-button>
+```
+```js
+import Vue from 'vue'
+import ToastPlugin from 'ui-element-demo'
+Vue.use(ToastPlugin)
 ```
 <br>
 
@@ -22,6 +27,9 @@ title: Toast
 
 ``` html
 <g-button @click="showToast">设置关闭按钮</g-button>
+```
+
+```js
 
 methods: {
   showToast(){

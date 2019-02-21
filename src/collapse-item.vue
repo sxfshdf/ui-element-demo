@@ -5,7 +5,7 @@
       <g-icon name="arrow-small" :class="{'is-active':show}" v-if="arrow"></g-icon>
     </div>
     <div class="contentWrapper" :class="{'is-active':show}" :data-name="name">
-      <div class="content" v-if="show">
+      <div class="g-collapse-content" v-if="show">
         <slot></slot>
       </div>
     </div>
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+  import Icon from './icon'
 
   export default {
     name: "g-collapse-item",
@@ -29,6 +30,9 @@
         type: Boolean,
         default: true
       }
+    },
+    components:{
+      'g-icon': Icon
     },
     data(){
       return {
@@ -63,7 +67,6 @@
 
   .collapseItem {
     border-top: 1px solid $border-color;
-
     &:not(:first-child){
       margin-top: -1px;
     }
@@ -90,9 +93,10 @@
     > .contentWrapper{
       overflow: hidden;
       transition: height 2s;
-      .content {
+      line-height: 1.6em;
+      .g-collapse-content {
         padding-bottom: 1em;
-        color: #666;
+        color: #888;
         border-bottom: 1px solid;
         border-bottom-color: $border-color;
       }

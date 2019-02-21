@@ -1,18 +1,18 @@
 <template>
   <div>
-    <g-popover>
+    <g-popover trigger="hover">
       <template slot="content"><div>我是Popover</div></template>
       <g-button>Top</g-button>
     </g-popover>
-    <g-popover position="bottom">
+    <g-popover position="bottom" trigger="hover">
       <template slot="content"><div>我是 Popover</div></template>
       <g-button>Bottom</g-button>
     </g-popover>
-    <g-popover position="left">
+    <g-popover position="left" trigger="hover">
       <template slot="content"><div>我是 Popover</div></template>
       <g-button>Left</g-button>
     </g-popover>
-    <g-popover position="right">
+    <g-popover position="right" trigger="hover">
       <template slot="content"><div>我是 Popover</div></template>
       <g-button>Right</g-button>
     </g-popover>

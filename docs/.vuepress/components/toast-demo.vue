@@ -1,13 +1,13 @@
 <template>
   <div>
-    <g-button @click="$toast('我是弹窗')">show-top</g-button>
-    <g-button @click="$toast('我是弹窗',({position: 'middle'}))">show-middle</g-button>
-    <g-button @click="$toast('我是弹窗',({position: 'bottom'}))">show-bottom</g-button>
+    <g-button @click="$toast('我是弹窗')">Top</g-button>
+    <g-button @click="$toast('我是弹窗',({position: 'middle'}))">Middle</g-button>
+    <g-button @click="$toast('我是弹窗',({position: 'bottom'}))">Bottom</g-button>
   </div>
 </template>
 
 <script>
-  import Toast from '../../../src/toast'
+  // import Toast from '../../../src/toast'
   import Plugin from '../../../src/plugin.js'
   import Button from '../../../src/button'
   import Vue from 'vue'
@@ -17,7 +17,7 @@
   export default {
     name: "toast-demo",
     components: {
-      'g-toast': Toast,
+      // 'g-toast': Toast,
       'g-button': Button
     },
     methods: {

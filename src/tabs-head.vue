@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-head" :class="headClass">
+  <div class="tabs-head" ref='head' :class="headClass">
     <slot></slot>
     <div class="line-bg"></div>
     <div class="line" ref="line"></div>
@@ -25,9 +25,11 @@
         if(direction === 'vertical') {
           this.$refs.line.style.top = `${vm.$el.offsetTop}px`
         }else{
-          let {width} = vm.$el.getBoundingClientRect()
+          let {width, left} = vm.$el.getBoundingClientRect()
+          let {left: left2} = this.$refs.head.getBoundingClientRect()
           this.$refs.line.style.width = `${width}px`
           this.$refs.line.style.left = `${vm.$el.offsetLeft}px`
+          // this.$refs.line.style.left = `${left-left2}px`
         }
 
       })
@@ -74,7 +76,6 @@
     &.vertical{
       flex-direction: column;
       align-items: center;
-
       > .line-bg {
         position: absolute;
         right: 0;

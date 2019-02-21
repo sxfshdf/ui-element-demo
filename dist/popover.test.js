@@ -11187,12 +11187,12 @@ var _default = {
   },
   destroyed: function destroyed() {
     if (this.trigger === 'click') {
-      this.$refs.popover.addEventListener('click', this.onClick);
+      this.$refs.popover && this.$refs.popover.addEventListener('click', this.onClick);
     } else {
-      this.$refs.popover.removeEventListener('mouseenter', this.onShowPopover);
-      this.$refs.popover.removeEventListener('mouseleave', this.setTime);
-      this.$refs.contentWrapper.removeEventListener('mouseenter', this.clearTimeout);
-      this.$refs.contentWrapper.removeEventListener('mouseleave', this.setTime);
+      this.$refs.popover && this.$refs.popover.removeEventListener('mouseenter', this.onShowPopover);
+      this.$refs.popover && this.$refs.popover.removeEventListener('mouseleave', this.setTime);
+      this.$refs.contentWrapper && this.$refs.contentWrapper.removeEventListener('mouseenter', this.clearTimeout);
+      this.$refs.contentWrapper && this.$refs.contentWrapper.removeEventListener('mouseleave', this.setTime);
     }
   },
   methods: {

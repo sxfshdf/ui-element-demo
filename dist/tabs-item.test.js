@@ -11254,10 +11254,14 @@ var _default = {
         _this.$refs.line.style.top = "".concat(vm.$el.offsetTop, "px");
       } else {
         var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
-            width = _vm$$el$getBoundingCl.width;
+            width = _vm$$el$getBoundingCl.width,
+            left = _vm$$el$getBoundingCl.left;
+
+        var _this$$refs$head$getB = _this.$refs.head.getBoundingClientRect(),
+            left2 = _this$$refs$head$getB.left;
 
         _this.$refs.line.style.width = "".concat(width, "px");
-        _this.$refs.line.style.left = "".concat(vm.$el.offsetLeft, "px");
+        _this.$refs.line.style.left = "".concat(vm.$el.offsetLeft, "px"); // this.$refs.line.style.left = `${left-left2}px`
       }
     });
   },
@@ -11276,7 +11280,7 @@ exports.default = _default;
     
         /* template */
         Object.assign($7f9646, (function () {
-          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs-head",class:_vm.headClass},[_vm._t("default"),_vm._v(" "),_c('div',{staticClass:"line-bg"}),_vm._v(" "),_c('div',{ref:"line",staticClass:"line"}),_vm._v(" "),_c('div',{staticClass:"actions-wrapper"},[_vm._t("actions")],2)],2)}
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"head",staticClass:"tabs-head",class:_vm.headClass},[_vm._t("default"),_vm._v(" "),_c('div',{staticClass:"line-bg"}),_vm._v(" "),_c('div',{ref:"line",staticClass:"line"}),_vm._v(" "),_c('div',{staticClass:"actions-wrapper"},[_vm._t("actions")],2)],2)}
 var staticRenderFns = []
 
           return {

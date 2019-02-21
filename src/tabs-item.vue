@@ -65,9 +65,9 @@
     justify-content: center;
     cursor: pointer;
     color: $default-color;
+    padding: 0 1.5em;
     &.horizontal {
-      padding: 0 1em;
-      margin-right: 1em;
+      /*margin-right: 1em;*/
       height: 100%;
     }
     &.vertical {

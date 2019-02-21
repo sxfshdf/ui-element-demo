@@ -6,6 +6,7 @@
 
 <script>
   import Vue from 'vue'
+
   export default {
     name: "g-collapse",
     props: {
@@ -15,7 +16,7 @@
       single: {
         type: Boolean,
         default: false
-      }
+      },
     },
     data(){
       return {
@@ -27,6 +28,7 @@
         eventBus: this.eventBus
       }
     },
+
     mounted(){
       this.eventBus.$emit('update:selected', this.selected)
       let selectedCpoy = JSON.parse(JSON.stringify(this.selected))
@@ -46,8 +48,6 @@
           this.eventBus.$emit('update:selected',selectedCpoy)
           this.$emit('update:selected', selectedCpoy)
         }
-
-
       })
     }
   }
